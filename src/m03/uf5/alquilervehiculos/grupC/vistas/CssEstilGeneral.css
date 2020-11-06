@@ -5,3 +5,17 @@
 .mainFxmlClass {
 
 }
+
+/* MENÚ PRINCIPAL */
+
+.tamanyBboxMenuPrincipal{
+    -fx-pref-width: 450;
+}
+.tamanyVboxMenuPrincipal{
+    -fx-pref-width: 150;
+    -fx-alignment: center;
+}
+
+.buttonsMenuPrincipal{
+    -fx-pref-width: 130;  
+}

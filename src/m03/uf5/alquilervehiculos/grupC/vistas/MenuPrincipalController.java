@@ -7,7 +7,10 @@ package m03.uf5.alquilervehiculos.grupC.vistas;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -16,6 +19,19 @@ import javafx.fxml.Initializable;
  */
 public class MenuPrincipalController implements Initializable {
 
+    @FXML
+    private Button nuevoAlquiler;
+    @FXML
+    private Button verAlquiler;
+    @FXML
+    private Button nuevoCliente;
+    @FXML
+    private Button verClientes;
+    @FXML
+    private Button nuevoVehiculo;
+    @FXML
+    private Button verVehiculos;
+
     /**
      * Initializes the controller class.
      */
@@ -23,5 +39,29 @@ public class MenuPrincipalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void handleBttnNuevoAlquiler(MouseEvent event) {
+    }
+
+    @FXML
+    private void handleBttnVerAlquiler(MouseEvent event) {
+    }
+
+    @FXML
+    private void handleBttnNuevoCliente(MouseEvent event) {
+    }
+
+    @FXML
+    private void handleBttnVerClientes(MouseEvent event) {
+    }
+
+    @FXML
+    private void handleBttnNuevoVehiculo(MouseEvent event) {
+    }
+
+    @FXML
+    private void handleBttnVerVehiculos(MouseEvent event) {
+    }
     
 }
