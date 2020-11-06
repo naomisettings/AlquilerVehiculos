@@ -51,7 +51,6 @@ public class MenuPrincipalController implements Initializable {
      * Logger.getLogger(NuevoAlquilerController.class.getName()).log(Level.SEVERE,
      * null, ex); } }
      */
-   
     @FXML
     private void handleBttnVerAlquiler(MouseEvent event) {
         try {
@@ -78,7 +77,7 @@ public class MenuPrincipalController implements Initializable {
             Logger.getLogger(ClientesController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-  
+
     @FXML
     private void handleBttnNuevoVehiculo(MouseEvent event) {
         try {
@@ -87,7 +86,7 @@ public class MenuPrincipalController implements Initializable {
             Logger.getLogger(NuevoVehiculoController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @FXML
     private void handleBttnVerVehiculos(MouseEvent event) {
         try {
@@ -96,6 +95,14 @@ public class MenuPrincipalController implements Initializable {
             Logger.getLogger(VehiculosController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-  
+
+    @FXML
+    private void handleBttnNuevoAlquiler(MouseEvent event) {
+        try {
+            GestorEscenas.getGestor().muestraNuevoAlquiler();
+        } catch (IOException ex) {
+            Logger.getLogger(NuevoAlquilerController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 }

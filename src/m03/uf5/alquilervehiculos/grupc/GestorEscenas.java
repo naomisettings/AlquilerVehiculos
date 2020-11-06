@@ -21,7 +21,6 @@ public class GestorEscenas {
     private final Stage ventana;
 
     private final static String VISTA_MENU_PRINCIPAL = "vistas/MenuPrincipal.fxml"; //Raimon
-
     private final static String VISTA_CLIENTES = "vistas/Clientes.fxml";            //Pau
     private final static String VISTA_NUEVO_CLIENTE = "vistas/NuevoCliente.fxml";   //Pau
     private final static String VISTA_VEHICULOS = "vistas/Vehiculos.fxml";          //Pau
