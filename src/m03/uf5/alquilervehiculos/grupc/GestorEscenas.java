@@ -85,7 +85,7 @@ public class GestorEscenas {
 /*
     public void muestraClientes() {
         if (pantallaVerCliente == null) {
-            Parent root = FXMLLoader.load(getClass().getResource("nom.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(VISTA_CLIENTES));
             pantallaVerCliente = new Scene(root);
         }
         ventana.setScene(pantallaVerCliente);
@@ -94,7 +94,7 @@ public class GestorEscenas {
 /*
     public void muestraNuevoCliente() {
         if (pantallaNuevoCliente == null) {
-            Parent root = FXMLLoader.load(getClass().getResource("nom.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(VISTA_NUEVO_CLIENT));
             pantallaNuevoCliente = new Scene(root);
         }
         ventana.setScene(pantallaNuevoCliente);
@@ -103,7 +103,7 @@ public class GestorEscenas {
 /*
     public void muestraVehiculos() {
         if (pantallaVerVehiculo == null) {
-            Parent root = FXMLLoader.load(getClass().getResource("nom.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(VISTA_VEHICULOS));
             pantallaVerVehiculo = new Scene(root);
         }
         ventana.setScene(pantallaVerVehiculo);
@@ -112,7 +112,7 @@ public class GestorEscenas {
 /*
     public void muestraNuevoVehiculo() {
         if (pantallaNuevoVehiculo == null) {
-            Parent root = FXMLLoader.load(getClass().getResource("nom.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(VISTA_NUEVO_VEHICULO));
             pantallaNuevoVehiculo = new Scene(root);
         }
         ventana.setScene(pantallaNuevoVehiculo);
@@ -121,7 +121,7 @@ public class GestorEscenas {
 /*
     public void muestraAlquileres() {
         if (pantallaVerAlquiler == null) {
-            Parent root = FXMLLoader.load(getClass().getResource("nom.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(VISTA_ALQUILERES));
             pantallaVerAlquiler = new Scene(root);
         }
         ventana.setScene(pantallaVerAlquiler);
@@ -130,7 +130,7 @@ public class GestorEscenas {
 /*
     public void muestraNuevoAlquiler() {
         if (pantallaNuevoAlquiler == null) {
-            Parent root = FXMLLoader.load(getClass().getResource("nom.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(VISTA_NUEVO_ALQUILER));
             pantallaNuevoAlquiler = new Scene(root);
         }
         ventana.setScene(pantallaNuevoAlquiler);
@@ -139,7 +139,7 @@ public class GestorEscenas {
 /*
     public void muestraFactura() {
         if (pantallaVerCliente == null) {
-            Parent root = FXMLLoader.load(getClass().getResource("nom.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(VISTA_FACTURA));
             pantallaVerCliente = new Scene(root);
         }
         ventana.setScene(pantallaVerCliente);
