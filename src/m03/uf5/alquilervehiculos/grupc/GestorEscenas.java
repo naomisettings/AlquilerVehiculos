@@ -21,7 +21,7 @@ public class GestorEscenas {
     private final Stage ventana;
 
     private final static String VISTA_MENU_PRINCIPAL = "vistas/MenuPrincipal.fxml"; //Raimon
-    /**
+
     private final static String VISTA_CLIENTES = "vistas/Clientes.fxml";            //Pau
     private final static String VISTA_NUEVO_CLIENTE = "vistas/NuevoCliente.fxml";   //Pau
     private final static String VISTA_VEHICULOS = "vistas/Vehiculos.fxml";          //Pau
@@ -29,7 +29,7 @@ public class GestorEscenas {
     private final static String VISTA_ALQUILERES = "vistas/Alquileres.fxml";        //Àngels
     private final static String VISTA_NUEVO_ALQUILER = "vistas/NuevoAlquiler.fxml"; //Àngels
     private final static String VISTA_FACTURA = "vistas/Factura.fxml";              //Raimon
-**/
+
     private final Scene pantallaMenuPrincipal;
     private Scene pantallaVerCliente;
     private Scene pantallaNuevoCliente;
@@ -82,67 +82,62 @@ public class GestorEscenas {
     public void muestraMenuPrincipal() throws IOException {
         ventana.setScene(pantallaMenuPrincipal);
     }
-/*
-    public void muestraClientes() {
+
+    
+    public void muestraClientes()  throws IOException{
         if (pantallaVerCliente == null) {
             Parent root = FXMLLoader.load(getClass().getResource(VISTA_CLIENTES));
             pantallaVerCliente = new Scene(root);
         }
         ventana.setScene(pantallaVerCliente);
     }
-*/
-/*
-    public void muestraNuevoCliente() {
+
+    public void muestraNuevoCliente()  throws IOException{
         if (pantallaNuevoCliente == null) {
-            Parent root = FXMLLoader.load(getClass().getResource(VISTA_NUEVO_CLIENT));
+            Parent root = FXMLLoader.load(getClass().getResource(VISTA_NUEVO_CLIENTE));
             pantallaNuevoCliente = new Scene(root);
         }
         ventana.setScene(pantallaNuevoCliente);
     }
-*/
-/*
-    public void muestraVehiculos() {
+
+    public void muestraVehiculos()  throws IOException{
         if (pantallaVerVehiculo == null) {
             Parent root = FXMLLoader.load(getClass().getResource(VISTA_VEHICULOS));
             pantallaVerVehiculo = new Scene(root);
         }
         ventana.setScene(pantallaVerVehiculo);
     }
-*/
-/*
-    public void muestraNuevoVehiculo() {
+   
+    public void muestraNuevoVehiculo() throws IOException {
         if (pantallaNuevoVehiculo == null) {
             Parent root = FXMLLoader.load(getClass().getResource(VISTA_NUEVO_VEHICULO));
             pantallaNuevoVehiculo = new Scene(root);
         }
         ventana.setScene(pantallaNuevoVehiculo);
     }
-*/
-/*
-    public void muestraAlquileres() {
+
+    public void muestraAlquileres()  throws IOException{
         if (pantallaVerAlquiler == null) {
             Parent root = FXMLLoader.load(getClass().getResource(VISTA_ALQUILERES));
             pantallaVerAlquiler = new Scene(root);
         }
         ventana.setScene(pantallaVerAlquiler);
     }
-*/
-/*
-    public void muestraNuevoAlquiler() {
+
+    public void muestraNuevoAlquiler()  throws IOException{
         if (pantallaNuevoAlquiler == null) {
             Parent root = FXMLLoader.load(getClass().getResource(VISTA_NUEVO_ALQUILER));
             pantallaNuevoAlquiler = new Scene(root);
         }
         ventana.setScene(pantallaNuevoAlquiler);
     }
-*/
-/*
-    public void muestraFactura() {
+
+    public void muestraFactura()  throws IOException{
         if (pantallaVerCliente == null) {
             Parent root = FXMLLoader.load(getClass().getResource(VISTA_FACTURA));
             pantallaVerCliente = new Scene(root);
         }
         ventana.setScene(pantallaVerCliente);
     }
-*/
+  
 }
