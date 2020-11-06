@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package m03.uf5.alquilervehiculos.grupX;
+package m03.uf5.alquilervehiculos.grupC;
 
 import java.io.IOException;
 import javafx.stage.Stage;

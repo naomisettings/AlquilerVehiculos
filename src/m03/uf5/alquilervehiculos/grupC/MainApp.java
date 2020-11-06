@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package m03.uf5.alquilervehiculos.grupX;
+package m03.uf5.alquilervehiculos.grupC;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import m03.uf5.alquilervehiculos.grupX.modelo.Modelo;
+import m03.uf5.alquilervehiculos.grupC.modelo.Modelo;
 
 /**
  *
