@@ -16,15 +16,15 @@ public class GestorEscenas {
 
   private static GestorEscenas gestor;
   private final Stage ventana;
-      
-  private final static String VISTA_MENU_PRINCIPAL = "vistas/MenuPrincipal.fxml";
-  private final static String VISTA_CLIENTES = "vistas/Clientes.fxml";
-  private final static String VISTA_NUEVO_CLIENTE = "vistas/NuevoCliente.fxml";
-  private final static String VISTA_VEHICULOS = "vistas/Vehiculos.fxml";
-  private final static String VISTA_NUEVO_VEHICULO = "vistas/NuevoVehiculo.fxml";
-  private final static String VISTA_ALQUILERES = "vistas/Alquileres.fxml";
-  private final static String VISTA_NUEVO_ALQUILER = "vistas/NuevoAlquiler.fxml";
-  private final static String VISTA_FACTURA = "vistas/Factura.fxml";
+  
+  private final static String VISTA_MENU_PRINCIPAL = "vistas/MenuPrincipal.fxml"; //Raimon
+  private final static String VISTA_CLIENTES = "vistas/Clientes.fxml";            //Pau
+  private final static String VISTA_NUEVO_CLIENTE = "vistas/NuevoCliente.fxml";   //Pau
+  private final static String VISTA_VEHICULOS = "vistas/Vehiculos.fxml";          //Pau
+  private final static String VISTA_NUEVO_VEHICULO = "vistas/NuevoVehiculo.fxml"; //Raimon 
+  private final static String VISTA_ALQUILERES = "vistas/Alquileres.fxml";        //Àngels
+  private final static String VISTA_NUEVO_ALQUILER = "vistas/NuevoAlquiler.fxml"; //Àngels
+  private final static String VISTA_FACTURA = "vistas/Factura.fxml";              //Raimon
 
   /**
    * Constructor privado de la clase. Crea todas las escenas y muestra la del menu principal
@@ -53,6 +53,7 @@ public class GestorEscenas {
   }
 
   public void muestraMenuPrincipal() {
+      
   }
   
   public void muestraClientes(){

@@ -7,8 +7,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="m03.uf5.alquilervehiculos.grupX.vistas.MenuPrincipalController">
-        <stylesheets>
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="m03.uf5.alquilervehiculos.grupC.vistas.NuevoVehiculoController">
+    <stylesheets>
         <URL value="@CssEstilGeneral.css"/>
     </stylesheets>
 </AnchorPane>
