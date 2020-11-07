@@ -29,23 +29,28 @@ public class Alquiler {
   public Alquiler(){}
   //ATENCIÓN
   
-  /*
-  public Alquiler(Cliente cliente, Vehiculo vehiculo, LocalDate fechaInicio, 
+  
+ /* public Alquiler(Cliente cliente, Vehiculo vehiculo, LocalDate fechaInicio,LocalDate fechaFin){
+     
+      
   }
+          
 
   public Cliente getCliente() {
   }
 
   public Vehiculo getVehiculo() {
-  }
+  }*/
 
   public LocalDate getFechaInicio() {
+      return fechaInicio;
   }
 
   public LocalDate getFechaFin() {
+      return fechaFin;
   }
 
-  @Override
+ /* @Override
   public String toString() {
   }
 */

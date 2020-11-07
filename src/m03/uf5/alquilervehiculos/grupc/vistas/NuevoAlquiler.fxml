@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane id="AnchorPane" prefHeight="291.0" prefWidth="361.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="m03.uf5.alquilervehiculos.grupc.vistas.NuevoAlquilerController">
    <children>
-      <Label layoutX="14.0" layoutY="30.0" text="FORMULARIO DE ALQUILER DE VEHÍCULOS" />
+        <Label layoutX="14.0" layoutY="30.0" text="FORMULARIO DE ALQUILER DE VEHÍCULOS" />
       <Label layoutX="14.0" layoutY="83.0" text="NIF del Cliente:" />
       <Label layoutX="14.0" layoutY="125.0" text="Matrícula del Vehículo:" />
       <Label layoutX="14.0" layoutY="163.0" text="Fecha inicio" />
       <Label layoutX="14.0" layoutY="204.0" text="Fecha Fin" />
       <Button fx:id="btnReservar" layoutX="88.0" layoutY="251.0" mnemonicParsing="false" onAction="#handleBotonReservar" text="Reservar" />
       <Button fx:id="btnVolver" layoutX="230.0" layoutY="251.0" mnemonicParsing="false" onAction="#handleBotonVolver" text="Volver" />
-      <DatePicker fx:id="dpFin" layoutX="158.0" layoutY="200.0" />
-      <DatePicker fx:id="dpInicio" layoutX="158.0" layoutY="159.0" />
-      <ChoiceBox fx:id="cbNif" layoutX="158.0" layoutY="79.0" prefHeight="25.0" prefWidth="174.0" />
-      <ChoiceBox fx:id="cbMatricula" layoutX="158.0" layoutY="121.0" prefHeight="25.0" prefWidth="174.0" />
+      <DatePicker fx:id="dpFin" layoutX="158.0" layoutY="200.0" onAction="#handleDatePickerFin" />
+      <DatePicker fx:id="dpInicio" layoutX="158.0" layoutY="159.0" onAction="#handleDatePickerInicio" />
+      <ComboBox fx:id="cbxNif" layoutX="158.0" layoutY="79.0" onAction="#handleComboBoxNif" onShown="#cargarDatos" prefHeight="25.0" prefWidth="174.0" />
+      <ComboBox fx:id="cbxMatricula" layoutX="158.0" layoutY="121.0" onAction="#handleComboBoxMatricula" onShown="#cargarDatos" prefHeight="25.0" prefWidth="174.0" />
+      <Label fx:id="lbdata" layoutX="295.0" layoutY="276.0" prefHeight="17.0" prefWidth="104.0" />
    </children>
 </AnchorPane>

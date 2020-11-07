@@ -37,6 +37,7 @@ public class GestorEscenas {
     private Scene pantallaVerAlquiler;
     private Scene pantallaNuevoAlquiler;
 
+
     /**
      * Constructor privado de la clase. Crea todas las escenas y muestra la del
      * menu principal
