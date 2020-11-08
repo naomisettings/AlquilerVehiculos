@@ -7,7 +7,12 @@ package m03.uf5.alquilervehiculos.grupc.vistas;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -16,6 +21,15 @@ import javafx.fxml.Initializable;
  */
 public class NuevoVehiculoController implements Initializable {
 
+    @FXML
+    private TextField txtFieldMatricula;
+    @FXML
+    private TextField txtFieldModelo;
+    @FXML
+    private Button bttnGuardar;
+    @FXML
+    private Button bttnVolver;
+
     /**
      * Initializes the controller class.
      */
@@ -23,5 +37,23 @@ public class NuevoVehiculoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void handleTxtFieldMatricula(KeyEvent event) {
+        txtFieldMatricula.getText();
+    }
+
+    @FXML
+    private void handleTxtFieldModelo(KeyEvent event) {
+        txtFieldModelo.getText();
+    }
+
+    @FXML
+    private void handlebttnGuardar(MouseEvent event) {
+    }
+
+    @FXML
+    private void handleBttnVolver(MouseEvent event) {
+    }
     
 }

@@ -17,7 +17,36 @@
     -fx-alignment: center;
 }
 
+/* FINESTRES */
+
+.tamanyFinestraVboxPrincipal{
+    -fx-pref-width: 500;
+    -fx-pref-height: 280;
+}
+.tamanyHboxSecundaris{
+    -fx-pref-height: 70;
+}
+/* BUTTONS GUARDAR / VOLVER */
+
 .buttonsMenuPrincipal{
     -fx-pref-width: 130; 
    /* -fx-margin-top: 40; */
 }
+
+.buttonsGuardarVolver{
+    -fx-pref-width: 80; 
+ /* -fx-margin-right: 30; */
+}
+
+.hboxbuttonsGuardarVolver{
+    -fx-pref-height: 90;
+    -fx-alignment: center;
+}
+
+/* INTRODUCCIÓ DE DADES */
+
+.textFieldIntrodiurDades{
+    -fx-pref-width: 300;
+}
+
+
