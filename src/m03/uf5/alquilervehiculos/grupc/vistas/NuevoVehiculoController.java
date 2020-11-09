@@ -64,8 +64,16 @@ public class NuevoVehiculoController implements Initializable {
     private void handlebttnGuardar(MouseEvent event) {
         boolean camposOk = camposEmplenados();
         if (camposOk) {
-            validaMatricula();
-            txtFieldModelo.getText();
+            String matriculaOk = validaMatricula();
+            if (matriculaOk != null) {
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Alquiler de Vehículos");
+                alert.setHeaderText(null);
+                alert.setContentText("Vehículo introducido correctamente");
+
+                alert.showAndWait();
+            }
+
         }
 
     }
@@ -82,7 +90,7 @@ public class NuevoVehiculoController implements Initializable {
     private boolean camposEmplenados() {
 
         if (txtFieldModelo.getText().isEmpty() || txtFieldModelo.getText().isEmpty()) {
-            Alert alert = new Alert(AlertType.CONFIRMATION);
+            Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Alquiler de Vehículos");
             alert.setHeaderText("Vehículo no introducido");
             alert.setContentText("Todos los campos deben estar completos");
@@ -104,7 +112,7 @@ public class NuevoVehiculoController implements Initializable {
         Pattern reglas = Pattern.compile("[0-9]{4}[[A-Za-z]&&[^AEIOUaeiou]]{3}");
         Matcher matriculaAnalitzar = reglas.matcher(txtFieldMatricula.getText());
         if (!matriculaAnalitzar.matches()) {
-            Alert alert = new Alert(AlertType.CONFIRMATION);
+            Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Alquiler de Vehículos");
             alert.setHeaderText("Vehículo no introducido");
             alert.setContentText("La matríucula debe estar en el formato correcto");
