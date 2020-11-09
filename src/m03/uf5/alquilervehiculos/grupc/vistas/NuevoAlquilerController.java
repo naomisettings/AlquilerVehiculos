@@ -87,7 +87,8 @@ public class NuevoAlquilerController implements Initializable {
 public void obtenerDias(){
     LocalDate fechaInicio = dpInicio.getValue();
     LocalDate fechaFin = dpFin.getValue();
-    Period diasTotales = Period.between(fechaFin, fechaInicio);
+    Period periodo = Period.between(fechaFin, fechaInicio);
+    int diasTotales = periodo.getDays();
     System.out.println("Dias totales de alquiler " + diasTotales);
 }
     @FXML
