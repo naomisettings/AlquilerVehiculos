@@ -1,11 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="m03.uf5.alquilervehiculos.grupc.vistas.NuevoClienteController">
-    
-</AnchorPane>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="273.0" prefWidth="379.0" stylesheets="@CssEstilGeneral.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="m03.uf5.alquilervehiculos.grupc.vistas.NuevoClienteController">
+   <children>
+      <Label text="FORMULARIO ALTA NUEVOCLIENTE" />
+      <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="570.0">
+         <children>
+            <Label prefHeight="21.0" prefWidth="109.0" text="Nombre:" />
+            <TextField fx:id="textoNombre" prefHeight="31.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="570.0">
+         <children>
+            <Label prefHeight="21.0" prefWidth="109.0" text="1er Apellido:" />
+            <TextField fx:id="textoApellido1" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="570.0">
+         <children>
+            <Label prefWidth="109.0" text="2o Apellido:" />
+            <TextField fx:id="textoApellido2" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="570.0">
+         <children>
+            <Label prefWidth="109.0" text="NIF:" />
+            <TextField fx:id="textoNif" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="16.0" prefWidth="310.0" spacing="50.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#handleBotonGuardarAction" text="Guardar" />
+            <Button mnemonicParsing="false" onAction="#handleBotonVolverAction" text="Volver" />
+         </children>
+         <VBox.margin>
+            <Insets left="85.0" top="10.0" />
+         </VBox.margin>
+      </HBox>
+   </children>
+   <padding>
+      <Insets left="15.0" right="15.0" top="15.0" />
+   </padding>
+</VBox>
