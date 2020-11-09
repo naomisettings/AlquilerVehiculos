@@ -12,22 +12,31 @@
             <Button fx:id="nuevoAlquiler" mnemonicParsing="false" onMouseClicked="#handleBttnNuevoAlquiler" styleClass="buttonsMenuPrincipal" stylesheets="@CssEstilGeneral.css" text="Nuevo Alquiler" />
             <Button fx:id="verAlquiler" mnemonicParsing="false" onMouseClicked="#handleBttnVerAlquiler" styleClass="buttonsMenuPrincipal" stylesheets="@CssEstilGeneral.css" text="Ver Alquiler">
                <VBox.margin>
-                  <Insets />
+                  <Insets top="15.0" />
                </VBox.margin>
             </Button>
          </children>
       </VBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="tamanyVboxMenuPrincipal" stylesheets="@CssEstilGeneral.css">
+      <VBox styleClass="tamanyVboxMenuPrincipal" stylesheets="@CssEstilGeneral.css">
          <children>
             <Button fx:id="nuevoCliente" mnemonicParsing="false" onMouseClicked="#handleBttnNuevoCliente" styleClass="buttonsMenuPrincipal" stylesheets="@CssEstilGeneral.css" text="Nuevo Cliente" />
-            <Button fx:id="verClientes" mnemonicParsing="false" onMouseClicked="#handleBttnVerClientes" styleClass="buttonsMenuPrincipal" stylesheets="@CssEstilGeneral.css" text="Ver Clientes" />
+            <Button fx:id="verClientes" mnemonicParsing="false" onMouseClicked="#handleBttnVerClientes" styleClass="buttonsMenuPrincipal" stylesheets="@CssEstilGeneral.css" text="Ver Clientes">
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin></Button>
          </children>
       </VBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="tamanyVboxMenuPrincipal" stylesheets="@CssEstilGeneral.css">
+      <VBox prefHeight="197.0" prefWidth="173.0" styleClass="tamanyVboxMenuPrincipal" stylesheets="@CssEstilGeneral.css">
          <children>
             <Button fx:id="nuevoVehiculo" mnemonicParsing="false" onMouseClicked="#handleBttnNuevoVehiculo" styleClass="buttonsMenuPrincipal" stylesheets="@CssEstilGeneral.css" text="Nuevo Vehículo" />
-            <Button fx:id="verVehiculos" mnemonicParsing="false" onMouseClicked="#handleBttnVerVehiculos" styleClass="buttonsMenuPrincipal" stylesheets="@CssEstilGeneral.css" text="Ver Vehículos" />
+            <Button fx:id="verVehiculos" mnemonicParsing="false" onMouseClicked="#handleBttnVerVehiculos" styleClass="buttonsMenuPrincipal" stylesheets="@CssEstilGeneral.css" text="Ver Vehículos">
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin></Button>
          </children>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
       </VBox>
    </children>
 </HBox>

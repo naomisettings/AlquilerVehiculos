@@ -5,9 +5,12 @@
  */
 package m03.uf5.alquilervehiculos.grupc.vistas;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.fxml.FXML;
@@ -19,6 +22,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
 
 /**
  * FXML Controller class
@@ -68,6 +72,11 @@ public class NuevoVehiculoController implements Initializable {
 
     @FXML
     private void handleBttnVolver(MouseEvent event) {
+        try {
+            GestorEscenas.getGestor().muestraMenuPrincipal();
+        } catch (IOException ex) {
+            Logger.getLogger(AlquileresController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private boolean camposEmplenados() {
@@ -86,10 +95,10 @@ public class NuevoVehiculoController implements Initializable {
                 // ... user chose CANCEL or closed the dialog
             }
             return false;
-        }else{
-        return true;
+        } else {
+            return true;
         }
-    }  
+    }
 
     private String validaMatricula() {
         Pattern reglas = Pattern.compile("[0-9]{4}[[A-Za-z]&&[^AEIOUaeiou]]{3}");
