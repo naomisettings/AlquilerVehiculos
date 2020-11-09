@@ -9,7 +9,7 @@
 /* MENÚ PRINCIPAL */
 
 .tamanyBboxMenuPrincipal{
-    -fx-pref-width: 450;
+    -fx-pref-width: 379;
 
 }
 .tamanyVboxMenuPrincipal{
@@ -20,7 +20,7 @@
 /* FINESTRES */
 
 .tamanyFinestraVboxPrincipal{
-    -fx-pref-width: 500;
+    -fx-pref-width: 379;
     -fx-pref-height: 280;
 }
 .tamanyHboxSecundaris{
@@ -46,7 +46,7 @@
 /* INTRODUCCIÓ DE DADES */
 
 .textFieldIntrodiurDades{
-    -fx-pref-width: 300;
+    -fx-pref-width: 187;
 }
 
 
