@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
+import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
 
 /**
  * FXML Controller class
@@ -31,7 +32,7 @@ public class ClientesController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        textClientes.setText(Modelo.getModelo().getClientes().toString());
     }    
 
   @FXML

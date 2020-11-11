@@ -17,9 +17,9 @@ public class MainApp extends Application {
   
   @Override
   public void start(Stage stage) throws Exception {
-   // Modelo.inicializar("12345678A", "931231231", "Alquileres Copèrnic", "Torrent del Batlle 10, 08225 Terrassa");
+    Modelo.inicializar("12345678A", "931231231", "Alquileres Copèrnic", "Torrent del Batlle 10, 08225 Terrassa");
     GestorEscenas.inicializar(stage);
-    
+   
   }
 
   /**
