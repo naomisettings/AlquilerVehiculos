@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+
 import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
 
 /**
@@ -56,15 +57,33 @@ public class NuevoAlquilerController implements Initializable {
     }
 
     @FXML
-    public void cargarDatos() { //CARREGA LES DADES AL COMBOBOX
+   public void cargarDatos() { //CARREGA LES DADES AL COMBOBOX
         ObservableList<String> nif = FXCollections.observableArrayList("45471259Y", "58962147Z", "25741958P", "84235719O", "65235719O");
         ObservableList<String> matricula = FXCollections.observableArrayList("3415KNJ", "5632KMN", "5874PLK", "8745HJN", "5845HJN");
 
         cbxNif.setItems(nif);
         cbxMatricula.setItems(matricula);
-        cbxNif.getOnMouseClicked().toString();
-        System.out.println(cbxNif);
+      //cbxNif.getOnMouseClicked().toString();
+        
 
+    }
+
+    public void guardarNif() {
+         
+        String nif = cbxNif.getValue();
+        if(nif!=null){
+           System.out.println("El nif es " + nif);  
+         }
+        
+    }
+
+    public void guardarMatricula() {
+        
+        String matricula = cbxMatricula.getValue();
+        if(matricula!=null){
+           System.out.println("El matricula es  " + matricula);  
+         }
+       
     }
 
     @FXML
@@ -74,61 +93,64 @@ public class NuevoAlquilerController implements Initializable {
 
     @FXML
     private void handleDatePickerInicio(ActionEvent event) { //RECOLLIM LA DATA INICIAL SELECIONADA
+          /* DatePicker dpInicio = new DatePicker();*/
         LocalDate fechaInicio = dpInicio.getValue();
-        System.out.println("Selected date: " + fechaInicio);
+        String inicio = fechaInicio.toString();
+      //  System.out.println("Selected date: " + fechaInicio);
+      //  System.out.println("fecha incio cadena: " + inicio);
+       guardarFechaInicio();
     }
 
     @FXML
     private void handleDatePickerFin(ActionEvent event) { //RECOLLIM LA DATA FINAL SELECIONADA
+       /*DatePicker dpFin = new DatePicker();*/
         LocalDate fechaFin = dpFin.getValue();
-        System.out.println("Fecha fin: " + fechaFin);
+        String fin = fechaFin.toString();
+      //  System.out.println("Selected date: " + fechaFin);
+      //  System.out.println("fecha fin cadena: " + fin);
+        guardarFechaFin();
 
     }
-public void obtenerDias(){
-    LocalDate fechaInicio = dpInicio.getValue();
-    LocalDate fechaFin = dpFin.getValue();
-    Period periodo = Period.between(fechaFin, fechaInicio);
-    int diasTotales = periodo.getDays();
-    System.out.println("Dias totales de alquiler " + diasTotales);
-}
+     public void guardarFechaInicio() {
+        LocalDate fechaInicio = dpInicio.getValue();
+        String inicio = fechaInicio.toString();
+        System.out.println("La fecha de inicial es " + inicio);
+    }
+         public void guardarFechaFin() {
+       
+        LocalDate fechaFin = dpFin.getValue();
+        String fin = fechaFin.toString();
+       System.out.println("La fecha final es " + fin);
+    }
+
+    public void obtenerDias() {
+        LocalDate fechaInicio = dpInicio.getValue();
+        LocalDate fechaFin = dpFin.getValue();
+        Period periodo = Period.between(fechaInicio, fechaFin);
+        int diasTotales = periodo.getDays();
+        System.out.println("Dias totales de alquiler " + diasTotales);
+    }
+
     @FXML
-    private void handleComboBoxNif(ActionEvent event) { // MOSTRA LES DADES CARREGADES AL COMBOBOX AL FER UNA ACCIO
-        cargarDatos();
+    private void handleComboBoxNif(ActionEvent even) { // MOSTRA LES DADES CARREGADES AL COMBOBOX AL FER UNA ACCIO
+        guardarNif();
 
     }
 
     @FXML
-    private void handleComboBoxMatricula(ActionEvent event) { // MOSTRA LES DADES CARREGADES AL COMBOBOX AL FER UNA ACCIO
-        cargarDatos();
-    }
-
-    public void crearFactura() {
-        System.out.println("Alquileres Copèrnic");
-        System.out.println("CIF: 12345678A " );
-        System.out.println("Torrent del Batlle, 10 08225 Terrassa");
-        System.out.println("Telf: 931231245");
-        System.out.println("");
-        System.out.println("-----------");
-        System.out.println("");
-        System.out.println("Datos del cliente:");
-        System.out.println("Nif y nombre");
-        System.out.println("");
-        System.out.println("-----------");
-        System.out.println("");
-        System.out.println("Datos del vehiculo:");
-        System.out.println("Matricula y marca");
-         System.out.println("");
-        System.out.println("-----------");
-        System.out.println("");
-        obtenerDias();
-        
+    private void handleComboBoxMatricula(ActionEvent even) { // MOSTRA LES DADES CARREGADES AL COMBOBOX AL FER UNA ACCIO
+        guardarMatricula();
     }
 
     @FXML
     private void handleBotonReservar(ActionEvent event) throws IOException {
-        GestorEscenas.getGestor().muestraFactura();
-        crearFactura();
+        //GestorEscenas.getGestor().muestraFactura();
+       obtenerDias();
+        
 
     }
+
+
+ 
 
 }
