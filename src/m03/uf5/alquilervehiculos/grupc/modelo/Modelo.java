@@ -217,6 +217,7 @@ public class Modelo {
       try {
           PrintStream out = new PrintStream(new FileOutputStream(ARCHIVO_ALQUILERES, true));
           out.println();
+          alquileres.add(alquiler);
           ultimoAlquiler = alquiler;
       } catch (FileNotFoundException ex) {
           Logger.getLogger(Modelo.class.getName()).log(Level.SEVERE, null, ex);

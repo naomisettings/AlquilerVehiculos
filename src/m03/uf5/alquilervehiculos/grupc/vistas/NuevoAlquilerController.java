@@ -182,6 +182,7 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
         //obtenerDias();
         Alquiler a = new Alquiler(cbxNif.getValue(), cbxMatricula.getValue(),
                 dpFin.getValue().toString(), dpInicio.getValue().toString());
+        System.out.println(a.toString());
         Modelo.getModelo().addAlquiler(a);
         GestorEscenas.getGestor().muestraFactura();
 
