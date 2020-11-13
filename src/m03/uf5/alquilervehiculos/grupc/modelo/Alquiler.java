@@ -26,27 +26,18 @@ public class Alquiler {
    */
   
   //CONSTRUCTOR PARA COMPILAR
-  public Alquiler(String cliente,String vehiculo, String fechaInicio, String fechaFin)throws IllegalArgumentException {
+  public Alquiler(String cliente,String vehiculo, String fechaInicio, String fechaFin)
+  throws IllegalArgumentException {
   this.cliente=cliente;
   this.vehiculo=vehiculo;
   this.fechaInicio = fechaInicio;
   this.fechaFin = fechaFin;
   }
-  //ATENCIÓN
-
   
 
-   Alquiler() {
-        throw new UnsupportedOperationException("error alquiler"); //To change body of generated methods, choose Tools | Templates.
-    }
- 
-   
   
+
   
- /* public Alquiler(Cliente cliente, Vehiculo vehiculo, LocalDate fechaInicio,LocalDate fechaFin){
-     
-      
-  }*/
           
 
   public String getCliente() {
