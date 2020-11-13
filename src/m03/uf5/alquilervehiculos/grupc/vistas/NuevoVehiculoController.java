@@ -23,6 +23,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
+import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
+import m03.uf5.alquilervehiculos.grupc.modelo.Vehiculo;
 
 /**
  * FXML Controller class
@@ -73,8 +75,9 @@ public class NuevoVehiculoController implements Initializable {
 
                 alert.showAndWait();
             }
-
         }
+        Vehiculo v = new Vehiculo(txtFieldMatricula.getText(), txtFieldModelo.getText());
+        Modelo.getModelo().addVehiculo(v);
 
     }
 

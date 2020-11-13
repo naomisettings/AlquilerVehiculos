@@ -89,7 +89,7 @@ public class Modelo {
           Scanner sc = new Scanner(fichero);
           while(sc.hasNext()){
               String[] datos = sc.nextLine().split(";");
-              Vehiculo v = new Vehiculo();
+              Vehiculo v = new Vehiculo(datos[0], datos[1]);
               vehiculos.add(v);
           }
       } catch (FileNotFoundException ex) {

@@ -13,8 +13,10 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
+import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
 
 /**
  * FXML Controller class
@@ -27,15 +29,22 @@ public class FacturaController implements Initializable {
     private Button bttnVolver;
     @FXML
     private Button bttnMenuPrincipal;
+    @FXML
+    private TextArea txtAreaFactura;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        mostrarFactura();
     }
 
+    
+    public void mostrarFactura (){
+        String alquilerStr = Modelo.getModelo().getUltimoAlquiler().toString();
+        txtAreaFactura.setText(alquilerStr);
+    }
     @FXML
     private void handleBttnVolver(MouseEvent event) {
         try {

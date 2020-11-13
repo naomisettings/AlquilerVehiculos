@@ -20,24 +20,22 @@ public class Vehiculo {
    * @throws IllegalArgumentException en caso de que el formato de la matrícula 
    * no sea correcto: https://es.wikipedia.org/wiki/Matr%C3%ADculas_automovil%C3%ADsticas_de_Espa%C3%B1a#Sistema_actual
    */
-  
-    //CONSTRUCTOR PARA COMPILAR
-  public Vehiculo(){}
-  //ATENCIÓN
-  
-  /*
-  public Vehiculo(String matricula, String modelo) throws IllegalArgumentException{
 
+  public Vehiculo(String matricula, String modelo) throws IllegalArgumentException{
+      this.matricula = matricula;
+      this.modelo = modelo;
   }
 
   public String getMatricula() {
+      return matricula;
   }
 
   public String getModelo() {
+      return modelo;
   }
 
   @Override
   public String toString() {
+      return matricula + ";" + modelo;
   }
-*/
 }
