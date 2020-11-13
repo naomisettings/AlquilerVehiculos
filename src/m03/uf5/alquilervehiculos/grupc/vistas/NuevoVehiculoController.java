@@ -78,6 +78,8 @@ public class NuevoVehiculoController implements Initializable {
         }
         Vehiculo v = new Vehiculo(txtFieldMatricula.getText(), txtFieldModelo.getText());
         Modelo.getModelo().addVehiculo(v);
+        txtFieldMatricula.setText("");
+        txtFieldModelo.setText("");
 
     }
 
@@ -112,13 +114,14 @@ public class NuevoVehiculoController implements Initializable {
     }
 
     private String validaMatricula() {
-        Pattern reglas = Pattern.compile("[0-9]{4}[[A-Za-z]&&[^AEIOUaeiou]]{3}");
+        Pattern reglas = Pattern.compile("[0-9]{4}[[A-Z]&&[^AEIOUaeiou]]{3}");
         Matcher matriculaAnalitzar = reglas.matcher(txtFieldMatricula.getText());
         if (!matriculaAnalitzar.matches()) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Alquiler de Vehículos");
             alert.setHeaderText("Vehículo no introducido");
-            alert.setContentText("La matríucula debe estar en el formato correcto");
+            alert.setContentText("La matríucula debe estar en el formato correcto"
+                    + " y en mayúsculas");
 
             Optional<ButtonType> result = alert.showAndWait();
 

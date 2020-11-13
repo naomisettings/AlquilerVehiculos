@@ -41,10 +41,10 @@ public class FacturaController implements Initializable {
     }
 
     
-   /* public void mostrarFactura (){
+    public void mostrarFactura (){
         String alquilerStr = Modelo.getModelo().getUltimoAlquiler().toString();
         txtAreaFactura.setText(alquilerStr);
-    }*/
+    }
     @FXML
     private void handleBttnVolver(MouseEvent event) {
         try {
