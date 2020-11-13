@@ -171,7 +171,7 @@ public class NuevoAlquilerController implements Initializable {
 
     @FXML
     private void handleBotonReservar(ActionEvent event) throws IOException {
-        //GestorEscenas.getGestor().muestraFactura();
+        GestorEscenas.getGestor().muestraFactura();
        //obtenerDias();
        Alquiler a = new Alquiler(cbxNif.getValue(),cbxMatricula.getValue(),
                dpFin.getValue().toString(),dpInicio.getValue().toString());
