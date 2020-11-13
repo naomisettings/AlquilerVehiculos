@@ -38,7 +38,7 @@ import m03.uf5.alquilervehiculos.grupc.modelo.Vehiculo;
  *
  * @author Angels
  */
-public class NuevoAlquilerController implements Initializable {
+public class NuevoAlquilerController implements Initializable, MiControlador {
 
     @FXML
     private Button btnReservar;
@@ -64,6 +64,11 @@ public class NuevoAlquilerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+    }
+
+    @Override
+    public void actualizar() {
+        //To change body of generated methods, choose Tools | Templates.
     }
 
     @FXML
@@ -208,6 +213,7 @@ public class NuevoAlquilerController implements Initializable {
         Alquiler a = new Alquiler(cbxNif.getValue(), cbxMatricula.getValue(),
                 dpFin.getValue().toString(), dpInicio.getValue().toString());
         Modelo.getModelo().addAlquiler(a);
+        GestorEscenas.getGestor().muestraFactura();
 
     }
 
