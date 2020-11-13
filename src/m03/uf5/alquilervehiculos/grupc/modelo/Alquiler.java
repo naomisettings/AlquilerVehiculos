@@ -12,10 +12,10 @@ import java.time.LocalDate;
  * @author Juan
  */
 public class Alquiler {
-  private Cliente cliente;
-  private Vehiculo vehiculo;
-  private LocalDate fechaInicio;
-  private LocalDate fechaFin;
+  private String cliente;
+  private String vehiculo;
+  private String fechaInicio;
+  private String fechaFin;
   
   /**
    * Constructor de la clase
@@ -26,32 +26,48 @@ public class Alquiler {
    */
   
   //CONSTRUCTOR PARA COMPILAR
-  public Alquiler(){}
+  public Alquiler(String cliente,String vehiculo, String fechaInicio, String fechaFin)throws IllegalArgumentException {
+  this.cliente=cliente;
+  this.vehiculo=vehiculo;
+  this.fechaInicio = fechaInicio;
+  this.fechaFin = fechaFin;
+  }
   //ATENCIÓN
+
+  
+
+   Alquiler() {
+        throw new UnsupportedOperationException("error alquiler"); //To change body of generated methods, choose Tools | Templates.
+    }
+ 
+   
   
   
  /* public Alquiler(Cliente cliente, Vehiculo vehiculo, LocalDate fechaInicio,LocalDate fechaFin){
      
       
-  }
+  }*/
           
 
-  public Cliente getCliente() {
+  public String getCliente() {
+      return cliente;
   }
 
-  public Vehiculo getVehiculo() {
-  }*/
+  public String getVehiculo() {
+      return vehiculo;
+  }
 
-  public LocalDate getFechaInicio() {
+  public String getFechaInicio() {
       return fechaInicio;
   }
 
-  public LocalDate getFechaFin() {
+  public String getFechaFin() {
       return fechaFin;
   }
 
- /* @Override
+  @Override
   public String toString() {
+      return cliente+ ";"+vehiculo+ ";"+fechaInicio+";"+fechaFin;
   }
-*/
+
 }

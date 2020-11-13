@@ -15,6 +15,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.ComboBox;
@@ -22,6 +24,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 
 import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
+import m03.uf5.alquilervehiculos.grupc.modelo.Alquiler;
+import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
 
 /**
  * FXML Controller class
@@ -61,8 +65,13 @@ public class NuevoAlquilerController implements Initializable {
         ObservableList<String> nif = FXCollections.observableArrayList("45471259Y", "58962147Z", "25741958P", "84235719O", "65235719O");
         ObservableList<String> matricula = FXCollections.observableArrayList("3415KNJ", "5632KMN", "5874PLK", "8745HJN", "5845HJN");
 
-        cbxNif.setItems(nif);
+        if(cbxNif.getValue()==null){
+           cbxNif.setItems(nif); 
+           cbxMatricula.setItems(matricula);
+        }/*else{
+        
         cbxMatricula.setItems(matricula);
+        }*/
       //cbxNif.getOnMouseClicked().toString();
         
 
@@ -73,7 +82,12 @@ public class NuevoAlquilerController implements Initializable {
         String nif = cbxNif.getValue();
         if(nif!=null){
            System.out.println("El nif es " + nif);  
-         }
+         }else{
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("No has introducido el nif");
+            alert.setContentText("Introduce un nif");
+            alert.showAndWait();
+        }
         
     }
 
@@ -93,21 +107,17 @@ public class NuevoAlquilerController implements Initializable {
 
     @FXML
     private void handleDatePickerInicio(ActionEvent event) { //RECOLLIM LA DATA INICIAL SELECIONADA
-          /* DatePicker dpInicio = new DatePicker();*/
+        
         LocalDate fechaInicio = dpInicio.getValue();
         String inicio = fechaInicio.toString();
-      //  System.out.println("Selected date: " + fechaInicio);
-      //  System.out.println("fecha incio cadena: " + inicio);
-       guardarFechaInicio();
+        guardarFechaInicio();
     }
 
     @FXML
     private void handleDatePickerFin(ActionEvent event) { //RECOLLIM LA DATA FINAL SELECIONADA
-       /*DatePicker dpFin = new DatePicker();*/
+       
         LocalDate fechaFin = dpFin.getValue();
         String fin = fechaFin.toString();
-      //  System.out.println("Selected date: " + fechaFin);
-      //  System.out.println("fecha fin cadena: " + fin);
         guardarFechaFin();
 
     }
@@ -122,7 +132,7 @@ public class NuevoAlquilerController implements Initializable {
         String fin = fechaFin.toString();
        System.out.println("La fecha final es " + fin);
     }
-
+//poner guardar los datos en csv
     public void obtenerDias() {
         LocalDate fechaInicio = dpInicio.getValue();
         LocalDate fechaFin = dpFin.getValue();
@@ -145,8 +155,10 @@ public class NuevoAlquilerController implements Initializable {
     @FXML
     private void handleBotonReservar(ActionEvent event) throws IOException {
         //GestorEscenas.getGestor().muestraFactura();
-       obtenerDias();
-        
+       //obtenerDias();
+       Alquiler a = new Alquiler(cbxNif.getValue(),cbxMatricula.getValue(),
+               dpFin.getValue().toString(),dpInicio.getValue().toString());
+        Modelo.getModelo().addAlquiler(a);
 
     }
 
