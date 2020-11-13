@@ -49,6 +49,10 @@ public class ClientesController implements Initializable, MiControlador {
 
   @Override
   public void actualizar() {
-    textClientes.setText(Modelo.getModelo().getClientes().toString());
+    String texto = Modelo.getModelo().getClientes().toString();
+    texto = texto.replace("[", "");
+    texto = texto.replace("]", "");
+    texto = texto.replace(", ", "\n");
+    textClientes.setText(texto);
   }
 }
