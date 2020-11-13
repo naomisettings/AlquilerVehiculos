@@ -21,7 +21,7 @@ import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
  *
  * @author sella
  */
-public class VehiculosController implements Initializable {
+public class VehiculosController implements Initializable, MiControlador {
 
     @FXML
     private TextArea textVehiculos;
@@ -42,5 +42,10 @@ public class VehiculosController implements Initializable {
             Logger.getLogger(ClientesController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+  @Override
+  public void actualizar() {
+     //To change body of generated methods, choose Tools | Templates.
+  }
 
 }

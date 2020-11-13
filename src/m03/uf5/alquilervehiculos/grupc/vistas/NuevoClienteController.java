@@ -51,9 +51,16 @@ public class NuevoClienteController implements Initializable {
     @FXML
     private void handleBotonGuardarAction(ActionEvent event) {
         if (comprobarCampos() && validaNIF()) {
-            //Cliente cliente = new Cliente(textoNombre.getText(), textoApellido1.getText(),
-            //textoApellido2.getText(), textoNif.getText());
-            //Modelo.getModelo().addCliente(cliente);
+            Cliente cliente = new Cliente(textoNombre.getText(), textoApellido1.getText(),
+            textoApellido2.getText(), textoNif.getText());
+            Modelo.getModelo().addCliente(cliente);
+            
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Alquiler de vheiculos");
+            alert.setHeaderText(null);
+            alert.setContentText("Cliente registrado con éxito");
+
+            alert.showAndWait();
         }
     }
 
@@ -114,8 +121,8 @@ public class NuevoClienteController implements Initializable {
 
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Alquiler de vheiculos");
-        alert.setHeaderText("NIF incorrecto");
-        alert.setContentText("");
+        alert.setHeaderText(null);
+        alert.setContentText("NIF incorrecto");
 
         alert.showAndWait();
         return false;

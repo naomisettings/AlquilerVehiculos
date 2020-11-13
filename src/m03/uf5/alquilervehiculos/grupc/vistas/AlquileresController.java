@@ -14,7 +14,7 @@ import javafx.fxml.Initializable;
  *
  * @author sella
  */
-public class AlquileresController implements Initializable {
+public class AlquileresController implements Initializable, MiControlador {
 
     /**
      * Initializes the controller class.
@@ -23,5 +23,10 @@ public class AlquileresController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+  @Override
+  public void actualizar() {
+     //To change body of generated methods, choose Tools | Templates.
+  }
     
 }

@@ -69,7 +69,7 @@ public class Modelo {
           Scanner sc = new Scanner(fichero);
           while(sc.hasNext()){
               String[] datos = sc.nextLine().split(";");
-              Cliente cliente = new Cliente(/*datos[0], datos[1], datos[2], datos[3]*/);
+              Cliente cliente = new Cliente(datos[0], datos[1], datos[2], datos[3]);
               clientes.add(cliente);
           }
       } catch (FileNotFoundException ex) {
@@ -183,7 +183,8 @@ public class Modelo {
   public void addCliente(Cliente cliente) {
       try {
           PrintStream out = new PrintStream(new FileOutputStream(ARCHIVO_CLIENTES, true));
-          out.println();
+          out.println(cliente.toString());
+          clientes.add(cliente);
       } catch (FileNotFoundException ex) {
           Logger.getLogger(Modelo.class.getName()).log(Level.SEVERE, null, ex);
       }

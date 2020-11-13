@@ -22,18 +22,18 @@ import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
  *
  * @author sella
  */
-public class ClientesController implements Initializable {
+public class ClientesController implements Initializable, MiControlador {
 
   @FXML
   private TextArea textClientes;
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        textClientes.setText(Modelo.getModelo().getClientes().toString());
-    }    
+  /**
+   * Initializes the controller class.
+   */
+  @Override
+  public void initialize(URL url, ResourceBundle rb) {
+    actualizar();
+  }
 
   @FXML
   private void handleBotonVolverAction(ActionEvent event) {
@@ -43,5 +43,12 @@ public class ClientesController implements Initializable {
       Logger.getLogger(ClientesController.class.getName()).log(Level.SEVERE, null, ex);
     }
   }
-    
+  public void addText(){
+    textClientes.setText(Modelo.getModelo().getClientes().toString());
+  }
+
+  @Override
+  public void actualizar() {
+    textClientes.setText(Modelo.getModelo().getClientes().toString());
+  }
 }
