@@ -9,7 +9,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,7 +28,9 @@ import javafx.scene.control.Label;
 
 import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
 import m03.uf5.alquilervehiculos.grupc.modelo.Alquiler;
+import m03.uf5.alquilervehiculos.grupc.modelo.Cliente;
 import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
+import m03.uf5.alquilervehiculos.grupc.modelo.Vehiculo;
 
 /**
  * FXML Controller class
@@ -62,11 +67,23 @@ public class NuevoAlquilerController implements Initializable {
 
     @FXML
    public void cargarDatos() { //CARREGA LES DADES AL COMBOBOX
-        ObservableList<String> nif = FXCollections.observableArrayList("45471259Y", "58962147Z", "25741958P", "84235719O", "65235719O");
-        ObservableList<String> matricula = FXCollections.observableArrayList("3415KNJ", "5632KMN", "5874PLK", "8745HJN", "5845HJN");
-
+       ObservableList<String> nif = FXCollections.observableArrayList();
+       ObservableList<String> matricula = FXCollections.observableArrayList(); 
+       Set<Cliente> clientes;
+        clientes = Modelo.getModelo().getClientes();
+       Set<Vehiculo> vehiculos;
+       vehiculos = Modelo.getModelo().getVehiculos();
+       
+        for (Cliente cliente : clientes) {
+            nif.add(cliente.getNif());
+        }
+        
+        for (Vehiculo vehiculo : vehiculos) {
+            matricula.add(vehiculo.getMatricula());
+        }
+        
         if(cbxNif.getValue()==null){
-           cbxNif.setItems(nif); 
+           cbxNif.setItems((ObservableList<String>) nif); 
            cbxMatricula.setItems(matricula);
         }/*else{
         

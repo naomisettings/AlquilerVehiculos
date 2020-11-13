@@ -199,7 +199,8 @@ public class Modelo {
   public void addVehiculo(Vehiculo vehiculo) {
       try {
           PrintStream out = new PrintStream(new FileOutputStream(ARCHIVO_VEHICULOS, true));
-          out.println();
+          out.println(vehiculo.toString());
+          vehiculos.add(vehiculo);
       } catch (FileNotFoundException ex) {
           Logger.getLogger(Modelo.class.getName()).log(Level.SEVERE, null, ex);
       }
