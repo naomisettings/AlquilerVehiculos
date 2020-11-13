@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -66,55 +67,50 @@ public class NuevoAlquilerController implements Initializable {
     }
 
     @FXML
-   public void cargarDatos() { //CARREGA LES DADES AL COMBOBOX
-       ObservableList<String> nif = FXCollections.observableArrayList();
-       ObservableList<String> matricula = FXCollections.observableArrayList(); 
-       Set<Cliente> clientes;
+    public void cargarDatos() { //CARREGA LES DADES AL COMBOBOX
+        ObservableList<String> nif = FXCollections.observableArrayList();
+        ObservableList<String> matricula = FXCollections.observableArrayList();
+        Set<Cliente> clientes;
         clientes = Modelo.getModelo().getClientes();
-       Set<Vehiculo> vehiculos;
-       vehiculos = Modelo.getModelo().getVehiculos();
-       
+        Set<Vehiculo> vehiculos;
+        vehiculos = Modelo.getModelo().getVehiculos();
+
         for (Cliente cliente : clientes) {
             nif.add(cliente.getNif());
         }
-        
+
         for (Vehiculo vehiculo : vehiculos) {
             matricula.add(vehiculo.getMatricula());
         }
-        
-        if(cbxNif.getValue()==null){
-           cbxNif.setItems((ObservableList<String>) nif); 
-           cbxMatricula.setItems(matricula);
+
+        if (cbxNif.getValue() == null) {
+            cbxNif.setItems((ObservableList<String>) nif);
+            cbxMatricula.setItems(matricula);
         }/*else{
         
         cbxMatricula.setItems(matricula);
         }*/
-      //cbxNif.getOnMouseClicked().toString();
-        
+        //cbxNif.getOnMouseClicked().toString();
+
 
     }
 
     public void guardarNif() {
-         
+
         String nif = cbxNif.getValue();
-        if(nif!=null){
-           System.out.println("El nif es " + nif);  
-         }else{
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("No has introducido el nif");
-            alert.setContentText("Introduce un nif");
-            alert.showAndWait();
+        if (nif != null) {
+            System.out.println("El nif es " + nif);
         }
-        
+
     }
 
     public void guardarMatricula() {
-        
+
         String matricula = cbxMatricula.getValue();
-        if(matricula!=null){
-           System.out.println("El matricula es  " + matricula);  
-         }
-       
+        if (matricula != null) {
+            System.out.println("El matricula es  " + matricula);
+        }
+
     }
 
     @FXML
@@ -124,7 +120,7 @@ public class NuevoAlquilerController implements Initializable {
 
     @FXML
     private void handleDatePickerInicio(ActionEvent event) { //RECOLLIM LA DATA INICIAL SELECIONADA
-        
+
         LocalDate fechaInicio = dpInicio.getValue();
         String inicio = fechaInicio.toString();
         guardarFechaInicio();
@@ -132,24 +128,58 @@ public class NuevoAlquilerController implements Initializable {
 
     @FXML
     private void handleDatePickerFin(ActionEvent event) { //RECOLLIM LA DATA FINAL SELECIONADA
-       
+
         LocalDate fechaFin = dpFin.getValue();
         String fin = fechaFin.toString();
         guardarFechaFin();
 
     }
-     public void guardarFechaInicio() {
+
+    public void guardarFechaInicio() {
         LocalDate fechaInicio = dpInicio.getValue();
         String inicio = fechaInicio.toString();
         System.out.println("La fecha de inicial es " + inicio);
     }
-         public void guardarFechaFin() {
-       
+
+    public void guardarFechaFin() {
+
         LocalDate fechaFin = dpFin.getValue();
         String fin = fechaFin.toString();
-       System.out.println("La fecha final es " + fin);
+        System.out.println("La fecha final es " + fin);
     }
-//poner guardar los datos en csv
+
+    private boolean comprobarCampos() {
+        LocalDate hoy = LocalDate.now();
+       
+        //comprueba que los campos no esten vacios
+        if (cbxNif.getValue() == null || cbxMatricula.getValue() == null
+                || dpFin.getValue() == null || dpInicio.getValue() == null) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Alquiler de vehiculos");
+            alert.setHeaderText("Campo Vacio");
+            alert.setContentText("Todos los campos deben estar completos");
+            alert.showAndWait();
+
+        }
+        //comprueba que la fecha final no sea anterior a la fecha inicial
+        if (dpFin.getValue().isBefore(dpInicio.getValue())) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Alquiler de vehiculos");
+            alert.setHeaderText("Fecha incorrecta");
+            alert.setContentText("La fecha inicial tiene que ser menor a la final");
+            alert.showAndWait();
+        }
+        //comprueba que la fecha inicial no sea anterior al dia actual
+        if (dpInicio.getValue().isBefore(hoy)) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Alquiler de vehiculos");
+            alert.setHeaderText("Fecha incorrecta");
+            alert.setContentText("La fecha inicial tiene que ser posterior a hoy");
+            alert.showAndWait();
+        }
+        return false;
+    }
+
     public void obtenerDias() {
         LocalDate fechaInicio = dpInicio.getValue();
         LocalDate fechaFin = dpFin.getValue();
@@ -171,15 +201,14 @@ public class NuevoAlquilerController implements Initializable {
 
     @FXML
     private void handleBotonReservar(ActionEvent event) throws IOException {
-        //GestorEscenas.getGestor().muestraFactura();
-       //obtenerDias();
-       Alquiler a = new Alquiler(cbxNif.getValue(),cbxMatricula.getValue(),
-               dpFin.getValue().toString(),dpInicio.getValue().toString());
+        GestorEscenas.getGestor().muestraFactura();
+        obtenerDias();
+        comprobarCampos();
+        //falta validacio de dades camps buits i dates correctes
+        Alquiler a = new Alquiler(cbxNif.getValue(), cbxMatricula.getValue(),
+                dpFin.getValue().toString(), dpInicio.getValue().toString());
         Modelo.getModelo().addAlquiler(a);
 
     }
-
-
- 
 
 }

@@ -109,7 +109,7 @@ public class Modelo {
           Scanner sc = new Scanner(fichero);
           while(sc.hasNext()){
               String[] datos = sc.nextLine().split(";");
-              Alquiler a = new Alquiler(datos[0],datos[1],datos[2],datos[3]);
+              Alquiler a = new Alquiler(datos[0],datos[1],datos[2], datos[3]);
               alquileres.add(a);
           }
       } catch (FileNotFoundException ex) {
@@ -216,8 +216,9 @@ public class Modelo {
   public void addAlquiler(Alquiler alquiler) {
       try {
           PrintStream out = new PrintStream(new FileOutputStream(ARCHIVO_ALQUILERES, true));
-          out.println();
+          out.println(alquiler.toString());
           ultimoAlquiler = alquiler;
+          alquileres.add(alquiler);
       } catch (FileNotFoundException ex) {
           Logger.getLogger(Modelo.class.getName()).log(Level.SEVERE, null, ex);
       }
