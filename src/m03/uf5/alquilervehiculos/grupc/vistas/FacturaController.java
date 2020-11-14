@@ -7,7 +7,10 @@ package m03.uf5.alquilervehiculos.grupc.vistas;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
@@ -16,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
+import m03.uf5.alquilervehiculos.grupc.modelo.Alquiler;
 import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
 
 /**
@@ -37,7 +41,7 @@ public class FacturaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        actualizar();
+        actualizar2();
     }
 
     @FXML
@@ -59,6 +63,17 @@ public class FacturaController implements Initializable {
     }
 
     private void actualizar() {
+        Set clientes = Modelo.getModelo().getClientes();
+        Set vehiculo = Modelo.getModelo().getVehiculos();
+
+        Alquiler ultimoAlquiler = Modelo.getModelo().getUltimoAlquiler();
+        
+       // for (Iterator it = new Iterator.clientes;  < 10; ++) {
+            
+        
+        
+    }
+    private void actualizar2() {
         String clientes = Modelo.getModelo().getClientes().toString();
         String alquileres = Modelo.getModelo().getAlquileres().toString();
 
@@ -85,6 +100,7 @@ public class FacturaController implements Initializable {
                 nombreCliente = clientes.substring(indexSeparaClienteInici, indexSeparaCliente - 9);
             } else {
                 dniCliente = clientes.substring(clientes.length() - 9, clientes.length());
+                nombreCliente = clientes.substring(0, clientes.length() - 9);
             }
 
             do {
@@ -107,6 +123,7 @@ public class FacturaController implements Initializable {
         } while (indexSeparaCliente != - 1);
         todosClientesAlquileres = todosClientesAlquileres.replace(",", "");
         System.out.println(todosClientesAlquileres);
+        
         txtAreaFactura.setText(todosClientesAlquileres);
     }
 
