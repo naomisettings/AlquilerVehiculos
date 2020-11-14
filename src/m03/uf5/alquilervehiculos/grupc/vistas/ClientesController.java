@@ -23,9 +23,9 @@ import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
  * @author sella
  */
 public class ClientesController implements Initializable, MiControlador {
-
-  @FXML
+@FXML
   private TextArea textClientes;
+
 
   /**
    * Initializes the controller class.

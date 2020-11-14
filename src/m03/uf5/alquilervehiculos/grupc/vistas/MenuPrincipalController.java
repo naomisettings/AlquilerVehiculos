@@ -55,6 +55,7 @@ public class MenuPrincipalController implements Initializable {
     private void handleBttnVerAlquiler(MouseEvent event) {
         try {
             GestorEscenas.getGestor().muestraAlquileres();
+            
         } catch (IOException ex) {
             Logger.getLogger(AlquileresController.class.getName()).log(Level.SEVERE, null, ex);
         }

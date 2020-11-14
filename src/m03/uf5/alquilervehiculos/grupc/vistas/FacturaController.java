@@ -99,7 +99,7 @@ public class FacturaController implements Initializable {
 
     }
 
-    private void actualizar2() {
+  /*  private void actualizar2() {
         String clientes = Modelo.getModelo().getClientes().toString();
         String alquileres = Modelo.getModelo().getAlquileres().toString();
 
@@ -151,6 +151,6 @@ public class FacturaController implements Initializable {
         System.out.println(todosClientesAlquileres);
 
         txtAreaFactura.setText(todosClientesAlquileres);
-    }
+    }*/
 
 }

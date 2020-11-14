@@ -60,6 +60,7 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
      * Initializes the controller class.
      *
      * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -127,7 +128,7 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
     private void handleDatePickerInicio(ActionEvent event) { //RECOLLIM LA DATA INICIAL SELECIONADA
 
         LocalDate fechaInicio = dpInicio.getValue();
-        String inicio = fechaInicio.toString();
+        // String inicio = fechaInicio.toString();
         guardarFechaInicio();
     }
 
@@ -135,7 +136,7 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
     private void handleDatePickerFin(ActionEvent event) { //RECOLLIM LA DATA FINAL SELECIONADA
 
         LocalDate fechaFin = dpFin.getValue();
-        String fin = fechaFin.toString();
+        //String fin = fechaFin.toString();
         guardarFechaFin();
 
     }
@@ -155,7 +156,7 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
 
     private boolean comprobarCampos() {
         LocalDate hoy = LocalDate.now();
-       
+
         //comprueba que los campos no esten vacios
         if (cbxNif.getValue() == null || cbxMatricula.getValue() == null
                 || dpFin.getValue() == null || dpInicio.getValue() == null) {
@@ -206,16 +207,13 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
 
     @FXML
     private void handleBotonReservar(ActionEvent event) throws IOException {
-        
         obtenerDias();
         comprobarCampos();
-        
-        Alquiler a = new Alquiler(cbxNif.getValue(), cbxMatricula.getValue(),
-                dpFin.getValue().toString(), dpInicio.getValue().toString());
-        Modelo.getModelo().addAlquiler(a);
-        
-        GestorEscenas.getGestor().muestraFactura();
 
+        Alquiler a = new Alquiler(cbxNif.getValue(), cbxMatricula.getValue(),
+                dpInicio.getValue().toString(), dpFin.getValue().toString());
+        Modelo.getModelo().addAlquiler(a);
+        GestorEscenas.getGestor().muestraFactura();
     }
 
 }

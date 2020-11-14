@@ -109,7 +109,7 @@ public class Modelo {
           Scanner sc = new Scanner(fichero);
           while(sc.hasNext()){
               String[] datos = sc.nextLine().split(";");
-              Alquiler a = new Alquiler(datos[0],datos[1],datos[2], datos[3]);
+              Alquiler a = new Alquiler(datos[0],datos[1],datos[2],datos[3]);
               alquileres.add(a);
           }
       } catch (FileNotFoundException ex) {

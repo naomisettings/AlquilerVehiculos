@@ -12,7 +12,7 @@ import java.time.LocalDate;
  * @author Juan
  */
 public class Alquiler {
-  private String cliente;
+  private String nif;
   private String vehiculo;
   private String fechaInicio;
   private String fechaFin;
@@ -26,22 +26,19 @@ public class Alquiler {
    */
   
   //CONSTRUCTOR PARA COMPILAR
-  public Alquiler(String cliente,String vehiculo, String fechaInicio, String fechaFin)
+  public Alquiler(String nif,String vehiculo, String fechaInicio, String fechaFin)
   throws IllegalArgumentException {
-  this.cliente=cliente;
+  this.nif=nif;
   this.vehiculo=vehiculo;
   this.fechaInicio = fechaInicio;
   this.fechaFin = fechaFin;
   }
-  
-
-  
-
-  
-          
-
-  public String getCliente() {
-      return cliente;
+    /**
+     *
+     * @return
+     */
+    public String getCliente() {
+      return nif;
   }
 
   public String getVehiculo() {
@@ -55,10 +52,11 @@ public class Alquiler {
   public String getFechaFin() {
       return fechaFin;
   }
-
+  
   @Override
   public String toString() {
-      return cliente+ ";"+vehiculo+ ";"+fechaInicio+";"+fechaFin;
+      //return cliente+ ": "+vehiculo+ ": "+"("+fechaInicio+"-"+fechaFin+")" ;
+      return nif+ ";"+  vehiculo+ ";"+fechaInicio+";"+fechaFin;
   }
 
 }
