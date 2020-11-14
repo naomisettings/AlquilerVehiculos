@@ -37,14 +37,9 @@ public class FacturaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //mostrarFactura();
+        actualizar();
     }
 
-    
-    public void mostrarFactura (){
-        String alquilerStr = Modelo.getModelo().getUltimoAlquiler().toString();
-        txtAreaFactura.setText(alquilerStr);
-    }
     @FXML
     private void handleBttnVolver(MouseEvent event) {
         try {
@@ -61,6 +56,58 @@ public class FacturaController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(AlquileresController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void actualizar() {
+        String clientes = Modelo.getModelo().getClientes().toString();
+        String alquileres = Modelo.getModelo().getAlquileres().toString();
+
+        System.out.println(clientes);
+        clientes = clientes.replace("[", "");
+        clientes = clientes.replace("]", "");
+
+        alquileres = alquileres.replace("[", "");
+        alquileres = alquileres.replace("]", "");
+
+        int indexSeparaClienteInici = 0;
+        int indexSeparaCliente = clientes.indexOf(",");
+        int indexSeparaAlquiler = alquileres.indexOf(",");
+
+        String todosClientesAlquileres = "";
+
+        int indexDniAlquilerEncontrar = 0;
+        String dniCliente = "";
+        String nombreCliente = "";
+        do {
+            if (indexSeparaCliente != -1) {
+                dniCliente = clientes.substring(indexSeparaCliente - 9, indexSeparaCliente);
+                indexDniAlquilerEncontrar = alquileres.indexOf(dniCliente);
+                nombreCliente = clientes.substring(indexSeparaClienteInici, indexSeparaCliente - 9);
+            } else {
+                dniCliente = clientes.substring(clientes.length() - 9, clientes.length());
+            }
+
+            do {
+                String unAlquiler = alquileres.substring(indexDniAlquilerEncontrar, indexDniAlquilerEncontrar + 39);
+                unAlquiler = unAlquiler.replace(";", " ");
+                nombreCliente = nombreCliente.replace(";", " ");
+                todosClientesAlquileres = todosClientesAlquileres + nombreCliente + " " + unAlquiler + "\n";
+
+                System.out.println(nombreCliente + dniCliente + " / " + unAlquiler);
+
+                indexSeparaAlquiler = alquileres.indexOf(",", indexSeparaAlquiler + 9);
+
+                indexDniAlquilerEncontrar = alquileres.indexOf(dniCliente, indexDniAlquilerEncontrar + 1);
+            } while (indexDniAlquilerEncontrar != -1);
+
+            indexSeparaClienteInici = clientes.indexOf(",", indexSeparaClienteInici + 1);
+            if (!(indexSeparaCliente != -1) || clientes.charAt(indexSeparaCliente) != clientes.length()) {
+                indexSeparaCliente = clientes.indexOf(",", indexSeparaCliente + 1);
+            }
+        } while (indexSeparaCliente != - 1);
+        todosClientesAlquileres = todosClientesAlquileres.replace(",", "");
+        System.out.println(todosClientesAlquileres);
+        txtAreaFactura.setText(todosClientesAlquileres);
     }
 
 }
