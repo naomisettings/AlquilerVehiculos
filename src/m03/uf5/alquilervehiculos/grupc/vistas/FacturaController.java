@@ -41,7 +41,7 @@ public class FacturaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        actualizar2();
+        actualizar();
     }
 
     @FXML
@@ -63,16 +63,42 @@ public class FacturaController implements Initializable {
     }
 
     private void actualizar() {
-        Set clientes = Modelo.getModelo().getClientes();
-        Set vehiculo = Modelo.getModelo().getVehiculos();
 
-        Alquiler ultimoAlquiler = Modelo.getModelo().getUltimoAlquiler();
-        
-       // for (Iterator it = new Iterator.clientes;  < 10; ++) {
-            
-        
-        
+        Set clientes = Modelo.getModelo().getClientes();
+        Set vehiculos = Modelo.getModelo().getVehiculos();
+        String textoAmostrar = "";
+        String ulitmoAlquilerCliente = Modelo.getModelo().getUltimoAlquiler().getCliente();
+        String ulitmoAlquilerVehiculo = Modelo.getModelo().getUltimoAlquiler().getVehiculo();
+
+        textoAmostrar = Modelo.getModelo().getNombreEmpresa();
+        textoAmostrar = textoAmostrar + "\nCif: " + Modelo.getModelo().getCif();
+        textoAmostrar = textoAmostrar + "\n" + Modelo.getModelo().getDireccion();
+        textoAmostrar = textoAmostrar + "\nTelf: " + Modelo.getModelo().getTelefono();
+
+        for (Iterator it = clientes.iterator(); it.hasNext();) {
+            String cliente = it.next().toString();
+            String dniCliente = cliente.substring(cliente.length() - 9, cliente.length());
+
+            if (dniCliente.equals(ulitmoAlquilerCliente)) {
+                cliente = cliente.replace(";", " ");
+
+                textoAmostrar = textoAmostrar + "\n\nDatos del cliente\n===========\n" + cliente;
+            }
+        }
+        for (Iterator it = vehiculos.iterator(); it.hasNext();) {
+            String vehiculo = it.next().toString();
+            String matriculaVehiculo = vehiculo.substring(0, 7);
+            if (matriculaVehiculo.equals(ulitmoAlquilerVehiculo)) {
+                vehiculo = vehiculo.replace(";", " ");
+
+                textoAmostrar = textoAmostrar + "\n\nDatos del vehículo\n===========\n" + vehiculo;
+            }
+
+        }
+        txtAreaFactura.setText(textoAmostrar);
+
     }
+
     private void actualizar2() {
         String clientes = Modelo.getModelo().getClientes().toString();
         String alquileres = Modelo.getModelo().getAlquileres().toString();
@@ -123,7 +149,7 @@ public class FacturaController implements Initializable {
         } while (indexSeparaCliente != - 1);
         todosClientesAlquileres = todosClientesAlquileres.replace(",", "");
         System.out.println(todosClientesAlquileres);
-        
+
         txtAreaFactura.setText(todosClientesAlquileres);
     }
 
