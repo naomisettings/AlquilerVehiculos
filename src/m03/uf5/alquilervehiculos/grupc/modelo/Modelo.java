@@ -126,7 +126,7 @@ public class Modelo {
                         break;
                     }
                 }
-                System.out.println(datos[2] + " /" + datos[3]);
+                
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
                 Alquiler a = new Alquiler(client, vehi, LocalDate.parse(datos[2], formatter), LocalDate.parse(datos[3], formatter));
                 alquileres.add(a);

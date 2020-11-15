@@ -63,15 +63,16 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        cargarDatos();
     }
 
     @Override
     public void actualizar() {
-        //To change body of generated methods, choose Tools | Templates.
+       
+
+         
     }
 
-    @FXML
     public void cargarDatos() { //CARREGA LES DADES AL COMBOBOX
         ObservableList<String> nif = FXCollections.observableArrayList();
         ObservableList<String> matricula = FXCollections.observableArrayList();
@@ -92,14 +93,22 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
             cbxNif.setItems((ObservableList<String>) nif);
             cbxMatricula.setItems(matricula);
         }
+      
+    }
 
+    public void borrarDatos() {
+        cbxNif.setValue("");
+        cbxMatricula.setValue("");
+        dpInicio.getEditor().clear();
+        dpFin.getEditor().clear();
+       
     }
 
     public void guardarNif() {
 
         String nif = cbxNif.getValue();
         if (nif != null) {
-           // System.out.println("El nif es " + nif);
+            
         }
 
     }
@@ -108,7 +117,7 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
 
         String matricula = cbxMatricula.getValue();
         if (matricula != null) {
-           // System.out.println("El matricula es  " + matricula);
+            
         }
 
     }
@@ -122,7 +131,7 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
     private void handleDatePickerInicio(ActionEvent event) { //RECOLLIM LA DATA INICIAL SELECIONADA
 
         LocalDate fechaInicio = dpInicio.getValue();
-        
+
         guardarFechaInicio();
     }
 
@@ -130,7 +139,7 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
     private void handleDatePickerFin(ActionEvent event) { //RECOLLIM LA DATA FINAL SELECIONADA
 
         LocalDate fechaFin = dpFin.getValue();
-        
+
         guardarFechaFin();
 
     }
@@ -138,20 +147,21 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
     public void guardarFechaInicio() {
         LocalDate fechaInicio = dpInicio.getValue();
         String inicio = fechaInicio.toString();
-        
+
     }
 
     public void guardarFechaFin() {
 
         LocalDate fechaFin = dpFin.getValue();
         String fin = fechaFin.toString();
-        
+
     }
 
     private boolean comprobarCampos() {
         LocalDate hoy = LocalDate.now();
-
+        boolean comprobarTodos = true;
         //comprueba que los campos no esten vacios
+      
         if (cbxNif.getValue() == null || cbxMatricula.getValue() == null
                 || dpFin.getValue() == null || dpInicio.getValue() == null) {
             Alert alert = new Alert(AlertType.ERROR);
@@ -159,8 +169,10 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
             alert.setHeaderText("Campo Vacio");
             alert.setContentText("Todos los campos deben estar completos");
             alert.showAndWait();
-
+            comprobarTodos = false;
         }
+        if (comprobarTodos){
+
         //comprueba que la fecha final no sea anterior a la fecha inicial
         if (dpFin.getValue().isBefore(dpInicio.getValue())) {
             Alert alert = new Alert(AlertType.ERROR);
@@ -168,6 +180,7 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
             alert.setHeaderText("Fecha incorrecta");
             alert.setContentText("La fecha inicial tiene que ser menor a la final");
             alert.showAndWait();
+            comprobarTodos = false;
         }
         //comprueba que la fecha inicial no sea anterior al dia actual
         if (dpInicio.getValue().isBefore(hoy)) {
@@ -176,16 +189,18 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
             alert.setHeaderText("Fecha incorrecta");
             alert.setContentText("La fecha inicial tiene que ser posterior a hoy");
             alert.showAndWait();
+            comprobarTodos = false;
         }
-        return false;
+}
+        return comprobarTodos;
     }
-
+    
     public void obtenerDias() {
         LocalDate fechaInicio = dpInicio.getValue();
         LocalDate fechaFin = dpFin.getValue();
         Period periodo = Period.between(fechaInicio, fechaFin);
         int diasTotales = periodo.getDays();
-        
+
     }
 
     @FXML
@@ -202,9 +217,7 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
     @FXML
     private void handleBotonReservar(ActionEvent event) throws IOException {
 
-        obtenerDias();
-        comprobarCampos();
-
+      //  obtenerDias();
         Set<Cliente> clientes = Modelo.getModelo().getClientes();
         Set<Vehiculo> vehiculos = Modelo.getModelo().getVehiculos();
 
@@ -225,9 +238,20 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate inicio = dpInicio.getValue();
         LocalDate fin = dpFin.getValue();
-        Alquiler a = new Alquiler(client, vehi, inicio, fin);
-        Modelo.getModelo().addAlquiler(a);
+        
+        if (comprobarCampos()) {
+            Alquiler a = new Alquiler(client, vehi, inicio, fin);
+            Modelo.getModelo().addAlquiler(a);
+             Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Alquiler de vheiculos");
+            alert.setHeaderText(null);
+            alert.setContentText("Alquiler registrado con éxito");
+            alert.showAndWait();
+             borrarDatos();
+            GestorEscenas.getGestor().muestraFactura();
+           
+        }
+        
 
-        GestorEscenas.getGestor().muestraFactura();
     }
 }
