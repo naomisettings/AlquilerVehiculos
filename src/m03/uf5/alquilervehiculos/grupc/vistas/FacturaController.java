@@ -20,7 +20,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
 import m03.uf5.alquilervehiculos.grupc.modelo.Alquiler;
+import m03.uf5.alquilervehiculos.grupc.modelo.Cliente;
 import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
+import m03.uf5.alquilervehiculos.grupc.modelo.Vehiculo;
 
 /**
  * FXML Controller class
@@ -63,12 +65,11 @@ public class FacturaController implements Initializable {
     }
 
     private void actualizar() {
-
         Set clientes = Modelo.getModelo().getClientes();
         Set vehiculos = Modelo.getModelo().getVehiculos();
         String textoAmostrar = "";
-        String ulitmoAlquilerCliente = Modelo.getModelo().getUltimoAlquiler().getCliente();
-        String ulitmoAlquilerVehiculo = Modelo.getModelo().getUltimoAlquiler().getVehiculo();
+        Cliente ulitmoAlquilerCliente = Modelo.getModelo().getUltimoAlquiler().getCliente();
+        Vehiculo ulitmoAlquilerVehiculo = Modelo.getModelo().getUltimoAlquiler().getVehiculo();
 
         textoAmostrar = Modelo.getModelo().getNombreEmpresa();
         textoAmostrar = textoAmostrar + "\nCif: " + Modelo.getModelo().getCif();

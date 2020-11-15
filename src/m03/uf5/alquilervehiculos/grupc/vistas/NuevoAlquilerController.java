@@ -9,9 +9,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 import javafx.collections.FXCollections;
@@ -207,13 +206,33 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
 
     @FXML
     private void handleBotonReservar(ActionEvent event) throws IOException {
+
         obtenerDias();
         comprobarCampos();
 
-        Alquiler a = new Alquiler(cbxNif.getValue(), cbxMatricula.getValue(),
-                dpInicio.getValue().toString(), dpFin.getValue().toString());
+        Set<Cliente> clientes = Modelo.getModelo().getClientes();
+        Set<Vehiculo> vehiculos = Modelo.getModelo().getVehiculos();
+
+        Cliente client = null;
+        for (Iterator<Cliente> it = clientes.iterator(); it.hasNext();) {
+            client = it.next();
+            if (client.getNif().equals(cbxNif.getValue())) {
+                break;
+            }
+        }
+        Vehiculo vehi = null;
+        for (Iterator<Vehiculo> it = vehiculos.iterator(); it.hasNext();) {
+            vehi = it.next();
+            if (vehi.getMatricula().equals(cbxMatricula.getValue())) {
+                break;
+            }
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate inicio = dpInicio.getValue();
+        LocalDate fin = dpFin.getValue();
+        Alquiler a = new Alquiler(client, vehi, inicio, fin);
         Modelo.getModelo().addAlquiler(a);
+
         GestorEscenas.getGestor().muestraFactura();
     }
-
 }

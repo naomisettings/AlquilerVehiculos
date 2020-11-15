@@ -12,51 +12,53 @@ import java.time.LocalDate;
  * @author Juan
  */
 public class Alquiler {
-  private String nif;
-  private String vehiculo;
-  private String fechaInicio;
-  private String fechaFin;
-  
-  /**
-   * Constructor de la clase
-   * @param cliente
-   * @param vehiculo
-   * @param fechaInicio
-   * @param fechaFin 
-   */
-  
-  //CONSTRUCTOR PARA COMPILAR
-  public Alquiler(String nif,String vehiculo, String fechaInicio, String fechaFin)
-  throws IllegalArgumentException {
-  this.nif=nif;
-  this.vehiculo=vehiculo;
-  this.fechaInicio = fechaInicio;
-  this.fechaFin = fechaFin;
-  }
+
+    private Cliente cliente;
+    private Vehiculo vehiculo;
+    private LocalDate fechaInicio;
+    private LocalDate fechaFin;
+
+    /**
+     * Constructor de la clase
+     *
+     * @param cliente
+     * @param vehiculo
+     * @param fechaInicio
+     * @param fechaFin
+     */
+    //CONSTRUCTOR PARA COMPILAR
+    public Alquiler(Cliente cliente, Vehiculo vehiculo, LocalDate fechaInicio, LocalDate fechaFin)
+            throws IllegalArgumentException {
+        this.cliente = cliente;
+        this.vehiculo = vehiculo;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+    }
+
     /**
      *
      * @return
      */
-    public String getCliente() {
-      return nif;
-  }
+    public Cliente getCliente() {
+        return cliente;
+    }
 
-  public String getVehiculo() {
-      return vehiculo;
-  }
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
 
-  public String getFechaInicio() {
-      return fechaInicio;
-  }
+    public LocalDate getFechaInicio() {
+        return fechaInicio;
+    }
 
-  public String getFechaFin() {
-      return fechaFin;
-  }
-  
-  @Override
-  public String toString() {
-      //return cliente+ ": "+vehiculo+ ": "+"("+fechaInicio+"-"+fechaFin+")" ;
-      return nif+ ";"+  vehiculo+ ";"+fechaInicio+";"+fechaFin;
-  }
+    public LocalDate getFechaFin() {
+        return fechaFin;
+    }
+
+    @Override
+    public String toString() {
+        //return cliente+ ": "+vehiculo+ ": "+"("+fechaInicio+"-"+fechaFin+")" ;
+        return cliente.getNif() + ";" + vehiculo.getMatricula() + ";" + fechaInicio + ";" + fechaFin;
+    }
 
 }
