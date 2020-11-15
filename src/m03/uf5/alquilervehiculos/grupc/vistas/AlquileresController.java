@@ -19,6 +19,9 @@ import javafx.scene.control.TextArea;
 import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
 import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
 import java.util.Set;
+import m03.uf5.alquilervehiculos.grupc.modelo.Alquiler;
+import m03.uf5.alquilervehiculos.grupc.modelo.Cliente;
+import m03.uf5.alquilervehiculos.grupc.modelo.Vehiculo;
 
 /**
  * FXML Controller class
@@ -32,40 +35,36 @@ public class AlquileresController implements Initializable, MiControlador {
 
     @Override
     public void actualizar() {
-       Set clientes = Modelo.getModelo().getClientes();
+        Set clientes = Modelo.getModelo().getClientes();
         Set vehiculos = Modelo.getModelo().getVehiculos();
         Set alquileres = Modelo.getModelo().getAlquileres();
         String textoAmostrar = "";
-        String cliente = "";
-        String vehiculo = "";
-        String matricula = "";
-        String alquiler = "";
+        Cliente cliente = null;
+        Vehiculo vehiculo = null;
+        Alquiler alquiler = null;
+
         for (Iterator it = clientes.iterator(); it.hasNext();) {
-            cliente = it.next().toString();
-            cliente = cliente.replace(";", " ");
+            cliente = (Cliente) it.next();
 
-            for (Iterator it2 = vehiculos.iterator(); it2.hasNext();) {
-                vehiculo = it2.next().toString();
-                vehiculo = vehiculo.replace(";", "  ");
+            for (Iterator it3 = alquileres.iterator(); it3.hasNext();) {
 
-                for (Iterator it3 = alquileres.iterator(); it3.hasNext();) {
-                    alquiler = it3.next().toString().substring(18);
-                    alquiler = alquiler.replace(";", "-");
-                    //  textoAmostrar = cliente + " " + " " + vehiculo + matricula + " "
-                    //          + " (" + alquiler + ")" ;
+                alquiler = (Alquiler) it3.next();
+                if (alquiler.getCliente().getNif().equals(cliente.getNif())) {
+                    for (Iterator it2 = vehiculos.iterator(); it2.hasNext();) {
+                        vehiculo = (Vehiculo) it2.next();
+                        if (vehiculo.getMatricula().equals(alquiler.getVehiculo().getMatricula())) {
+                            textoAmostrar += cliente.toString().replace(";", " ")+" " + vehiculo.toString().replace(";", " ") + " ( "
+                                    + alquiler.getFechaInicio().toString().replace(";", " ") + "-"
+                                    + alquiler.getFechaFin().toString().replace(";", " ") + " )"+ "\n";
+                        }
 
-                    //  textAlquileres.setText(textoAmostrar);
-                    // System.out.println(textoAmostrar);
+                    }
                 }
-                textoAmostrar = cliente + " " + " " + vehiculo + " "
-                        + " (" + alquiler + ")";
-
-                textAlquileres.setText(textoAmostrar);
-                System.out.println(textoAmostrar);
             }
-
         }
 
+        textAlquileres.setText(textoAmostrar);
+        System.out.println(textoAmostrar);
     }
 
     @Override

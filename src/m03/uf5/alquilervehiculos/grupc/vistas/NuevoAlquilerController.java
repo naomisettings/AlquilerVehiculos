@@ -91,12 +91,7 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
         if (cbxNif.getValue() == null) {
             cbxNif.setItems((ObservableList<String>) nif);
             cbxMatricula.setItems(matricula);
-        }/*else{
-        
-        cbxMatricula.setItems(matricula);
-        }*/
-        //cbxNif.getOnMouseClicked().toString();
-
+        }
 
     }
 
@@ -104,7 +99,7 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
 
         String nif = cbxNif.getValue();
         if (nif != null) {
-            System.out.println("El nif es " + nif);
+           // System.out.println("El nif es " + nif);
         }
 
     }
@@ -113,7 +108,7 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
 
         String matricula = cbxMatricula.getValue();
         if (matricula != null) {
-            System.out.println("El matricula es  " + matricula);
+           // System.out.println("El matricula es  " + matricula);
         }
 
     }
@@ -127,7 +122,7 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
     private void handleDatePickerInicio(ActionEvent event) { //RECOLLIM LA DATA INICIAL SELECIONADA
 
         LocalDate fechaInicio = dpInicio.getValue();
-        // String inicio = fechaInicio.toString();
+        
         guardarFechaInicio();
     }
 
@@ -135,7 +130,7 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
     private void handleDatePickerFin(ActionEvent event) { //RECOLLIM LA DATA FINAL SELECIONADA
 
         LocalDate fechaFin = dpFin.getValue();
-        //String fin = fechaFin.toString();
+        
         guardarFechaFin();
 
     }
@@ -143,14 +138,14 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
     public void guardarFechaInicio() {
         LocalDate fechaInicio = dpInicio.getValue();
         String inicio = fechaInicio.toString();
-        System.out.println("La fecha de inicial es " + inicio);
+        
     }
 
     public void guardarFechaFin() {
 
         LocalDate fechaFin = dpFin.getValue();
         String fin = fechaFin.toString();
-        System.out.println("La fecha final es " + fin);
+        
     }
 
     private boolean comprobarCampos() {
@@ -190,7 +185,7 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
         LocalDate fechaFin = dpFin.getValue();
         Period periodo = Period.between(fechaInicio, fechaFin);
         int diasTotales = periodo.getDays();
-        System.out.println("Dias totales de alquiler " + diasTotales);
+        
     }
 
     @FXML
