@@ -10,7 +10,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import m03.uf5.alquilervehiculos.grupc.vistas.ClientesController;
 import m03.uf5.alquilervehiculos.grupc.vistas.MiControlador;
 
 /**
@@ -38,6 +37,7 @@ public class GestorEscenas {
     private Scene pantallaNuevoVehiculo;
     private Scene pantallaVerAlquiler;
     private Scene pantallaNuevoAlquiler;
+    private Scene pantallaVerFactura;
 
     private MiControlador contraladorClinete;
     private MiControlador controladorVehiculos;
@@ -135,16 +135,16 @@ public class GestorEscenas {
 
     public void muestraAlquileres() throws IOException {
         if (pantallaVerAlquiler == null) {
-          /*  Parent root = FXMLLoader.load(getClass().getResource(VISTA_ALQUILERES));
+            /*  Parent root = FXMLLoader.load(getClass().getResource(VISTA_ALQUILERES));
       pantallaVerAlquiler = new Scene(root);*/
-           FXMLLoader loader = new FXMLLoader(getClass().getResource(VISTA_ALQUILERES));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(VISTA_ALQUILERES));
             Parent root = loader.load();
             pantallaVerAlquiler = new Scene(root);
             controladorAlquiler = (MiControlador) loader.getController();
         }
         ventana.setScene(pantallaVerAlquiler);
-         controladorAlquiler.actualizar();
-         
+        controladorAlquiler.actualizar();
+
     }
 
     public void muestraNuevoAlquiler() throws IOException {
@@ -159,11 +159,11 @@ public class GestorEscenas {
     }
 
     public void muestraFactura() throws IOException {
-        if (pantallaVerCliente == null) {
+        if (pantallaVerFactura == null) {
             Parent root = FXMLLoader.load(getClass().getResource(VISTA_FACTURA));
-            pantallaVerCliente = new Scene(root);
+            pantallaVerFactura = new Scene(root);
         }
-        ventana.setScene(pantallaVerCliente);
+        ventana.setScene(pantallaVerFactura);
     }
 
 }

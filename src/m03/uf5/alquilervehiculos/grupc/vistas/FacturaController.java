@@ -7,6 +7,8 @@ package m03.uf5.alquilervehiculos.grupc.vistas;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.ResourceBundle;
@@ -63,7 +65,22 @@ public class FacturaController implements Initializable {
             Logger.getLogger(AlquileresController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    public int obtenerDias() {
+        Set<Alquiler> alquil = Modelo.getModelo().getAlquileres();
+        Alquiler alquiler = null;
+        LocalDate inicio = null;
+        LocalDate fin = null;
+        
+        for (Iterator it = alquil.iterator(); it.hasNext(); ) {
+            alquiler = (Alquiler)it.next();
+            inicio = alquiler.getFechaInicio();
+            fin = alquiler.getFechaFin();
+        }
+        Period periodo = Period.between(inicio, fin);
+        int diasTotales = periodo.getDays();
+        return diasTotales;
+        
+    }
     private void actualizar() {
         Set clientes = Modelo.getModelo().getClientes();
         Set vehiculos = Modelo.getModelo().getVehiculos();
@@ -80,7 +97,7 @@ public class FacturaController implements Initializable {
             String cliente = it.next().toString();
             String dniCliente = cliente.substring(cliente.length() - 9, cliente.length());
 
-            if (dniCliente.equals(ulitmoAlquilerCliente)) {
+            if (dniCliente.equals(ulitmoAlquilerCliente.getNif())) {
                 cliente = cliente.replace(";", " ");
 
                 textoAmostrar = textoAmostrar + "\n\nDatos del cliente\n===========\n" + cliente;
@@ -89,69 +106,17 @@ public class FacturaController implements Initializable {
         for (Iterator it = vehiculos.iterator(); it.hasNext();) {
             String vehiculo = it.next().toString();
             String matriculaVehiculo = vehiculo.substring(0, 7);
-            if (matriculaVehiculo.equals(ulitmoAlquilerVehiculo)) {
+            if (matriculaVehiculo.equals(ulitmoAlquilerVehiculo.getMatricula())) {
                 vehiculo = vehiculo.replace(";", " ");
 
                 textoAmostrar = textoAmostrar + "\n\nDatos del vehículo\n===========\n" + vehiculo;
             }
-
         }
+        int dias = obtenerDias();
+        textoAmostrar += "\n\nPrecio i dias\n===========";
+        textoAmostrar += "\n El precio del Alquiler és de: " + dias * 40 + " € por " + dias + " dias.";
+        
         txtAreaFactura.setText(textoAmostrar);
 
     }
-
-  /*  private void actualizar2() {
-        String clientes = Modelo.getModelo().getClientes().toString();
-        String alquileres = Modelo.getModelo().getAlquileres().toString();
-
-        System.out.println(clientes);
-        clientes = clientes.replace("[", "");
-        clientes = clientes.replace("]", "");
-
-        alquileres = alquileres.replace("[", "");
-        alquileres = alquileres.replace("]", "");
-
-        int indexSeparaClienteInici = 0;
-        int indexSeparaCliente = clientes.indexOf(",");
-        int indexSeparaAlquiler = alquileres.indexOf(",");
-
-        String todosClientesAlquileres = "";
-
-        int indexDniAlquilerEncontrar = 0;
-        String dniCliente = "";
-        String nombreCliente = "";
-        do {
-            if (indexSeparaCliente != -1) {
-                dniCliente = clientes.substring(indexSeparaCliente - 9, indexSeparaCliente);
-                indexDniAlquilerEncontrar = alquileres.indexOf(dniCliente);
-                nombreCliente = clientes.substring(indexSeparaClienteInici, indexSeparaCliente - 9);
-            } else {
-                dniCliente = clientes.substring(clientes.length() - 9, clientes.length());
-                nombreCliente = clientes.substring(0, clientes.length() - 9);
-            }
-
-            do {
-                String unAlquiler = alquileres.substring(indexDniAlquilerEncontrar, indexDniAlquilerEncontrar + 39);
-                unAlquiler = unAlquiler.replace(";", " ");
-                nombreCliente = nombreCliente.replace(";", " ");
-                todosClientesAlquileres = todosClientesAlquileres + nombreCliente + " " + unAlquiler + "\n";
-
-                System.out.println(nombreCliente + dniCliente + " / " + unAlquiler);
-
-                indexSeparaAlquiler = alquileres.indexOf(",", indexSeparaAlquiler + 9);
-
-                indexDniAlquilerEncontrar = alquileres.indexOf(dniCliente, indexDniAlquilerEncontrar + 1);
-            } while (indexDniAlquilerEncontrar != -1);
-
-            indexSeparaClienteInici = clientes.indexOf(",", indexSeparaClienteInici + 1);
-            if (!(indexSeparaCliente != -1) || clientes.charAt(indexSeparaCliente) != clientes.length()) {
-                indexSeparaCliente = clientes.indexOf(",", indexSeparaCliente + 1);
-            }
-        } while (indexSeparaCliente != - 1);
-        todosClientesAlquileres = todosClientesAlquileres.replace(",", "");
-        System.out.println(todosClientesAlquileres);
-
-        txtAreaFactura.setText(todosClientesAlquileres);
-    }*/
-
 }
