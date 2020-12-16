@@ -7,6 +7,8 @@ package m03.uf5.alquilervehiculos.grupc.vistas;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
+import m03.uf5.alquilervehiculos.grupc.modelo.Cliente;
 import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
 
 /**
@@ -23,9 +26,9 @@ import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
  * @author sella
  */
 public class ClientesController implements Initializable, MiControlador {
-@FXML
-  private TextArea textClientes;
 
+  @FXML
+  private TextArea textClientes;
 
   /**
    * Initializes the controller class.
@@ -43,16 +46,20 @@ public class ClientesController implements Initializable, MiControlador {
       Logger.getLogger(ClientesController.class.getName()).log(Level.SEVERE, null, ex);
     }
   }
-  public void addText(){
+
+  public void addText() {
     textClientes.setText(Modelo.getModelo().getClientes().toString());
   }
 
   @Override
   public void actualizar() {
-    String texto = Modelo.getModelo().getClientes().toString();
-    texto = texto.replace("[", "");
-    texto = texto.replace("]", "");
-    texto = texto.replace(", ", "\n");
+    Modelo modelo = Modelo.getModelo();
+    Map<String, Cliente> clientes = modelo.getClientes();
+    String texto = "";
+    for (Entry<String, Cliente> c : clientes.entrySet()) {
+      texto += c.getValue().toString() + "\n";
+    }
     textClientes.setText(texto);
+
   }
 }

@@ -7,6 +7,7 @@ package m03.uf5.alquilervehiculos.grupc.vistas;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
 import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
+import m03.uf5.alquilervehiculos.grupc.modelo.Vehiculo;
 
 /**
  * FXML Controller class
@@ -24,33 +26,36 @@ import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
  */
 public class VehiculosController implements Initializable, MiControlador {
 
-    @FXML
-    private TextArea textVehiculos;
+  @FXML
+  private TextArea textVehiculos;
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        actualizar();
-    }
+  /**
+   * Initializes the controller class.
+   */
+  @Override
+  public void initialize(URL url, ResourceBundle rb) {
+    actualizar();
+  }
 
-    @FXML
-    private void handleBotonVolverAction(ActionEvent event) {
-        try {
-            GestorEscenas.getGestor().muestraMenuPrincipal();
-        } catch (IOException ex) {
-            Logger.getLogger(ClientesController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+  @FXML
+  private void handleBotonVolverAction(ActionEvent event) {
+    try {
+      GestorEscenas.getGestor().muestraMenuPrincipal();
+    } catch (IOException ex) {
+      Logger.getLogger(ClientesController.class.getName()).log(Level.SEVERE, null, ex);
     }
+  }
 
   @Override
   public void actualizar() {
-     String texto = Modelo.getModelo().getVehiculos().toString();
-    texto = texto.replace("[", "");
-    texto = texto.replace("]", "");
-    texto = texto.replace(", ", "\n");
+    Modelo modelo = Modelo.getModelo();
+    Map<String, Vehiculo> vehiculo = modelo.getVehiculos();
+    String texto = "";
+    for (Map.Entry<String, Vehiculo> v : vehiculo.entrySet()) {
+      texto += v.getValue().toString() + "\n";
+    }
     textVehiculos.setText(texto);
+
   }
 
 }

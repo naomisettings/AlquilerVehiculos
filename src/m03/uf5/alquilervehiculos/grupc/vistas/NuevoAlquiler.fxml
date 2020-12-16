@@ -15,10 +15,10 @@
       <Label layoutX="14.0" layoutY="204.0" text="Fecha Fin" />
       <Button fx:id="btnReservar" layoutX="88.0" layoutY="251.0" mnemonicParsing="false" onAction="#handleBotonReservar" text="Reservar" />
       <Button fx:id="btnVolver" layoutX="230.0" layoutY="251.0" mnemonicParsing="false" onAction="#handleBotonVolver" text="Volver" />
-      <DatePicker fx:id="dpFin" layoutX="158.0" layoutY="200.0" onAction="#handleDatePickerFin" />
-      <DatePicker fx:id="dpInicio" layoutX="158.0" layoutY="159.0" onAction="#handleDatePickerInicio" />
-      <ComboBox fx:id="cbxNif" layoutX="158.0" layoutY="79.0" onAction="#handleComboBoxNif" onShown="#cargarDatos" prefHeight="25.0" prefWidth="174.0" />
-      <ComboBox fx:id="cbxMatricula" layoutX="158.0" layoutY="121.0" onAction="#handleComboBoxMatricula" onShown="#cargarDatos" prefHeight="25.0" prefWidth="174.0" />
+      <DatePicker fx:id="dpFin" layoutX="158.0" layoutY="200.0" />
+      <DatePicker fx:id="dpInicio" layoutX="158.0" layoutY="159.0" />
+      <ComboBox fx:id="cbxNif" layoutX="158.0" layoutY="79.0"  onShown="#cargarDatos" prefHeight="25.0" prefWidth="174.0" />
+      <ComboBox fx:id="cbxMatricula" layoutX="158.0" layoutY="121.0"  onShown="#cargarDatos" prefHeight="25.0" prefWidth="174.0" />
       <Label fx:id="lbdata" layoutX="295.0" layoutY="276.0" prefHeight="17.0" prefWidth="104.0" />
    </children>
 </AnchorPane>

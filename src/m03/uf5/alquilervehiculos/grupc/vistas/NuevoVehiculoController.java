@@ -33,106 +33,106 @@ import m03.uf5.alquilervehiculos.grupc.modelo.Vehiculo;
  */
 public class NuevoVehiculoController implements Initializable {
 
-    @FXML
-    private TextField txtFieldMatricula;
-    @FXML
-    private TextField txtFieldModelo;
-    @FXML
-    private Button bttnGuardar;
-    @FXML
-    private Button bttnVolver;
+  @FXML
+  private TextField txtFieldMatricula;
+  @FXML
+  private TextField txtFieldModelo;
+  @FXML
+  private Button bttnGuardar;
+  @FXML
+  private Button bttnVolver;
 
-    /**
-     * Initializes the controller class.
-     *
-     * @param url
-     * @param rb
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+  /**
+   * Initializes the controller class.
+   *
+   * @param url
+   * @param rb
+   */
+  @Override
+  public void initialize(URL url, ResourceBundle rb) {
+    // TODO
+  }
+
+  @FXML
+  private void handleTxtFieldMatricula(KeyEvent event) {
+
+  }
+
+  @FXML
+  private void handleTxtFieldModelo(KeyEvent event) {
+  }
+
+  @FXML
+  private void handlebttnGuardar(MouseEvent event) {
+    boolean camposOk = camposEmplenados();
+    if (camposOk) {
+      String matriculaOk = validaMatricula();
+      if (matriculaOk != null) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Alquiler de Vehículos");
+        alert.setHeaderText(null);
+        alert.setContentText("Vehículo introducido correctamente");
+
+        alert.showAndWait();
+      }
+      Vehiculo v = new Vehiculo(txtFieldMatricula.getText(), txtFieldModelo.getText());
+      Modelo.getModelo().addVehiculo(v);
+      txtFieldMatricula.setText("");
+      txtFieldModelo.setText("");
     }
 
-    @FXML
-    private void handleTxtFieldMatricula(KeyEvent event) {
+  }
 
+  @FXML
+  private void handleBttnVolver(MouseEvent event) {
+    try {
+      GestorEscenas.getGestor().muestraMenuPrincipal();
+    } catch (IOException ex) {
+      Logger.getLogger(AlquileresController.class.getName()).log(Level.SEVERE, null, ex);
     }
+  }
 
-    @FXML
-    private void handleTxtFieldModelo(KeyEvent event) {
+  private boolean camposEmplenados() {
+
+    if (txtFieldModelo.getText().isEmpty() || txtFieldModelo.getText().isEmpty()) {
+      Alert alert = new Alert(AlertType.ERROR);
+      alert.setTitle("Alquiler de Vehículos");
+      alert.setHeaderText("Vehículo no introducido");
+      alert.setContentText("Todos los campos deben estar completos");
+
+      Optional<ButtonType> result = alert.showAndWait();
+
+      if (result.get() == ButtonType.OK) {
+        // ... user chose OK
+      } else {
+        // ... user chose CANCEL or closed the dialog
+      }
+      return false;
+    } else {
+      return true;
     }
+  }
 
-    @FXML
-    private void handlebttnGuardar(MouseEvent event) {
-        boolean camposOk = camposEmplenados();
-        if (camposOk) {
-            String matriculaOk = validaMatricula();
-            if (matriculaOk != null) {
-                Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle("Alquiler de Vehículos");
-                alert.setHeaderText(null);
-                alert.setContentText("Vehículo introducido correctamente");
+  private String validaMatricula() {
+    Pattern reglas = Pattern.compile("[0-9]{4}[[A-Z]&&[^AEIOUaeiou]]{3}");
+    Matcher matriculaAnalitzar = reglas.matcher(txtFieldMatricula.getText());
+    if (!matriculaAnalitzar.matches()) {
+      Alert alert = new Alert(AlertType.ERROR);
+      alert.setTitle("Alquiler de Vehículos");
+      alert.setHeaderText("Vehículo no introducido");
+      alert.setContentText("La matríucula debe estar en el formato correcto"
+          + " y en mayúsculas");
 
-                alert.showAndWait();
-            }
-        }
-        Vehiculo v = new Vehiculo(txtFieldMatricula.getText(), txtFieldModelo.getText());
-        Modelo.getModelo().addVehiculo(v);
-        txtFieldMatricula.setText("");
-        txtFieldModelo.setText("");
+      Optional<ButtonType> result = alert.showAndWait();
 
+      if (result.get() == ButtonType.OK) {
+        // ... user chose OK
+      } else {
+        // ... user chose CANCEL or closed the dialog
+      }
+      return null;
+    } else {
+      return matriculaAnalitzar.group();
     }
-
-    @FXML
-    private void handleBttnVolver(MouseEvent event) {
-        try {
-            GestorEscenas.getGestor().muestraMenuPrincipal();
-        } catch (IOException ex) {
-            Logger.getLogger(AlquileresController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private boolean camposEmplenados() {
-
-        if (txtFieldModelo.getText().isEmpty() || txtFieldModelo.getText().isEmpty()) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Alquiler de Vehículos");
-            alert.setHeaderText("Vehículo no introducido");
-            alert.setContentText("Todos los campos deben estar completos");
-
-            Optional<ButtonType> result = alert.showAndWait();
-
-            if (result.get() == ButtonType.OK) {
-                // ... user chose OK
-            } else {
-                // ... user chose CANCEL or closed the dialog
-            }
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    private String validaMatricula() {
-        Pattern reglas = Pattern.compile("[0-9]{4}[[A-Z]&&[^AEIOUaeiou]]{3}");
-        Matcher matriculaAnalitzar = reglas.matcher(txtFieldMatricula.getText());
-        if (!matriculaAnalitzar.matches()) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Alquiler de Vehículos");
-            alert.setHeaderText("Vehículo no introducido");
-            alert.setContentText("La matríucula debe estar en el formato correcto"
-                    + " y en mayúsculas");
-
-            Optional<ButtonType> result = alert.showAndWait();
-
-            if (result.get() == ButtonType.OK) {
-                // ... user chose OK
-            } else {
-                // ... user chose CANCEL or closed the dialog
-            }
-            return null;
-        } else {
-            return matriculaAnalitzar.group();
-        }
-    }
+  }
 }
