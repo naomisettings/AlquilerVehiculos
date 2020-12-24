@@ -111,8 +111,11 @@ public class Modelo {
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Vehiculo v = new Vehiculo(rs.getString(1), rs.getString(2));
-                vehiculos.put(rs.getString(1), v);
+                String matricula = rs.getString(1);
+                String modelo = rs.getString(2);
+                System.out.println(matricula);
+                Vehiculo v = new Vehiculo(matricula, modelo);
+                vehiculos.put(matricula, v);
             }
 
         } catch (SQLException e) {
