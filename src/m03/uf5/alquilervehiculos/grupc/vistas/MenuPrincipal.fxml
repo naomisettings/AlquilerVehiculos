@@ -8,17 +8,15 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <AnchorPane prefHeight="417.0" prefWidth="452.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="m03.uf5.alquilervehiculos.grupc.vistas.MenuPrincipalController">
    <children>
-      <HBox prefHeight="178.0" prefWidth="449.0">
+      <HBox layoutX="2.0" prefHeight="166.0" prefWidth="449.0">
          <children>
-            <VBox prefHeight="147.0" prefWidth="173.0" styleClass="tamanyVboxMenuPrincipal" stylesheets="@CssEstilGeneral.css">
+            <VBox prefHeight="145.0" prefWidth="173.0" styleClass="tamanyVboxMenuPrincipal" stylesheets="@CssEstilGeneral.css">
                <children>
-                  <Button fx:id="nuevoVehiculo" mnemonicParsing="false" onMouseClicked="#handleBttnNuevoVehiculo" styleClass="buttonsMenuPrincipal" stylesheets="@CssEstilGeneral.css" text="Nuevo Vehículo" />
-                  <Button fx:id="verVehiculos" mnemonicParsing="false" onMouseClicked="#handleBttnVerVehiculos" styleClass="buttonsMenuPrincipal" stylesheets="@CssEstilGeneral.css" text="Ver Vehículos">
+                  <Button fx:id="verVehiculos" mnemonicParsing="false" onMouseClicked="#handleBttnVerVehiculos" prefHeight="79.0" styleClass="buttonsMenuPrincipal" stylesheets="@CssEstilGeneral.css" text="Vehículos">
                      <VBox.margin>
-                        <Insets top="15.0" />
+                        <Insets />
                      </VBox.margin>
                   </Button>
                </children>

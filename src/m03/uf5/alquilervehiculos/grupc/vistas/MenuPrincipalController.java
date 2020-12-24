@@ -78,7 +78,7 @@ public class MenuPrincipalController implements Initializable {
             Logger.getLogger(ClientesController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+/*
     @FXML
     private void handleBttnNuevoVehiculo(MouseEvent event) {
         try {
@@ -87,7 +87,7 @@ public class MenuPrincipalController implements Initializable {
             Logger.getLogger(NuevoVehiculoController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+*/
     @FXML
     private void handleBttnVerVehiculos(MouseEvent event) {
         try {
