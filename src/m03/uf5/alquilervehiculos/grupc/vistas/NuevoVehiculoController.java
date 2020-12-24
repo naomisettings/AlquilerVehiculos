@@ -63,6 +63,7 @@ public class NuevoVehiculoController implements Initializable {
   }
 
   @FXML
+  
   private void handlebttnGuardar(MouseEvent event) {
     boolean camposOk = camposEmplenados();
     if (camposOk) {
@@ -76,10 +77,11 @@ public class NuevoVehiculoController implements Initializable {
         alert.showAndWait();
       }
       Vehiculo v = new Vehiculo(txtFieldMatricula.getText(), txtFieldModelo.getText());
-      Modelo.getModelo().addVehiculo(v);
+      //Modelo.getModelo().addVehiculo(v);
       txtFieldMatricula.setText("");
       txtFieldModelo.setText("");
     }
+
 
   }
 

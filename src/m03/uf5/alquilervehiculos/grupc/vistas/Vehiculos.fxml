@@ -2,25 +2,45 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="m03.uf5.alquilervehiculos.grupc.vistas.VehiculosController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="m03.uf5.alquilervehiculos.grupc.vistas.VehiculosController">
    <children>
-      <Label text="Listado de vehiculos" />
-      <TextArea fx:id="textVehiculos" prefHeight="329.0" prefWidth="550.0" />
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+      <TableView fx:id="tblVehiculo" prefHeight="400.0" prefWidth="308.0">
+        <columns>
+          <TableColumn fx:id="clmMatricula" prefWidth="154.0" text="Matrícula" />
+          <TableColumn fx:id="clmModelo" prefWidth="153.0" text="Modelo" />
+        </columns>
+      </TableView>
+      <VBox prefHeight="400.0" prefWidth="328.0">
          <children>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleBotonVolverAction" text="Volver" />
+            <GridPane prefHeight="309.0" prefWidth="310.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+            <HBox prefHeight="91.0" prefWidth="310.0">
+               <children>
+                  <Button mnemonicParsing="false" onMouseClicked="#hldbttnVolver" text="Volver">
+                     <HBox.margin>
+                        <Insets left="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
          </children>
-      </HBox>
+      </VBox>
    </children>
-   <opaqueInsets>
-      <Insets />
-   </opaqueInsets>
-   <padding>
-      <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-   </padding>
-</VBox>
+</HBox>

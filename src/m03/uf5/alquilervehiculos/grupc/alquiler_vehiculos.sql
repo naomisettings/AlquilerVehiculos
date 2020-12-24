@@ -1,6 +1,6 @@
 DROP DATABASE IF EXISTS alquilervehiculos;
 CREATE DATABASE alquilervehiculos;
-DROP USER IF EXISTS 'admin_alquiler'@'localhost';
+DROP USER 'admin_alquiler'@'localhost';
 CREATE USER 'admin_alquiler'@'localhost' IDENTIFIED BY 'admin';
 GRANT ALL PRIVILEGES ON alquilervehiculos.* TO 'admin_alquiler'@'localhost';
 FLUSH PRIVILEGES;
@@ -83,6 +83,11 @@ END //
 CREATE PROCEDURE obtener_vehiculo(IN matriucla INT)
 BEGIN
 	SELECT * FROM vehiculo v WHERE v.matricula = matricula;
+END //
+
+CREATE PROCEDURE obtener_vehiculo_modelo(IN matriucla INT)
+BEGIN
+	SELECT * FROM vehiculo v WHERE v.modelo = modelo;
 END //
 
 CREATE PROCEDURE obtener_aquiler_nif(IN nif VARCHAR(9))

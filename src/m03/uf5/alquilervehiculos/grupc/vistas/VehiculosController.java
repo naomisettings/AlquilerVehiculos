@@ -11,11 +11,17 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseEvent;
 import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
+import m03.uf5.alquilervehiculos.grupc.modelo.Cliente;
 import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
 import m03.uf5.alquilervehiculos.grupc.modelo.Vehiculo;
 
@@ -26,36 +32,44 @@ import m03.uf5.alquilervehiculos.grupc.modelo.Vehiculo;
  */
 public class VehiculosController implements Initializable, MiControlador {
 
-  @FXML
-  private TextArea textVehiculos;
+    private ObservableList<Vehiculo> vehiculos;
 
-  /**
-   * Initializes the controller class.
-   */
-  @Override
-  public void initialize(URL url, ResourceBundle rb) {
-    actualizar();
-  }
+    @FXML
+    private TableView<Vehiculo> tblVehiculo;
+    @FXML
+    private TableColumn<Vehiculo, String> clmMatricula;
+    @FXML
+    private TableColumn<Vehiculo, String> clmModelo;
 
-  @FXML
-  private void handleBotonVolverAction(ActionEvent event) {
-    try {
-      GestorEscenas.getGestor().muestraMenuPrincipal();
-    } catch (IOException ex) {
-      Logger.getLogger(ClientesController.class.getName()).log(Level.SEVERE, null, ex);
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        actualizar();
     }
-  }
 
-  @Override
-  public void actualizar() {
-    Modelo modelo = Modelo.getModelo();
-    Map<String, Vehiculo> vehiculo = modelo.getVehiculos();
-    String texto = "";
-    for (Map.Entry<String, Vehiculo> v : vehiculo.entrySet()) {
-      texto += v.getValue().toString() + "\n";
+    public void carregaVehiculos() {
+        Modelo modelo = Modelo.getModelo();
+        Map<String, Vehiculo> vehiculo = modelo.getVehiculos();
+        
     }
-    textVehiculos.setText(texto);
 
-  }
+    @Override
+    public void actualizar() {
+
+       // vehiculos = FXCollections.observableArrayList(carregaVehiculos());
+        tblVehiculo.setItems(vehiculos);
+
+    }
+
+    @FXML
+    private void hldbttnVolver(MouseEvent event) {
+        try {
+            GestorEscenas.getGestor().muestraMenuPrincipal();
+        } catch (IOException ex) {
+            Logger.getLogger(ClientesController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 }

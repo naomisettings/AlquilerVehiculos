@@ -54,11 +54,12 @@ public class Alquiler {
     public LocalDate getFechaFin() {
         return fechaFin;
     }
-
+/*
     @Override
     public String toString() {
         //return cliente+ ": "+vehiculo+ ": "+"("+fechaInicio+"-"+fechaFin+")" ;
         return cliente.getNif() + ";" + vehiculo.getMatricula() + ";" + fechaInicio + ";" + fechaFin;
     }
+*/
 
 }
