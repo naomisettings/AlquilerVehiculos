@@ -7,12 +7,14 @@ package m03.uf5.alquilervehiculos.grupc.vistas;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,7 +34,7 @@ import m03.uf5.alquilervehiculos.grupc.modelo.Vehiculo;
  */
 public class VehiculosController implements Initializable, MiControlador {
 
-    private ObservableList<Vehiculo> vehiculos;
+    private ObservableMap<String, Vehiculo> vehiculos;
 
     @FXML
     private TableView<Vehiculo> tblVehiculo;
@@ -49,17 +51,19 @@ public class VehiculosController implements Initializable, MiControlador {
         actualizar();
     }
 
-    public void carregaVehiculos() {
+    public Map<String, Vehiculo> carregaVehiculos() {
         Modelo modelo = Modelo.getModelo();
-        Map<String, Vehiculo> vehiculo = modelo.getVehiculos();
+        Map<String, Vehiculo> vehiculos = modelo.getVehiculos();
+        
+        return vehiculos;
         
     }
 
     @Override
     public void actualizar() {
 
-       // vehiculos = FXCollections.observableArrayList(carregaVehiculos());
-        tblVehiculo.setItems(vehiculos);
+       vehiculos = FXCollections.observableMap(carregaVehiculos());
+       
 
     }
 

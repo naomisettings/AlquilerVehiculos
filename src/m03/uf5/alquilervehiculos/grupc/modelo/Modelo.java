@@ -114,8 +114,11 @@ public class Modelo {
                 String matricula = rs.getString(1);
                 String modelo = rs.getString(2);
                 System.out.println(matricula);
+                System.out.println(modelo);
+                /*
                 Vehiculo v = new Vehiculo(matricula, modelo);
                 vehiculos.put(matricula, v);
+                */
             }
 
         } catch (SQLException e) {
@@ -158,6 +161,7 @@ public class Modelo {
      * @param direccion
      */
     public static void inicializar(String cif, String telefono, String nombreEmpresa, String direccion) {
+
         if (modelo == null) {
 
             modelo = new Modelo(cif, nombreEmpresa, direccion, telefono);
@@ -170,12 +174,12 @@ public class Modelo {
 
                 modelo.cargaVehiculos(con);
 
+                modelo.cargaClientes(ARCHIVO_CLIENTES);
+                modelo.cargaAlquileres(ARCHIVO_ALQUILERES);
+
             } catch (SQLException ex) {
                 printSQLException(ex);
             }
-
-            modelo.cargaClientes(ARCHIVO_CLIENTES);
-            modelo.cargaAlquileres(ARCHIVO_ALQUILERES);
         }
     }
 
