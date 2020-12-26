@@ -19,6 +19,7 @@ import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -43,6 +44,10 @@ public class VehiculosController implements Initializable, MiControlador {
     private TableColumn<Vehiculo, String> clmMatricula;
     @FXML
     private TableColumn<Vehiculo, String> clmModelo;
+    @FXML
+    private Label lblMatricula;
+    @FXML
+    private Label lblModelo;
 
     /**
      * Initializes the controller class.
@@ -79,7 +84,8 @@ public class VehiculosController implements Initializable, MiControlador {
     }
 
     private void muestraVehiculo(Vehiculo vehiculo){
-        
+        lblMatricula.setText(vehiculo.getMatricula());
+        lblModelo.setText(vehiculo.getModelo());
         
     }
     @FXML
@@ -89,6 +95,12 @@ public class VehiculosController implements Initializable, MiControlador {
         } catch (IOException ex) {
             Logger.getLogger(ClientesController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void hldbttnEditar(MouseEvent event) {
+        
+        
     }
 
 }

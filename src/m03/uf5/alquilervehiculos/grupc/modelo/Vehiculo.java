@@ -36,8 +36,16 @@ public class Vehiculo {
         this.modelo.set(modelo);
     }
 
+    public String getMatricula() {
+        return matricula.get();
+    }
+
     public StringProperty getMatriculaProperty() {
         return matricula;
+    }
+
+    public String getModelo() {
+        return modelo.get();
     }
 
     public StringProperty getModeloProperty() {
@@ -48,11 +56,9 @@ public class Vehiculo {
         this.matricula.set(matricula);
     }
 
-    public void setModelo(String  modelo) {
+    public void setModelo(String modelo) {
         this.modelo.set(modelo);
     }
-    
-    
 
     @Override
     public String toString() {
