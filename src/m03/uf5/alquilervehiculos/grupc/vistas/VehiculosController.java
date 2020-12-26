@@ -7,6 +7,7 @@ package m03.uf5.alquilervehiculos.grupc.vistas;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -34,7 +35,7 @@ import m03.uf5.alquilervehiculos.grupc.modelo.Vehiculo;
  */
 public class VehiculosController implements Initializable, MiControlador {
 
-    private ObservableMap<String, Vehiculo> vehiculos;
+    private ObservableList<Vehiculo> vehiculos;
 
     @FXML
     private TableView<Vehiculo> tblVehiculo;
@@ -51,22 +52,36 @@ public class VehiculosController implements Initializable, MiControlador {
         actualizar();
     }
 
-    public Map<String, Vehiculo> carregaVehiculos() {
+    public List<Vehiculo> carregaVehiculos() {
+        List<Vehiculo> vList= new ArrayList();
         Modelo modelo = Modelo.getModelo();
-        Map<String, Vehiculo> vehiculos = modelo.getVehiculos();
-        
-        return vehiculos;
-        
+        Map<String, Vehiculo> v = modelo.getVehiculos();
+        for (Map.Entry<String, Vehiculo> entry : v.entrySet()) {
+
+            Vehiculo value = entry.getValue();
+            vList.add(value);
+        }
+        return vList;
+
     }
 
     @Override
     public void actualizar() {
 
-       vehiculos = FXCollections.observableMap(carregaVehiculos());
-       
-
+        vehiculos = FXCollections.observableArrayList(carregaVehiculos());
+        tblVehiculo.setItems(vehiculos);
+        clmMatricula.setCellValueFactory((datosFila) -> datosFila.getValue().getMatriculaProperty());
+        clmModelo.setCellValueFactory((datosFila) -> datosFila.getValue().getModeloProperty());
+        
+        tblVehiculo.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> muestraVehiculo(newValue));
+        tblVehiculo.getSelectionModel().select(0);
     }
 
+    private void muestraVehiculo(Vehiculo vehiculo){
+        
+        
+    }
     @FXML
     private void hldbttnVolver(MouseEvent event) {
         try {

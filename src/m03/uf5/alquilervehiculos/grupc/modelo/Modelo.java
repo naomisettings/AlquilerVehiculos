@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import javafx.collections.ObservableMap;
 
 /**
  *
@@ -46,6 +47,8 @@ public class Modelo {
     // Colecciones donde se almanenan los datos de la aplicación
     private Map<String, Cliente> clientes = new HashMap<>();
     private Map<String, Vehiculo> vehiculos = new HashMap<>();
+    // private ObservableMap<String, Vehiculo> vehiculos;
+
     private List<Alquiler> alquileres = new ArrayList<>();
     // Último alquiler realizado
     private Alquiler ultimoAlquiler;
@@ -113,14 +116,13 @@ public class Modelo {
             while (rs.next()) {
                 String matricula = rs.getString(1);
                 String modelo = rs.getString(2);
-                System.out.println(matricula);
-                System.out.println(modelo);
-                /*
-                Vehiculo v = new Vehiculo(matricula, modelo);
-                vehiculos.put(matricula, v);
-                */
-            }
+                
+                Vehiculo v = new Vehiculo();
+                v.setMatricula(matricula);
+                v.setModelo(modelo);
 
+                vehiculos.put(matricula, v);
+            }
         } catch (SQLException e) {
             printSQLException(e);
         }
