@@ -20,9 +20,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
-import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -30,10 +27,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
-import m03.uf5.alquilervehiculos.grupc.modelo.Cliente;
 import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
 import static m03.uf5.alquilervehiculos.grupc.modelo.Modelo.printSQLException;
 import m03.uf5.alquilervehiculos.grupc.modelo.Vehiculo;
@@ -45,7 +40,7 @@ import m03.uf5.alquilervehiculos.grupc.modelo.Vehiculo;
  */
 public class VehiculosController implements Initializable, MiControlador {
 
-    private ObservableList<Vehiculo> vehiculos;
+    protected ObservableList<Vehiculo> vehiculos;
 
     @FXML
     private TableView<Vehiculo> tblVehiculo;
@@ -64,7 +59,6 @@ public class VehiculosController implements Initializable, MiControlador {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         actualizar();
-        insertarTabla();
 
     }
 
@@ -83,7 +77,6 @@ public class VehiculosController implements Initializable, MiControlador {
     public void insertarTabla() {
 
         vehiculos = FXCollections.observableArrayList(carregaVehiculos());
-
         tblVehiculo.setItems(vehiculos);
         clmMatricula.setCellValueFactory((datosFila) -> datosFila.getValue().getMatriculaProperty());
         clmModelo.setCellValueFactory((datosFila) -> datosFila.getValue().getModeloProperty());
@@ -95,7 +88,7 @@ public class VehiculosController implements Initializable, MiControlador {
 
     @Override
     public void actualizar() {
-
+      insertarTabla();
     }
 
     private void muestraVehiculo(Vehiculo vehiculo) {

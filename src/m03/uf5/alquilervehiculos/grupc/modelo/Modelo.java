@@ -116,7 +116,7 @@ public class Modelo {
             while (rs.next()) {
                 String matricula = rs.getString(1);
                 String modelo = rs.getString(2);
-                
+
                 Vehiculo v = new Vehiculo();
                 v.setMatricula(matricula);
                 v.setModelo(modelo);
@@ -199,6 +199,7 @@ public class Modelo {
             return modelo;
         }
     }
+
     /**
      *
      * @return la colección de clientes dados de alta
@@ -214,8 +215,8 @@ public class Modelo {
     public Map<String, Vehiculo> getVehiculos() {
         return vehiculos;
     }
-    
-    public void setVehiculos(String matricula){
+
+    public void setVehiculos(String matricula) {
         vehiculos.remove(matricula);
     }
 
@@ -252,13 +253,27 @@ public class Modelo {
      *
      * @param vehiculo
      */
-    public void addVehiculo(Vehiculo vehiculo, Connection conn) {
-        String sql = "{CALL insertar_vehiculo(?, ?)}";
-        try (CallableStatement cs = conn.prepareCall(sql)) {
+    public void addVehiculo(Vehiculo vehiculo) {
+        try (Connection con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/alquilervehiculos?useUnicode=true&"
+                + "useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&"
+                + "serverTimezone=UTC&noAccesToProcedureBodies=True",
+                "admin_alquiler", "admin")) {
 
-        } catch (SQLException e) {
-            printSQLException(e);
+            String sql = "{CALL insertar_vehiculo(?, ?)}";
+            try (CallableStatement cs = con.prepareCall(sql)) {
+                cs.setString(1, vehiculo.getMatricula());
+                cs.setString(2, vehiculo.getModelo());
+                cs.execute();
+                vehiculos.put(vehiculo.getMatricula(), vehiculo);
+            } catch (SQLException e) {
+                printSQLException(e);
+            }
+
+        } catch (SQLException ex) {
+            printSQLException(ex);
         }
+
         /*
         vehiculos.put(vehiculo.getMatricula(), vehiculo);
         try {
@@ -269,7 +284,6 @@ public class Modelo {
             System.out.println("Error al guargar el fichero de vehiculos");
         }
          */
-
     }
 
     /**

@@ -43,6 +43,7 @@ public class GestorEscenas {
 
     private MiControlador contraladorClinete;
     private MiControlador controladorVehiculos;
+    private MiControlador controladorNuevoVehiculo;
     private MiControlador controladorAlquiler;
     private MiControlador controladorNuevoAlquiler;
 

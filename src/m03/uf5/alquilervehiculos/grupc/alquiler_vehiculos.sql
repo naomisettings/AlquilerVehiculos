@@ -66,7 +66,7 @@ END //
 DELIMITER //
 CREATE PROCEDURE insertar_vehiculo(IN matricula VARCHAR(7), IN modelo VARCHAR(40))
 BEGIN
-	INSERT INTO clientes VALUES (matricula, modelo);
+	INSERT INTO vehiculo VALUES (matricula, modelo);
 END //
 
 DELIMITER //
