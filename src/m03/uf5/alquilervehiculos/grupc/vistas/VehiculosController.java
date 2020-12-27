@@ -22,6 +22,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -63,6 +64,8 @@ public class VehiculosController implements Initializable, MiControlador {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         actualizar();
+        insertarTabla();
+
     }
 
     public List<Vehiculo> carregaVehiculos() {
@@ -75,13 +78,12 @@ public class VehiculosController implements Initializable, MiControlador {
             vList.add(value);
         }
         return vList;
-
     }
 
-    @Override
-    public void actualizar() {
+    public void insertarTabla() {
 
         vehiculos = FXCollections.observableArrayList(carregaVehiculos());
+
         tblVehiculo.setItems(vehiculos);
         clmMatricula.setCellValueFactory((datosFila) -> datosFila.getValue().getMatriculaProperty());
         clmModelo.setCellValueFactory((datosFila) -> datosFila.getValue().getModeloProperty());
@@ -91,9 +93,16 @@ public class VehiculosController implements Initializable, MiControlador {
         tblVehiculo.getSelectionModel().select(0);
     }
 
+    @Override
+    public void actualizar() {
+
+    }
+
     private void muestraVehiculo(Vehiculo vehiculo) {
-        lblMatricula.setText(vehiculo.getMatricula());
-        lblModelo.setText(vehiculo.getModelo());
+        if (vehiculo != null) {
+            lblMatricula.setText(vehiculo.getMatricula());
+            lblModelo.setText(vehiculo.getModelo());
+        }
 
     }
 
@@ -131,20 +140,18 @@ public class VehiculosController implements Initializable, MiControlador {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Alquiler de Vehículos");
             alert.setHeaderText("Borrar Vehículo");
-            alert.setContentText("Desea eliminar el vehiculo: " +
-                    v.getMatricula());
-      
+            alert.setContentText("Desea eliminar el vehiculo: "
+                    + v.getMatricula());
+
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
                 borrarVehiculo(v);
+
             } else {
                 // ... user chose CANCEL or closed the dialog
             }
         }
     }
-    
-
-    
 
     private boolean borrarVehiculo(Vehiculo vehiculo) {
         boolean correcte = false;
@@ -159,13 +166,13 @@ public class VehiculosController implements Initializable, MiControlador {
             try (CallableStatement cs = con.prepareCall(sql)) {
                 cs.setString(1, matricula);
                 cs.execute();
-                System.out.println("executa");
 
+                Modelo.getModelo().setVehiculos(matricula);
+                //insertarTabla();
                 if (cs.getUpdateCount() == 1) {
                     correcte = true;
                 }
-                Modelo.getModelo().setVehiculos(matricula);
-                actualizar();
+
             } catch (SQLException e) {
                 printSQLException(e);
             }
