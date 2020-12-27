@@ -33,6 +33,7 @@ import m03.uf5.alquilervehiculos.grupc.modelo.Vehiculo;
  */
 public class NuevoVehiculoController implements Initializable {
 
+    
     @FXML
     private TextField txtFieldMatricula;
     @FXML

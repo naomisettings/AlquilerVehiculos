@@ -92,8 +92,10 @@ public class VehiculosController implements Initializable, MiControlador {
     public void actualizar() {
         if (vehiculos != null) {
             //vehiculos.set(vehiculos.indexOf(vEnviar), EditarVehiculoController.nuevoVehiEnviar);
+            if(vEnviar != null){
             vehiculos.remove(vEnviar);
             vehiculos.add(EditarVehiculoController.nuevoVehiEnviar);
+            }
         }
         insertarTabla();
     }

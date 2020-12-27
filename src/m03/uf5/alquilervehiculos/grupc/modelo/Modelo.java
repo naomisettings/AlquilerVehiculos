@@ -266,6 +266,10 @@ public class Modelo {
                 cs.setString(1, vehiculo.getMatricula());
                 cs.setString(2, vehiculo.getModelo());
                 cs.execute();
+                Vehiculo v = new Vehiculo();
+                v.setMatricula(vehiculo.getMatricula());
+                v.setModelo(vehiculo.getModelo());
+                vehiculos.put(vehiculo.getMatricula(), v);
             } catch (SQLException e) {
                 printSQLException(e);
             }
