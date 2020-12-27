@@ -58,7 +58,7 @@ public class VehiculosController implements Initializable, MiControlador {
     }
 
     public List<Vehiculo> carregaVehiculos() {
-        List<Vehiculo> vList= new ArrayList();
+        List<Vehiculo> vList = new ArrayList();
         Modelo modelo = Modelo.getModelo();
         Map<String, Vehiculo> v = modelo.getVehiculos();
         for (Map.Entry<String, Vehiculo> entry : v.entrySet()) {
@@ -77,29 +77,47 @@ public class VehiculosController implements Initializable, MiControlador {
         tblVehiculo.setItems(vehiculos);
         clmMatricula.setCellValueFactory((datosFila) -> datosFila.getValue().getMatriculaProperty());
         clmModelo.setCellValueFactory((datosFila) -> datosFila.getValue().getModeloProperty());
-        
+
         tblVehiculo.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> muestraVehiculo(newValue));
         tblVehiculo.getSelectionModel().select(0);
     }
 
-    private void muestraVehiculo(Vehiculo vehiculo){
+    private void muestraVehiculo(Vehiculo vehiculo) {
         lblMatricula.setText(vehiculo.getMatricula());
         lblModelo.setText(vehiculo.getModelo());
-        
+
     }
+
     @FXML
     private void hldbttnVolver(MouseEvent event) {
         try {
             GestorEscenas.getGestor().muestraMenuPrincipal();
         } catch (IOException ex) {
-            Logger.getLogger(ClientesController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MenuPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void hldbttnNuevo(MouseEvent event) {
+        try {
+            GestorEscenas.getGestor().muestraNuevoVehiculo();
+        } catch (IOException ex) {
+            Logger.getLogger(NuevoVehiculoController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @FXML
     private void hldbttnEditar(MouseEvent event) {
-        
+        try {
+            GestorEscenas.getGestor().muestraEditarVehiculo();
+        } catch (IOException ex) {
+            Logger.getLogger(EditarVehiculoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void hldbttnBorrar(MouseEvent event) {
         
     }
 

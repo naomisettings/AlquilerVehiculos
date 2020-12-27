@@ -88,9 +88,9 @@ public class NuevoVehiculoController implements Initializable {
   @FXML
   private void handleBttnVolver(MouseEvent event) {
     try {
-      GestorEscenas.getGestor().muestraMenuPrincipal();
+      GestorEscenas.getGestor().muestraVehiculos();
     } catch (IOException ex) {
-      Logger.getLogger(AlquileresController.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(VehiculosController.class.getName()).log(Level.SEVERE, null, ex);
     }
   }
 
