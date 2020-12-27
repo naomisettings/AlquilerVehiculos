@@ -168,7 +168,7 @@ public class VehiculosController implements Initializable, MiControlador {
                 cs.execute();
 
                 Modelo.getModelo().setVehiculos(matricula);
-                //insertarTabla();
+                insertarTabla();
                 if (cs.getUpdateCount() == 1) {
                     correcte = true;
                 }
