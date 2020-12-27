@@ -199,7 +199,6 @@ public class Modelo {
             return modelo;
         }
     }
-
     /**
      *
      * @return la colección de clientes dados de alta
@@ -214,6 +213,10 @@ public class Modelo {
      */
     public Map<String, Vehiculo> getVehiculos() {
         return vehiculos;
+    }
+    
+    public void setVehiculos(String matricula){
+        vehiculos.remove(matricula);
     }
 
     /**

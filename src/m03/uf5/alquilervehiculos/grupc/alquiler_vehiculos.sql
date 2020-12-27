@@ -1,6 +1,6 @@
 DROP DATABASE IF EXISTS alquilervehiculos;
 CREATE DATABASE alquilervehiculos;
-DROP USER 'admin_alquiler'@'localhost';
+DROP USER IF EXISTS 'admin_alquiler'@'localhost';
 CREATE USER 'admin_alquiler'@'localhost' IDENTIFIED BY 'admin';
 GRANT ALL PRIVILEGES ON alquilervehiculos.* TO 'admin_alquiler'@'localhost';
 FLUSH PRIVILEGES;
@@ -15,14 +15,14 @@ CREATE TABLE IF NOT EXISTS cliente(
   PRIMARY KEY (nif));
 
 CREATE TABLE IF NOT EXISTS vehiculo (
-  matricula VARCHAR(8) NOT NULL,
+  matricula VARCHAR(7) NOT NULL,
   modelo VARCHAR(40) NOT NULL,
   PRIMARY KEY(matricula));
 
 CREATE TABLE IF NOT EXISTS alquiler(
   id INTEGER NOT NULL AUTO_INCREMENT,
   nif_cliente VARCHAR(9),
-  matricula VARCHAR(6),
+  matricula VARCHAR(7),
   fechainicio DATE NOT NULL,
   fechafin DATE  NOT NULL,
   PRIMARY KEY (id),
@@ -64,13 +64,13 @@ BEGIN
 END //
 
 DELIMITER //
-CREATE PROCEDURE insertar_vehiculo(IN matricula VARCHAR(8), IN modelo VARCHAR(40))
+CREATE PROCEDURE insertar_vehiculo(IN matricula VARCHAR(7), IN modelo VARCHAR(40))
 BEGIN
 	INSERT INTO clientes VALUES (matricula, modelo);
 END //
 
 DELIMITER //
-CREATE PROCEDURE insertar_alquiler ( IN id INT, IN nif_cliente VARCHAR(9), IN matricula VARCHAR(8), IN fechainicio DATE, IN fechafin DATE)
+CREATE PROCEDURE insertar_alquiler ( IN id INT, IN nif_cliente VARCHAR(9), IN matricula VARCHAR(7), IN fechainicio DATE, IN fechafin DATE)
 BEGIN
 	INSERT INTO clientes VALUES (id, nif_cliente_matricula, fechainicio, fechafin);
 END //
@@ -95,12 +95,12 @@ BEGIN
 SELECT * FROM alquiler a WHERE a.nif_cliente = nif;
 END //
 
-CREATE PROCEDURE obtener_aquiler_matricula(IN matricula VARCHAR(8))
+CREATE PROCEDURE obtener_aquiler_matricula(IN matricula VARCHAR(7))
 BEGIN
 SELECT * FROM alquiler a WHERE a.matricula = matricula;
 END //
 
-CREATE PROCEDURE obtener_alquiler(IN nif VARCHAR(9), IN matricula VARCHAR(8))
+CREATE PROCEDURE obtener_alquiler(IN nif VARCHAR(9), IN matricula VARCHAR(7))
 BEGIN
 SELECT * FROM alquiler a WHERE a.matricula = matricula AND a.nif_cliente = nif;
 END //
@@ -110,12 +110,12 @@ BEGIN
 	UPDATE cliente SET c.nombre=nombre, c.apellido1=apellido1, c.apellido2=apellido2 WHERE c.nit=nif; 
 END //
 
-CREATE PROCEDURE modifica_vehiculo (IN matricula VARCHAR(8), modelo VARCHAR(40))
+CREATE PROCEDURE modifica_vehiculo (IN matricula VARCHAR(7), modelo VARCHAR(40))
 BEGIN
 	UPDATE vehiculo SET v.modelo=modelo WHERE v.matricula=matricula;
 END //
 
-CREATE PROCEDURE modifica_alquiler (IN id INT, nif_cliente VARCHAR(9), matricula VARCHAR(6),IN fechainicio DATE, IN fechafin DATE)
+CREATE PROCEDURE modifica_alquiler (IN id INT, nif_cliente VARCHAR(9), matricula VARCHAR(7),IN fechainicio DATE, IN fechafin DATE)
 BEGIN
 	UPDATE modifica_alquiler SET a.nif_cliente=nif_cliente, a.matricula=matricula, a.fechainicio=fechaincio, a.fechafin=fechafin WHERE a.id=id;
 END //
@@ -125,7 +125,7 @@ BEGIN
 	DELETE FROM cliente WHERE nif = nif_;
 END //
 
-CREATE PROCEDURE elimina_vehiculo(IN matricula_ VARCHAR(6))
+CREATE PROCEDURE elimina_vehiculo(IN matricula_ VARCHAR(7))
 BEGIN
 	DELETE FROM vehiculo WHERE matricula = matricula_;
 END //
