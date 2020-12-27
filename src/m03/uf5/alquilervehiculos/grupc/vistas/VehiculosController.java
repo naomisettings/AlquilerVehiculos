@@ -40,7 +40,8 @@ import m03.uf5.alquilervehiculos.grupc.modelo.Vehiculo;
  */
 public class VehiculosController implements Initializable, MiControlador {
 
-    protected ObservableList<Vehiculo> vehiculos;
+    private ObservableList<Vehiculo> vehiculos;
+    protected static Vehiculo vEnviar;
 
     @FXML
     private TableView<Vehiculo> tblVehiculo;
@@ -84,11 +85,17 @@ public class VehiculosController implements Initializable, MiControlador {
         tblVehiculo.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> muestraVehiculo(newValue));
         tblVehiculo.getSelectionModel().select(0);
+
     }
 
     @Override
     public void actualizar() {
-      insertarTabla();
+        if (vehiculos != null) {
+            //vehiculos.set(vehiculos.indexOf(vEnviar), EditarVehiculoController.nuevoVehiEnviar);
+            vehiculos.remove(vEnviar);
+            vehiculos.add(EditarVehiculoController.nuevoVehiEnviar);
+        }
+        insertarTabla();
     }
 
     private void muestraVehiculo(Vehiculo vehiculo) {
@@ -119,6 +126,7 @@ public class VehiculosController implements Initializable, MiControlador {
 
     @FXML
     private void hldbttnEditar(MouseEvent event) {
+        vEnviar = tblVehiculo.getSelectionModel().getSelectedItem();
         try {
             GestorEscenas.getGestor().muestraEditarVehiculo();
         } catch (IOException ex) {

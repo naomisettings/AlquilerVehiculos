@@ -76,19 +76,11 @@ public class NuevoVehiculoController implements Initializable {
 
                 alert.showAndWait();
             }
-            /*
-            Vehiculo v = new Vehiculo(txtFieldMatricula.getText(), txtFieldModelo.getText());
-            //Modelo.getModelo().addVehiculo(v);
-            txtFieldMatricula.setText("");
-            txtFieldModelo.setText("");
-             */
-          
+
              Vehiculo v = new Vehiculo();
              v.setMatricula(txtFieldMatricula.getText());
              v.setModelo(txtFieldModelo.getText());
              Modelo.getModelo().addVehiculo(v);
-             
-            
         }
     }
 
@@ -103,7 +95,7 @@ public class NuevoVehiculoController implements Initializable {
 
     private boolean camposEmplenados() {
 
-        if (txtFieldModelo.getText().isEmpty() || txtFieldModelo.getText().isEmpty()) {
+        if (txtFieldMatricula.getText().isEmpty() || txtFieldModelo.getText().isEmpty()) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Alquiler de Vehículos");
             alert.setHeaderText("Vehículo no introducido");

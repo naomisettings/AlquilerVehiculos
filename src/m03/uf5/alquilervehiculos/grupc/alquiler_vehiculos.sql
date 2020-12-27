@@ -110,9 +110,9 @@ BEGIN
 	UPDATE cliente SET c.nombre=nombre, c.apellido1=apellido1, c.apellido2=apellido2 WHERE c.nit=nif; 
 END //
 
-CREATE PROCEDURE modifica_vehiculo (IN matricula VARCHAR(7), modelo VARCHAR(40))
+CREATE PROCEDURE modifica_vehiculo (IN matricula_original VARCHAR(7), IN matricula VARCHAR(7), IN modelo VARCHAR(40))
 BEGIN
-	UPDATE vehiculo SET v.modelo=modelo WHERE v.matricula=matricula;
+	UPDATE vehiculo v SET v.matricula=matricula, v.modelo=modelo WHERE v.matricula=matricula_original;
 END //
 
 CREATE PROCEDURE modifica_alquiler (IN id INT, nif_cliente VARCHAR(9), matricula VARCHAR(7),IN fechainicio DATE, IN fechafin DATE)

@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
 /**
@@ -265,7 +266,6 @@ public class Modelo {
                 cs.setString(1, vehiculo.getMatricula());
                 cs.setString(2, vehiculo.getModelo());
                 cs.execute();
-                vehiculos.put(vehiculo.getMatricula(), vehiculo);
             } catch (SQLException e) {
                 printSQLException(e);
             }
@@ -305,6 +305,30 @@ public class Modelo {
             out.close();
         } catch (FileNotFoundException e) {
             System.out.println("Error al guargar el fichero de alquileres");
+        }
+
+    }
+
+    public void modificarVehiculo(Vehiculo vehiculo, String matricula_original) {
+        try (Connection con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/alquilervehiculos?useUnicode=true&"
+                + "useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&"
+                + "serverTimezone=UTC&noAccesToProcedureBodies=True",
+                "admin_alquiler", "admin")) {
+
+            String sql = "{CALL modifica_vehiculo(?, ?, ?)}";
+            try (CallableStatement cs = con.prepareCall(sql)) {
+                cs.setString(1, matricula_original);
+                cs.setString(2, vehiculo.getMatricula());
+                cs.setString(3, vehiculo.getModelo());
+                cs.execute();
+                vehiculos.replace(matricula_original, vehiculo);
+            } catch (SQLException e) {
+                printSQLException(e);
+            }
+
+        } catch (SQLException ex) {
+            printSQLException(ex);
         }
 
     }
