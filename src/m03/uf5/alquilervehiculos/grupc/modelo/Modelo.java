@@ -81,25 +81,33 @@ public class Modelo {
     }
 
     /**
-     * Método que lee el archivo CSV con los datos de los clientes y lo carga en
-     * la colección correspondiente
+     * Método que carga los datos del cliente de la BBDD
      *
      * @param ficheroClientes
      */
-    private void cargaClientes(String ficheroClientes) {
-        File fichero = new File(ficheroClientes);
-        try {
-            Scanner sc = new Scanner(fichero);
-            while (sc.hasNext()) {
-                String[] datos = sc.nextLine().split(";");
-                Cliente c = new Cliente(datos[0], datos[1], datos[2], datos[3]);
-                clientes.put(c.getNif(), c);
+    private void cargaClientes(Connection con) {
+        String sql = "SELECT * FROM cliente";
+        try (PreparedStatement ps = con.prepareStatement(sql)){
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String nif = rs.getString(1);
+                String nombre = rs.getString(2);
+                String apellido1 = rs.getString(3);
+                String apellido2 = rs.getString(4);
+                
+                
+                Cliente c = new Cliente();
+                c.setNif(nif);
+                c.setNombre (nombre);
+                c.setApellido1(apellido1);
+                c.setApellido2(apellido2);
+                
+                
+               clientes.put(nif, c);
             }
-        } catch (FileNotFoundException ex) {
-            System.out.println("No se ha podido abrir el fichero de clientes");
-        } catch (IllegalArgumentException ex) {
-            System.out.println("Error al cargar el fichero de clientes: " + ex.getMessage());
-        }
+        } catch (SQLException e) {
+            printSQLException(e);
+        } 
 
     }
 
@@ -175,8 +183,7 @@ public class Modelo {
                     "admin_alquiler", "admin")) {
 
                 modelo.cargaVehiculos(con);
-
-                modelo.cargaClientes(ARCHIVO_CLIENTES);
+                modelo.cargaClientes(con);
                 modelo.cargaAlquileres(ARCHIVO_ALQUILERES);
 
             } catch (SQLException ex) {
@@ -230,15 +237,12 @@ public class Modelo {
      *
      * @param cliente
      */
-    public void addCliente(Cliente cliente) {
-        clientes.put(cliente.getNif(), cliente);
-        try {
-            PrintStream out = new PrintStream(new FileOutputStream(ARCHIVO_CLIENTES, true));
-            out.println(cliente.getNombre() + ";" + cliente.getApellido1() + ";"
-                    + cliente.getApellido1() + ";" + cliente.getNif());
-            out.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Error al guargar el fichero de clientes");
+    public void addCliente(Cliente cliente, Connection conn) {
+        String sql = "{CALL insertar_cliente()}";
+        try (CallableStatement cs = conn.prepareCall(sql)) {
+            
+        } catch (SQLException e) {
+             printSQLException(e);
         }
 
     }

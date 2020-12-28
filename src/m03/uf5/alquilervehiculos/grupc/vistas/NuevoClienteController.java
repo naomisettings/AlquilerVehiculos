@@ -17,7 +17,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
 import m03.uf5.alquilervehiculos.grupc.modelo.Cliente;
 import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
@@ -29,16 +32,16 @@ import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
  */
 public class NuevoClienteController implements Initializable {
 
+  
+
     public static final String TABLA_LETRA = "TRWAGMYFPDXBNJZSQVHLCKE";
 
-    @FXML
     private TextField textoNombre;
-    @FXML
     private TextField textoApellido1;
-    @FXML
     private TextField textoApellido2;
-    @FXML
     private TextField textoNif;
+  
+   
 
     /**
      * Initializes the controller class.
@@ -48,12 +51,11 @@ public class NuevoClienteController implements Initializable {
         // TODO
     }
 
-    @FXML
     private void handleBotonGuardarAction(ActionEvent event) {
         if (comprobarCampos() && validaNIF()) {
             Cliente cliente = new Cliente(textoNombre.getText(), textoApellido1.getText(),
             textoApellido2.getText(), textoNif.getText());
-            Modelo.getModelo().addCliente(cliente);
+         //   Modelo.getModelo().addCliente(cliente);
             
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Alquiler de vheiculos");
@@ -64,7 +66,6 @@ public class NuevoClienteController implements Initializable {
         }
     }
 
-    @FXML
     private void handleBotonVolverAction(ActionEvent event) {
         try {
             GestorEscenas.getGestor().muestraMenuPrincipal();
@@ -106,7 +107,7 @@ public class NuevoClienteController implements Initializable {
         }
     }
 
-    private boolean validaNIF() {
+   private boolean validaNIF() {
         String nif = textoNif.getText();
         Pattern reglas = Pattern.compile("[0-9]{8}[A-Z]");
         Matcher textAnalitzar = reglas.matcher(nif);
@@ -127,5 +128,6 @@ public class NuevoClienteController implements Initializable {
         alert.showAndWait();
         return false;
     }
+
 
 }

@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
 
@@ -28,13 +29,11 @@ public class MenuPrincipalController implements Initializable {
     @FXML
     private Button verAlquiler;
     @FXML
-    private Button nuevoCliente;
-    @FXML
     private Button verClientes;
     @FXML
-    private Button nuevoVehiculo;
-    @FXML
     private Button verVehiculos;
+    @FXML
+    private ImageView imgCotxe;
 
     /**
      * Initializes the controller class.
@@ -61,14 +60,13 @@ public class MenuPrincipalController implements Initializable {
         }
     }
 
-    @FXML
-    private void handleBttnNuevoCliente(MouseEvent event) {
+   /* private void handleBttnNuevoCliente(MouseEvent event) {
         try {
             GestorEscenas.getGestor().muestraNuevoCliente();
         } catch (IOException ex) {
             Logger.getLogger(NuevoClienteController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    }*/
 
     @FXML
     private void handleBttnVerClientes(MouseEvent event) {

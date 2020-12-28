@@ -33,12 +33,7 @@
             </VBox>
             <VBox prefHeight="132.0" styleClass="tamanyVboxMenuPrincipal" stylesheets="@CssEstilGeneral.css">
                <children>
-                  <Button fx:id="verClientes" mnemonicParsing="false" onMouseClicked="#handleBttnVerClientes" styleClass="buttonsMenuPrincipal" stylesheets="@CssEstilGeneral.css" text="Ver Clientes" />
-                  <Button fx:id="nuevoCliente" mnemonicParsing="false" onMouseClicked="#handleBttnNuevoCliente" styleClass="buttonsMenuPrincipal" stylesheets="@CssEstilGeneral.css" text="Nuevo Cliente">
-                     <VBox.margin>
-                        <Insets top="15.0" />
-                     </VBox.margin>
-                  </Button>
+                  <Button fx:id="verClientes" mnemonicParsing="false" onMouseClicked="#handleBttnVerClientes" prefHeight="79.0" styleClass="buttonsMenuPrincipal" stylesheets="@CssEstilGeneral.css" text="Ver Clientes" />
                </children>
             </VBox>
          </children>
