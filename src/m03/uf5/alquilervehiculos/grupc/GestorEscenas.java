@@ -25,6 +25,7 @@ public class GestorEscenas {
     private final static String VISTA_CLIENTES = "vistas/Clientes.fxml";            //Pau
     private final static String VISTA_NUEVO_CLIENTE = "vistas/NuevoCliente.fxml";   //Pau
     private final static String VISTA_VEHICULOS = "vistas/Vehiculos.fxml";          //Pau
+    private final static String VISTA_EDITAR_VEHICULO = "vistas/EditarVehiculo.fxml";//Raimon
     private final static String VISTA_NUEVO_VEHICULO = "vistas/NuevoVehiculo.fxml"; //Raimon 
     private final static String VISTA_ALQUILERES = "vistas/Alquileres.fxml";        //Àngels
     private final static String VISTA_NUEVO_ALQUILER = "vistas/NuevoAlquiler.fxml"; //Àngels
@@ -34,6 +35,7 @@ public class GestorEscenas {
     private Scene pantallaVerCliente;
     private Scene pantallaNuevoCliente;
     private Scene pantallaVerVehiculo;
+    private Scene pantallaEditarVehiculo;
     private Scene pantallaNuevoVehiculo;
     private Scene pantallaVerAlquiler;
     private Scene pantallaNuevoAlquiler;
@@ -41,6 +43,7 @@ public class GestorEscenas {
 
     private MiControlador contraladorClinete;
     private MiControlador controladorVehiculos;
+    private MiControlador controladorEditarVehiculo;
     private MiControlador controladorAlquiler;
     private MiControlador controladorNuevoAlquiler;
 
@@ -131,6 +134,17 @@ public class GestorEscenas {
             pantallaNuevoVehiculo = new Scene(root);
         }
         ventana.setScene(pantallaNuevoVehiculo);
+    }
+
+    public void muestraEditarVehiculo() throws IOException {
+        if (pantallaEditarVehiculo == null) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(VISTA_EDITAR_VEHICULO));
+            Parent root = loader.load();
+            pantallaEditarVehiculo = new Scene(root);
+            controladorEditarVehiculo = (MiControlador) loader.getController();
+        }
+        ventana.setScene(pantallaEditarVehiculo);
+        controladorEditarVehiculo.actualizar();
     }
 
     public void muestraAlquileres() throws IOException {
