@@ -88,27 +88,25 @@ public class Modelo {
      */
     private void cargaClientes(Connection con) {
         String sql = "SELECT * FROM cliente";
-        try (PreparedStatement ps = con.prepareStatement(sql)){
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 String nif = rs.getString(1);
                 String nombre = rs.getString(2);
                 String apellido1 = rs.getString(3);
                 String apellido2 = rs.getString(4);
-                
-                
+
                 Cliente c = new Cliente();
                 c.setNif(nif);
-                c.setNombre (nombre);
+                c.setNombre(nombre);
                 c.setApellido1(apellido1);
                 c.setApellido2(apellido2);
-                
-                
-               clientes.put(nif, c);
+
+                clientes.put(nif, c);
             }
         } catch (SQLException e) {
             printSQLException(e);
-        } 
+        }
 
     }
 
@@ -215,7 +213,9 @@ public class Modelo {
     public Map<String, Cliente> getClientes() {
         return clientes;
     }
-
+    public void setClientes(String nif){
+        clientes.remove(nif);
+    }
     /**
      *
      * @return la colección de vehículos disponibles
@@ -245,9 +245,9 @@ public class Modelo {
     public void addCliente(Cliente cliente, Connection conn) {
         String sql = "{CALL insertar_cliente()}";
         try (CallableStatement cs = conn.prepareCall(sql)) {
-            
+
         } catch (SQLException e) {
-             printSQLException(e);
+            printSQLException(e);
         }
 
     }

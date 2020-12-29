@@ -41,7 +41,8 @@ public class GestorEscenas {
     private Scene pantallaNuevoAlquiler;
     private Scene pantallaVerFactura;
 
-    private MiControlador contraladorClinete;
+    private MiControlador contraladorCliente;
+    private MiControlador controladorNuevoCliente;
     private MiControlador controladorVehiculos;
     private MiControlador controladorEditarVehiculo;
     private MiControlador controladorAlquiler;
@@ -94,24 +95,26 @@ public class GestorEscenas {
 
     public void muestraClientes() throws IOException {
         if (pantallaVerCliente == null) {
-            /*Parent root = FXMLLoader.load(getClass().getResource(VISTA_CLIENTES));
-            pantallaVerCliente = new Scene(root);*/
             FXMLLoader loader = new FXMLLoader(getClass().getResource(VISTA_CLIENTES));
             Parent root = loader.load();
             pantallaVerCliente = new Scene(root);
-            contraladorClinete = (MiControlador) loader.getController();
+            contraladorCliente = (MiControlador) loader.getController();
 
         }
         ventana.setScene(pantallaVerCliente);
-        contraladorClinete.actualizar();
+        contraladorCliente.actualizar();
     }
 
     public void muestraNuevoCliente() throws IOException {
         if (pantallaNuevoCliente == null) {
-            Parent root = FXMLLoader.load(getClass().getResource(VISTA_NUEVO_CLIENTE));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(VISTA_NUEVO_CLIENTE));
+            Parent root = loader.load();
             pantallaNuevoCliente = new Scene(root);
+            controladorNuevoCliente = (MiControlador) loader.getController();
+            
         }
         ventana.setScene(pantallaNuevoCliente);
+        controladorNuevoCliente.actualizar();
 
     }
 

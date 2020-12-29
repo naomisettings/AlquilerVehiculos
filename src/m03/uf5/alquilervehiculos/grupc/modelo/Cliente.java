@@ -5,8 +5,12 @@
  */
 package m03.uf5.alquilervehiculos.grupc.modelo;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.Alert;
+import static m03.uf5.alquilervehiculos.grupc.vistas.NuevoClienteController.TABLA_LETRA;
 
 /**
  *
@@ -92,7 +96,27 @@ public Cliente(){
       this.nif.set(nif);
   }
 
- 
+    /*private boolean validaNIF() {
+        String nif = textoNif.getText();
+        Pattern reglas = Pattern.compile("[0-9]{8}[A-Z]");
+        Matcher textAnalitzar = reglas.matcher(nif);
+
+        if (textAnalitzar.matches()) {
+            int dni = Integer.parseInt(nif.substring(0, 8));
+            char lletra = TABLA_LETRA.charAt(dni % 23);
+            if (nif.charAt(nif.length() - 1) == lletra) {
+                return true;
+            }
+        }
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Alquiler de vheiculos");
+        alert.setHeaderText(null);
+        alert.setContentText("NIF incorrecto");
+
+        alert.showAndWait();
+        return false;
+    }*/
 
   @Override
   public String toString() {

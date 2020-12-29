@@ -13,7 +13,7 @@
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="m03.uf5.alquilervehiculos.grupc.vistas.ClientesController">
    <children>
-      <TableView fx:id="tblCliente" prefHeight="400.0" prefWidth="384.0">
+      <TableView fx:id="tvCliente" prefHeight="400.0" prefWidth="384.0">
         <columns>
           <TableColumn fx:id="clmNif" prefWidth="75.0" text="Nif" />
           <TableColumn fx:id="clmNombre" maxWidth="1.7976931348623157E308" prefWidth="100.0" text="Nombre" />
@@ -71,12 +71,12 @@
             </GridPane>
             <HBox prefHeight="77.0" prefWidth="408.0">
                <children>
-                  <Button fx:id="btnNuevo" mnemonicParsing="false" onMouseClicked="#handlebtnNuevo" text="Nuevo">
+                  <Button fx:id="btnNuevo" mnemonicParsing="false" onMouseClicked="#handleEditar" text="Nuevo">
                      <HBox.margin>
                         <Insets left="20.0" top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="btnEditar" mnemonicParsing="false" onMouseClicked="#handlebtnEditar" text="Editar">
+                  <Button fx:id="btnEditar" mnemonicParsing="false" onMouseClicked="#handleEditar" text="Editar">
                      <HBox.margin>
                         <Insets left="20.0" top="10.0" />
                      </HBox.margin>

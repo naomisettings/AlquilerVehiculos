@@ -30,15 +30,19 @@ import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
  *
  * @author sella
  */
-public class NuevoClienteController implements Initializable {
+public class NuevoClienteController implements Initializable, MiControlador {
 
   
 
     public static final String TABLA_LETRA = "TRWAGMYFPDXBNJZSQVHLCKE";
 
+    @FXML
     private TextField textoNombre;
+    @FXML
     private TextField textoApellido1;
+    @FXML
     private TextField textoApellido2;
+    @FXML
     private TextField textoNif;
   
    
@@ -48,9 +52,11 @@ public class NuevoClienteController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        actualizar();
+       
     }
 
+  /*  @FXML
     private void handleBotonGuardarAction(ActionEvent event) {
         if (comprobarCampos() && validaNIF()) {
             Cliente cliente = new Cliente(textoNombre.getText(), textoApellido1.getText(),
@@ -64,15 +70,13 @@ public class NuevoClienteController implements Initializable {
 
             alert.showAndWait();
         }
-    }
+    }*/
 
+    @FXML
     private void handleBotonVolverAction(ActionEvent event) {
         try {
-            GestorEscenas.getGestor().muestraMenuPrincipal();
-            textoApellido1.setText("");
-            textoApellido2.setText("");
-            textoNif.setText("");
-            textoNombre.setText("");
+            GestorEscenas.getGestor().muestraClientes();
+     
         } catch (IOException ex) {
             Logger.getLogger(NuevoClienteController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -107,26 +111,11 @@ public class NuevoClienteController implements Initializable {
         }
     }
 
-   private boolean validaNIF() {
-        String nif = textoNif.getText();
-        Pattern reglas = Pattern.compile("[0-9]{8}[A-Z]");
-        Matcher textAnalitzar = reglas.matcher(nif);
 
-        if (textAnalitzar.matches()) {
-            int dni = Integer.parseInt(nif.substring(0, 8));
-            char lletra = TABLA_LETRA.charAt(dni % 23);
-            if (nif.charAt(nif.length() - 1) == lletra) {
-                return true;
-            }
-        }
 
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Alquiler de vheiculos");
-        alert.setHeaderText(null);
-        alert.setContentText("NIF incorrecto");
-
-        alert.showAndWait();
-        return false;
+    @Override
+    public void actualizar() {
+        //To change body of generated methods, choose Tools | Templates.
     }
 
 
