@@ -43,10 +43,6 @@ public class VehiculosController implements Initializable, MiControlador {
     private ObservableList<Vehiculo> vehiculos;
     protected static Vehiculo vEnviar;
 
-    private static String urlBBDD = "jdbc:mysql://localhost:3306/alquilervehiculos?useUnicode=true&"
-            + "useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&"
-            + "serverTimezone=UTC&noAccesToProcedureBodies=True";
-
     @FXML
     private TableView<Vehiculo> tblVehiculo;
     @FXML
@@ -169,7 +165,10 @@ public class VehiculosController implements Initializable, MiControlador {
     private boolean borrarVehiculo(Vehiculo vehiculo) {
         boolean correcte = false;
         String matricula = vehiculo.getMatricula();
-        try (Connection con = DriverManager.getConnection(urlBBDD,
+        try (Connection con = DriverManager.getConnection("jdbc:mysql:"
+                + "//localhost:3306/alquilervehiculos?useUnicode=true&"
+                + "useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&"
+                + "serverTimezone=UTC&noAccesToProcedureBodies=True",
                 "admin_alquiler", "admin")) {
 
             String sql = "{CALL elimina_vehiculo(?)}";

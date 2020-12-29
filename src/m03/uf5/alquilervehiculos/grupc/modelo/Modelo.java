@@ -337,6 +337,8 @@ public class Modelo {
         }
 
     }
+    
+    
 
     // Getters diversos
     public String getCif() {

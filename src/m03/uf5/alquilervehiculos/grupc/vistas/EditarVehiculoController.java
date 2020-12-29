@@ -70,13 +70,6 @@ public class EditarVehiculoController implements Initializable, MiControlador {
                 nuevoVehiEnviar = v;
 
             }
-            /*
-            Vehiculo v = new Vehiculo(txtFieldMatricula.getText(), txtFieldModelo.getText());
-            //Modelo.getModelo().addVehiculo(v);
-            txtFieldMatricula.setText("");
-            txtFieldModelo.setText("");
-             */
-
         }
     }
 
