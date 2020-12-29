@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -52,16 +51,24 @@ public class EditarVehiculoController implements Initializable, MiControlador {
 
     @FXML
     private void hdlBttnGuardar(MouseEvent event) {
-        boolean camposOk = camposEmplenados();
-        if (camposOk) {
-            String matriculaOk = validaMatricula();
-            if (matriculaOk != null) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Alquiler de Vehículos");
-                alert.setHeaderText(null);
-                alert.setContentText("Vehículo introducido correctamente");
+        Vehiculo v = new Vehiculo();
+        boolean camposOk = v.camposEmplenados(txtFdMatricula.getText().isEmpty(),
+                txtFldModelo.getText().isEmpty());
+        if (!camposOk) {
+            Boolean matriculaOk = v.validaMatricula(txtFdMatricula.getText());
+            if (matriculaOk) {
 
-                alert.showAndWait();
+                Vehiculo vehiEnviar;
+                vehiEnviar = VehiculosController.vEnviar;
+
+                v.setMatricula(txtFdMatricula.getText());
+                v.setModelo(txtFldModelo.getText());
+                String matricula_original = vehiEnviar.getMatricula();
+                System.out.println(matricula_original);
+
+                Modelo.getModelo().modificarVehiculo(v, matricula_original);
+                nuevoVehiEnviar = v;
+
             }
             /*
             Vehiculo v = new Vehiculo(txtFieldMatricula.getText(), txtFieldModelo.getText());
@@ -69,18 +76,6 @@ public class EditarVehiculoController implements Initializable, MiControlador {
             txtFieldMatricula.setText("");
             txtFieldModelo.setText("");
              */
-
-            Vehiculo vehiEnviar;
-            vehiEnviar = VehiculosController.vEnviar;
-
-            Vehiculo v = new Vehiculo();
-            v.setMatricula(txtFdMatricula.getText());
-            v.setModelo(txtFldModelo.getText());
-            String matricula_original = vehiEnviar.getMatricula();
-            System.out.println(matricula_original);
-
-            Modelo.getModelo().modificarVehiculo(v, matricula_original);
-            nuevoVehiEnviar = v;
 
         }
     }
@@ -91,50 +86,6 @@ public class EditarVehiculoController implements Initializable, MiControlador {
             GestorEscenas.getGestor().muestraVehiculos();
         } catch (IOException ex) {
             Logger.getLogger(VehiculosController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private boolean camposEmplenados() {
-
-        if (txtFdMatricula.getText().isEmpty() || txtFldModelo.getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Alquiler de Vehículos");
-            alert.setHeaderText("Vehículo no introducido");
-            alert.setContentText("Todos los campos deben estar completos");
-
-            Optional<ButtonType> result = alert.showAndWait();
-
-            if (result.get() == ButtonType.OK) {
-                // ... user chose OK
-            } else {
-                // ... user chose CANCEL or closed the dialog
-            }
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    private String validaMatricula() {
-        Pattern reglas = Pattern.compile("[0-9]{4}[[A-Z]&&[^AEIOUaeiou]]{3}");
-        Matcher matriculaAnalitzar = reglas.matcher(txtFdMatricula.getText());
-        if (!matriculaAnalitzar.matches()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Alquiler de Vehículos");
-            alert.setHeaderText("Vehículo no introducido");
-            alert.setContentText("La matríucula debe estar en el formato correcto"
-                    + " y en mayúsculas");
-
-            Optional<ButtonType> result = alert.showAndWait();
-
-            if (result.get() == ButtonType.OK) {
-                // ... user chose OK
-            } else {
-                // ... user chose CANCEL or closed the dialog
-            }
-            return null;
-        } else {
-            return matriculaAnalitzar.group();
         }
     }
 

@@ -33,7 +33,6 @@ import m03.uf5.alquilervehiculos.grupc.modelo.Vehiculo;
  */
 public class NuevoVehiculoController implements Initializable {
 
-    
     @FXML
     private TextField txtFieldMatricula;
     @FXML
@@ -66,22 +65,18 @@ public class NuevoVehiculoController implements Initializable {
     @FXML
 
     private void handlebttnGuardar(MouseEvent event) {
-        boolean camposOk = camposEmplenados();
-        if (camposOk) {
-            String matriculaOk = validaMatricula();
-            if (matriculaOk != null) {
-                Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle("Alquiler de Vehículos");
-                alert.setHeaderText(null);
-                alert.setContentText("Vehículo introducido correctamente");
+        Vehiculo v = new Vehiculo();
+        boolean camposOk = v.camposEmplenados(txtFieldMatricula.getText().isEmpty(),
+                txtFieldModelo.getText().isEmpty());
+        if (!camposOk) {
+            Boolean matriculaOk = v.validaMatricula(txtFieldMatricula.getText());
+            if (matriculaOk) {
 
-                alert.showAndWait();
+                v.setMatricula(txtFieldMatricula.getText());
+                v.setModelo(txtFieldModelo.getText());
+                Modelo.getModelo().addVehiculo(v);
+
             }
-
-             Vehiculo v = new Vehiculo();
-             v.setMatricula(txtFieldMatricula.getText());
-             v.setModelo(txtFieldModelo.getText());
-             Modelo.getModelo().addVehiculo(v);
         }
     }
 
@@ -94,47 +89,4 @@ public class NuevoVehiculoController implements Initializable {
         }
     }
 
-    private boolean camposEmplenados() {
-
-        if (txtFieldMatricula.getText().isEmpty() || txtFieldModelo.getText().isEmpty()) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Alquiler de Vehículos");
-            alert.setHeaderText("Vehículo no introducido");
-            alert.setContentText("Todos los campos deben estar completos");
-
-            Optional<ButtonType> result = alert.showAndWait();
-
-            if (result.get() == ButtonType.OK) {
-                // ... user chose OK
-            } else {
-                // ... user chose CANCEL or closed the dialog
-            }
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    private String validaMatricula() {
-        Pattern reglas = Pattern.compile("[0-9]{4}[[A-Z]&&[^AEIOUaeiou]]{3}");
-        Matcher matriculaAnalitzar = reglas.matcher(txtFieldMatricula.getText());
-        if (!matriculaAnalitzar.matches()) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Alquiler de Vehículos");
-            alert.setHeaderText("Vehículo no introducido");
-            alert.setContentText("La matríucula debe estar en el formato correcto"
-                    + " y en mayúsculas");
-
-            Optional<ButtonType> result = alert.showAndWait();
-
-            if (result.get() == ButtonType.OK) {
-                // ... user chose OK
-            } else {
-                // ... user chose CANCEL or closed the dialog
-            }
-            return null;
-        } else {
-            return matriculaAnalitzar.group();
-        }
-    }
 }
