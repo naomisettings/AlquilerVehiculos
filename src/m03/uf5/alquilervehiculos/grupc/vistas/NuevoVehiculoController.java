@@ -31,7 +31,7 @@ import m03.uf5.alquilervehiculos.grupc.modelo.Vehiculo;
  *
  * @author sella
  */
-public class NuevoVehiculoController implements Initializable {
+public class NuevoVehiculoController implements Initializable, MiControlador {
 
     @FXML
     private TextField txtFieldMatricula;
@@ -50,7 +50,7 @@ public class NuevoVehiculoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        actualizar();
     }
 
     @FXML
@@ -87,6 +87,12 @@ public class NuevoVehiculoController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(VehiculosController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public void actualizar() {
+        txtFieldMatricula.setText("");
+        txtFieldModelo.setText("");
     }
 
 }

@@ -44,6 +44,7 @@ public class GestorEscenas {
     private MiControlador contraladorClinete;
     private MiControlador controladorVehiculos;
     private MiControlador controladorEditarVehiculo;
+    private MiControlador controladorNuevoVehiculo;
     private MiControlador controladorAlquiler;
     private MiControlador controladorNuevoAlquiler;
 
@@ -130,10 +131,13 @@ public class GestorEscenas {
 
     public void muestraNuevoVehiculo() throws IOException {
         if (pantallaNuevoVehiculo == null) {
-            Parent root = FXMLLoader.load(getClass().getResource(VISTA_NUEVO_VEHICULO));
+             FXMLLoader loader = new FXMLLoader(getClass().getResource(VISTA_NUEVO_VEHICULO));
+            Parent root = loader.load();
             pantallaNuevoVehiculo = new Scene(root);
+            controladorNuevoVehiculo = (MiControlador) loader.getController();
         }
         ventana.setScene(pantallaNuevoVehiculo);
+        controladorNuevoVehiculo.actualizar(); 
     }
 
     public void muestraEditarVehiculo() throws IOException {

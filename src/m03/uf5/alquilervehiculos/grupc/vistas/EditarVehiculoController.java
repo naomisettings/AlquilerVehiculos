@@ -64,11 +64,9 @@ public class EditarVehiculoController implements Initializable, MiControlador {
                 v.setMatricula(txtFdMatricula.getText());
                 v.setModelo(txtFldModelo.getText());
                 String matricula_original = vehiEnviar.getMatricula();
-                System.out.println(matricula_original);
 
                 Modelo.getModelo().modificarVehiculo(v, matricula_original);
                 nuevoVehiEnviar = v;
-
             }
         }
     }
@@ -86,6 +84,9 @@ public class EditarVehiculoController implements Initializable, MiControlador {
     public void actualizar() {
         lblMatriculaAntigua.setText(VehiculosController.vEnviar.getMatricula());
         lblModeloAntiguo.setText(VehiculosController.vEnviar.getModelo());
+        
+        txtFdMatricula.setText(VehiculosController.vEnviar.getMatricula());
+        txtFldModelo.setText(VehiculosController.vEnviar.getModelo());
     }
 
 }
