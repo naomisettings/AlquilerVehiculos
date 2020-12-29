@@ -58,9 +58,9 @@ DROP PROCEDURE IF EXISTS elimina_alquiler;
 
 DELIMITER //
 
-CREATE PROCEDURE insertar_client(IN nif INT, IN nombre VARCHAR(40), IN apellido1 VARCHAR(40), IN apellido2 VARCHAR(40))
+CREATE PROCEDURE insertar_cliente(IN nif VARCHAR(9), IN nombre VARCHAR(40), IN apellido1 VARCHAR(40), IN apellido2 VARCHAR(40))
 BEGIN
-	INSERT INTO clientes VALUES (id, nombre, apellido1, apellido2);
+	INSERT INTO cliente VALUES (nif, nombre, apellido1, apellido2);
 END //
 
 DELIMITER //

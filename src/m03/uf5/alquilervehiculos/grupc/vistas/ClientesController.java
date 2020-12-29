@@ -11,7 +11,9 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +37,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
 import m03.uf5.alquilervehiculos.grupc.modelo.Cliente;
 import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
@@ -43,12 +47,12 @@ import static m03.uf5.alquilervehiculos.grupc.modelo.Modelo.printSQLException;
 /**
  * FXML Controller class
  *
- * @author sella
+ * @author angels
  */
 public class ClientesController implements Initializable, MiControlador {
 
-    private ObservableList<Cliente> clientes;
-    private Cliente enviarCliente;
+    private ObservableList<Cliente> cliente;
+    protected static Cliente enviarCliente;
     private static String urlBBDD = "jdbc:mysql://localhost:3306/alquilervehiculos?useUnicode=true&"
             + "useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&"
             + "serverTimezone=UTC&noAccesToProcedureBodies=True";
@@ -66,11 +70,11 @@ public class ClientesController implements Initializable, MiControlador {
     @FXML
     private Button btnEditar;
     @FXML
-    private Button btnGuardar;
-    @FXML
     private Button btnEliminar;
     @FXML
-    private Button btnCancelar;
+    private Button btnVolver;
+    @FXML
+    private Button btnNuevo;
     @FXML
     private TableView<Cliente> tvCliente;
     @FXML
@@ -81,10 +85,7 @@ public class ClientesController implements Initializable, MiControlador {
     private TableColumn<Cliente, String> clmApellido1;
     @FXML
     private TableColumn<Cliente, String> clmApellido2;
-    @FXML
-    private Button btnVolver;
-    @FXML
-    private Button btnNuevo;
+
 
     /*  @FXML
   private TextArea textClientes;
@@ -112,15 +113,20 @@ public class ClientesController implements Initializable, MiControlador {
 
     @Override
     public void actualizar() {
-
+        if (cliente != null) {
+            if (enviarCliente != null) {
+                cliente.remove(enviarCliente);
+                cliente.add(NuevoClienteController.nuevoEnviaCliente);
+            }
+        }
         insertarTabla();
 
     }
 
     public void insertarTabla() {
 
-        clientes = FXCollections.observableArrayList(cargaClientes());
-        tvCliente.setItems(clientes);
+        cliente = FXCollections.observableArrayList(cargaClientes());
+        tvCliente.setItems(cliente);
         clmNombre.setCellValueFactory((datosFila) -> datosFila.getValue().getNombreProperty());
         clmApellido1.setCellValueFactory((datosFila) -> datosFila.getValue().getApellido1Property());
         clmApellido2.setCellValueFactory((datosFila) -> datosFila.getValue().getApellido2Property());
@@ -133,15 +139,13 @@ public class ClientesController implements Initializable, MiControlador {
     }
 
     private void muestraCliente(Cliente cliente) {
-        lblNif.setText(cliente.getNif());
-        lblNombre.setText(cliente.getNombre());
-        lblApellido1.setText(cliente.getApellido1());
-        lblApellido2.setText(cliente.getApellido2());
+        if (cliente != null) {
+            lblNif.setText(cliente.getNif());
+            lblNombre.setText(cliente.getNombre());
+            lblApellido1.setText(cliente.getApellido1());
+            lblApellido2.setText(cliente.getApellido2());
 
-    }
-
-    @FXML
-    private void handlebtnGuardar(MouseEvent event) {
+        }
 
     }
 
@@ -192,10 +196,6 @@ public class ClientesController implements Initializable, MiControlador {
     }
 
     @FXML
-    private void handlebtnCancelar(MouseEvent event) {
-    }
-
-    @FXML
     private void handlebtnVolver(MouseEvent event) {
         try {
             GestorEscenas.getGestor().muestraMenuPrincipal();
@@ -205,23 +205,30 @@ public class ClientesController implements Initializable, MiControlador {
         }
     }
 
-   /* @FXML
-   private void handleEditar(MouseEvent event) {
+    @FXML
+    private void handleEditar(MouseEvent event) {
         enviarCliente = tvCliente.getSelectionModel().getSelectedItem();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(this.getClass().getResource("NuevoCliente.fxml"));
-        try {
-            Scene escenaEdicion = new Scene(loader.load());
-            NuevoClienteController controladorEdicion = loader.getController();
-            controladorEdicion.setClientes(clientes); //poner el setClientes en NuevoClienteController?
-            if (event.getSource() == btnNuevo) {
-                controladorEdicion.set//mirar los sets en ejemplo lligafutbol
+              
 
-            }
+        try {
+            GestorEscenas.getGestor().muestraNuevoCliente();
+
         } catch (IOException ex) {
             Logger.getLogger(NuevoClienteController.class.getName()).log(Level.SEVERE, null, ex);
 
         }
-    }*/
+    }
+    @FXML
+    private void handleNuevo(MouseEvent event) {
+        try {
+            GestorEscenas.getGestor().muestraNuevoCliente();
+
+        } catch (IOException ex) {
+            Logger.getLogger(NuevoClienteController.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+    }
+
+ 
 
 }

@@ -239,14 +239,35 @@ public class Modelo {
      *
      * @param cliente
      */
-    public void addCliente(Cliente cliente, Connection conn) {
-        String sql = "{CALL insertar_cliente()}";
-        try (CallableStatement cs = conn.prepareCall(sql)) {
+    public void addCliente(Cliente cliente) {
+        try (Connection con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/alquilervehiculos?useUnicode=true&"
+                + "useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&"
+                + "serverTimezone=UTC&noAccesToProcedureBodies=True",
+                "admin_alquiler", "admin")) {
+        String sentencia = "{CALL insertar_cliente(?,?,?,?)}";
+        try (CallableStatement cs = con.prepareCall(sentencia)) {
+            cs.setString(1, cliente.getNif());
+            cs.setString(2, cliente.getNombre());
+            cs.setString(3, cliente.getApellido1());
+            cs.setString(4, cliente.getApellido2());
+            cs.execute();
+            Cliente c = new Cliente();
+            c.setNif(cliente.getNif());
+            c.setNombre(cliente.getNombre());
+            c.setApellido1(cliente.getApellido1());
+            c.setApellido2(cliente.getApellido2());
+            
+            clientes.put(cliente.getNif(), c);
+            
 
         } catch (SQLException e) {
             printSQLException(e);
         }
 
+    }catch (SQLException ex) {
+            printSQLException(ex);
+        }
     }
 
     /**

@@ -21,7 +21,7 @@
             <TableColumn fx:id="clmApellido2" maxWidth="1.7976931348623157E308" prefWidth="108.0" text="Segundo Apellido" />
         </columns>
       </TableView>
-      <VBox prefHeight="480.0" prefWidth="261.0">
+      <VBox prefHeight="480.0" prefWidth="298.0">
          <children>
             <Label fx:id="tbCliente" text="CLIENTES" textAlignment="CENTER">
                <VBox.margin>
@@ -71,19 +71,14 @@
             </GridPane>
             <HBox prefHeight="77.0" prefWidth="408.0">
                <children>
-                  <Button fx:id="btnNuevo" mnemonicParsing="false" onMouseClicked="#handleEditar" text="Nuevo">
+                  <Button fx:id="btnNuevo" mnemonicParsing="false" onMouseClicked="#handleNuevo" text="Nuevo">
                      <HBox.margin>
-                        <Insets left="20.0" top="10.0" />
+                        <Insets left="75.0" top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="btnEditar" mnemonicParsing="false" onMouseClicked="#handleEditar" text="Editar">
+                  <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#handleEditar" onMouseClicked="#handleEditar" text="Editar">
                      <HBox.margin>
-                        <Insets left="20.0" top="10.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="btnGuardar" mnemonicParsing="false" onMouseClicked="#handlebtnGuardar" text="Guardar">
-                     <HBox.margin>
-                        <Insets left="20.0" top="10.0" />
+                        <Insets left="50.0" top="10.0" />
                      </HBox.margin>
                   </Button>
                </children>
@@ -98,17 +93,12 @@
                <children>
                   <Button fx:id="btnEliminar" mnemonicParsing="false" onMouseClicked="#handlebtnEliminar" text="Eliminar">
                      <HBox.margin>
-                        <Insets bottom="20.0" left="20.0" top="10.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="btnCancelar" mnemonicParsing="false" onMouseClicked="#handlebtnCancelar" text="Cancelar">
-                     <HBox.margin>
-                        <Insets left="20.0" top="10.0" />
+                        <Insets bottom="20.0" left="75.0" top="10.0" />
                      </HBox.margin>
                   </Button>
                   <Button fx:id="btnVolver" mnemonicParsing="false" onMouseClicked="#handlebtnVolver" text="Volver">
                      <HBox.margin>
-                        <Insets left="20.0" top="10.0" />
+                        <Insets left="40.0" top="10.0" />
                      </HBox.margin>
                   </Button>
                </children>

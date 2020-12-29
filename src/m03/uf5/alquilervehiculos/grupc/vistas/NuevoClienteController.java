@@ -21,20 +21,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
 import m03.uf5.alquilervehiculos.grupc.modelo.Cliente;
 import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
+import static m03.uf5.alquilervehiculos.grupc.vistas.ClientesController.enviarCliente;
 
 /**
  * FXML Controller class
  *
- * @author sella
+ * @author angels
  */
 public class NuevoClienteController implements Initializable, MiControlador {
 
-  
-
-    public static final String TABLA_LETRA = "TRWAGMYFPDXBNJZSQVHLCKE";
+    protected static Cliente nuevoEnviaCliente;
+    private Cliente cliente;
 
     @FXML
     private TextField textoNombre;
@@ -44,8 +45,10 @@ public class NuevoClienteController implements Initializable, MiControlador {
     private TextField textoApellido2;
     @FXML
     private TextField textoNif;
-  
-   
+    @FXML
+    private Button btnGuardar;
+    @FXML
+    private Button btnVolver;
 
     /**
      * Initializes the controller class.
@@ -53,70 +56,86 @@ public class NuevoClienteController implements Initializable, MiControlador {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         actualizar();
-       
+
     }
 
-  /*  @FXML
-    private void handleBotonGuardarAction(ActionEvent event) {
-        if (comprobarCampos() && validaNIF()) {
-            Cliente cliente = new Cliente(textoNombre.getText(), textoApellido1.getText(),
-            textoApellido2.getText(), textoNif.getText());
-         //   Modelo.getModelo().addCliente(cliente);
-            
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Alquiler de vheiculos");
-            alert.setHeaderText(null);
-            alert.setContentText("Cliente registrado con éxito");
+  /*  public Cliente getCliente() {
+        return cliente;
+    }
 
-            alert.showAndWait();
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+        if (cliente != null) {
+            textoNombre.setText(cliente.getNombre());
+            textoApellido1.setText(cliente.getApellido1());
+            textoApellido2.setText(cliente.getApellido2());
+            textoNif.setText(cliente.getNif());
+        } else {
+            this.cliente = new Cliente();
         }
+
     }*/
 
-    @FXML
     private void handleBotonVolverAction(ActionEvent event) {
         try {
             GestorEscenas.getGestor().muestraClientes();
-     
+
         } catch (IOException ex) {
             Logger.getLogger(NuevoClienteController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private boolean comprobarCampos() {
-        if (textoNombre.getText().isEmpty() || textoApellido1.getText().isEmpty()
-                || textoApellido2.getText().isEmpty() || textoNif.getText().isEmpty()) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Alquiler de vheiculos");
-            alert.setHeaderText("Campo Vacio");
-            alert.setContentText("Todos los campos deben estar completos");
-
-            alert.showAndWait();
-            return false;
+    @Override
+    public void actualizar() {
+        if (enviarCliente == null) {
+            textoNombre.setText("");
         } else {
-            Pattern reglas = Pattern.compile("[A-Za-z]*");
-            Matcher[] textAnalizar = {reglas.matcher(textoNombre.getText()),
-                reglas.matcher(textoApellido1.getText()), reglas.matcher(textoApellido2.getText())};
-            for (int i = 0; i < textAnalizar.length; i++) {
-                if (!textAnalizar[i].matches()) {
-                    Alert alert = new Alert(AlertType.ERROR);
-                    alert.setTitle("Alquiler de vheiculos");
-                    alert.setHeaderText("Formato Incorrecto");
-                    alert.setContentText("");
-
-                    alert.showAndWait();
-                    return false;
-                }
-            }
-            return true;
+            textoNombre.setText(ClientesController.enviarCliente.getNombre());
+            textoNombre.setText(ClientesController.enviarCliente.getNombre());
+            textoApellido1.setText(ClientesController.enviarCliente.getApellido1());
+            textoApellido2.setText(ClientesController.enviarCliente.getApellido2());
+            textoNif.setText(ClientesController.enviarCliente.getNif());
         }
     }
 
+    @FXML
+    private void handleBtnGuardar(MouseEvent event) {
 
+        Cliente cliente = new Cliente();
+        System.out.println("Cliente a guardar " + textoNombre.getText() + textoApellido1.getText() + textoApellido2.getText() + textoNif.getText());
+        System.out.println("clienteadd " + cliente);
+        boolean camposValidos = cliente.comprobarCampos(textoNombre.getText().isEmpty(),
+                textoApellido1.getText().isEmpty(), textoApellido2.getText().isEmpty(),
+                textoNif.getText().isEmpty());
+        if (!camposValidos) {
+            boolean nifCorrecto = cliente.validaNif(textoNif.getText());
+            if (nifCorrecto) {
+                Cliente enviaCliente;
+                enviaCliente = ClientesController.enviarCliente;
+                cliente.setNombre(textoNombre.getText());
+                cliente.setApellido1(textoApellido1.getText());
+                cliente.setApellido2(textoApellido2.getText());
+                cliente.setNif(textoNif.getText());
 
-    @Override
-    public void actualizar() {
-        //To change body of generated methods, choose Tools | Templates.
+                Modelo.getModelo().addCliente(cliente);
+
+                nuevoEnviaCliente = cliente;
+                System.out.println("Cliente a guardar " + textoNombre.getText() + textoApellido1.getText() + textoApellido2.getText() + textoNif.getText());
+
+            }
+        }
+
     }
 
+    @FXML
+    private void handlebtnVolver(MouseEvent event) {
+        try {
+            GestorEscenas.getGestor().muestraClientes();
+
+        } catch (IOException ex) {
+            Logger.getLogger(ClientesController.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+    }
 
 }

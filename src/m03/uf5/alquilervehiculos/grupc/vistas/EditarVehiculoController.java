@@ -55,6 +55,7 @@ public class EditarVehiculoController implements Initializable, MiControlador {
         boolean camposOk = v.camposEmplenados(txtFdMatricula.getText().isEmpty(),
                 txtFldModelo.getText().isEmpty());
         if (!camposOk) {
+            
             Boolean matriculaOk = v.validaMatricula(txtFdMatricula.getText());
             if (matriculaOk) {
 
