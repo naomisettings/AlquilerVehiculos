@@ -92,9 +92,9 @@ public class VehiculosController implements Initializable, MiControlador {
     public void actualizar() {
         if (vehiculos != null) {
             //vehiculos.set(vehiculos.indexOf(vEnviar), EditarVehiculoController.nuevoVehiEnviar);
-            if(vEnviar != null){
-            vehiculos.remove(vEnviar);
-            vehiculos.add(EditarVehiculoController.nuevoVehiEnviar);
+            if (vEnviar != null) {
+                vehiculos.remove(vEnviar);
+                vehiculos.add(EditarVehiculoController.nuevoVehiEnviar);
             }
         }
         insertarTabla();
@@ -112,8 +112,10 @@ public class VehiculosController implements Initializable, MiControlador {
     private void hldbttnVolver(MouseEvent event) {
         try {
             GestorEscenas.getGestor().muestraMenuPrincipal();
+
         } catch (IOException ex) {
-            Logger.getLogger(MenuPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MenuPrincipalController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -121,8 +123,10 @@ public class VehiculosController implements Initializable, MiControlador {
     private void hldbttnNuevo(MouseEvent event) {
         try {
             GestorEscenas.getGestor().muestraNuevoVehiculo();
+
         } catch (IOException ex) {
-            Logger.getLogger(NuevoVehiculoController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NuevoVehiculoController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -131,8 +135,10 @@ public class VehiculosController implements Initializable, MiControlador {
         vEnviar = tblVehiculo.getSelectionModel().getSelectedItem();
         try {
             GestorEscenas.getGestor().muestraEditarVehiculo();
+
         } catch (IOException ex) {
-            Logger.getLogger(EditarVehiculoController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditarVehiculoController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -159,8 +165,8 @@ public class VehiculosController implements Initializable, MiControlador {
     private boolean borrarVehiculo(Vehiculo vehiculo) {
         boolean correcte = false;
         String matricula = vehiculo.getMatricula();
-        try (Connection con = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/alquilervehiculos?useUnicode=true&"
+        try (Connection con = DriverManager.getConnection("jdbc:mysql:"
+                + "//localhost:3306/alquilervehiculos?useUnicode=true&"
                 + "useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&"
                 + "serverTimezone=UTC&noAccesToProcedureBodies=True",
                 "admin_alquiler", "admin")) {
