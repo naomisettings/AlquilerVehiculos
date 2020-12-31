@@ -11,17 +11,15 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
 import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
 import m03.uf5.alquilervehiculos.grupc.modelo.Vehiculo;
@@ -33,14 +31,14 @@ import m03.uf5.alquilervehiculos.grupc.modelo.Vehiculo;
  */
 public class NuevoVehiculoController implements Initializable, MiControlador {
 
+    private Vehiculo vehiculo;
+
     @FXML
     private TextField txtFieldMatricula;
     @FXML
     private TextField txtFieldModelo;
     @FXML
     private Button bttnGuardar;
-    @FXML
-    private Button bttnVolver;
 
     /**
      * Initializes the controller class.
@@ -54,33 +52,41 @@ public class NuevoVehiculoController implements Initializable, MiControlador {
     }
 
     @FXML
-    private void handleTxtFieldMatricula(KeyEvent event) {
-
-    }
-
-    @FXML
-    private void handleTxtFieldModelo(KeyEvent event) {
-    }
-
-    @FXML
 
     private void handlebttnGuardar(MouseEvent event) {
-        Vehiculo v = new Vehiculo();
-        boolean camposOk = v.camposEmplenados(txtFieldMatricula.getText().isEmpty(),
-                txtFieldModelo.getText().isEmpty());
-        if (!camposOk) {
-            Boolean matriculaOk = v.validaMatricula(txtFieldMatricula.getText());
-            if (matriculaOk) {
+        if (!event.isPrimaryButtonDown()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Alquiler de Vehículos");
+            alert.setHeaderText("Modificar Vehículo");
+            alert.setContentText("Se ha modificado el vehiculo");
 
-                v.setMatricula(txtFieldMatricula.getText());
-                v.setModelo(txtFieldModelo.getText());
-                Modelo.getModelo().addVehiculo(v);
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
 
+            } else {
+                // ... user chose CANCEL or closed the dialog
             }
+        }
+        vehiculo.setMatricula(txtFieldMatricula.getText());
+        vehiculo.setModelo(txtFieldModelo.getText());
+        Stage ventana = (Stage) bttnGuardar.getScene().getWindow();
+        ventana.close();
+    }
+
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+        if (vehiculo != null) {
+            txtFieldMatricula.setText("" + vehiculo.getMatricula());
+            txtFieldModelo.setText("" + vehiculo.getModelo());
+        } else {
+            this.vehiculo = new Vehiculo();
         }
     }
 
-    @FXML
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
     private void handleBttnVolver(MouseEvent event) {
         try {
             GestorEscenas.getGestor().muestraVehiculos();
@@ -91,8 +97,7 @@ public class NuevoVehiculoController implements Initializable, MiControlador {
 
     @Override
     public void actualizar() {
-        txtFieldMatricula.setText("");
-        txtFieldModelo.setText("");
     }
+
 
 }

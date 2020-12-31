@@ -112,7 +112,7 @@ public class GestorEscenas {
             Parent root = loader.load();
             pantallaNuevoCliente = new Scene(root);
             controladorNuevoCliente = (MiControlador) loader.getController();
-            
+
         }
         ventana.setScene(pantallaNuevoCliente);
         controladorNuevoCliente.actualizar();
@@ -134,24 +134,13 @@ public class GestorEscenas {
 
     public void muestraNuevoVehiculo() throws IOException {
         if (pantallaNuevoVehiculo == null) {
-             FXMLLoader loader = new FXMLLoader(getClass().getResource(VISTA_NUEVO_VEHICULO));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(VISTA_NUEVO_VEHICULO));
             Parent root = loader.load();
             pantallaNuevoVehiculo = new Scene(root);
             controladorNuevoVehiculo = (MiControlador) loader.getController();
         }
         ventana.setScene(pantallaNuevoVehiculo);
-        controladorNuevoVehiculo.actualizar(); 
-    }
-
-    public void muestraEditarVehiculo() throws IOException {
-        if (pantallaEditarVehiculo == null) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(VISTA_EDITAR_VEHICULO));
-            Parent root = loader.load();
-            pantallaEditarVehiculo = new Scene(root);
-            controladorEditarVehiculo = (MiControlador) loader.getController();
-        }
-        ventana.setScene(pantallaEditarVehiculo);
-        controladorEditarVehiculo.actualizar();
+        controladorNuevoVehiculo.actualizar();
     }
 
     public void muestraAlquileres() throws IOException {

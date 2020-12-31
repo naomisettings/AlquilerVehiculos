@@ -17,22 +17,21 @@
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" styleClass="tamanyHboxSecundaris" stylesheets="@CssEstilGeneral.css">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Matrícula" wrappingWidth="109.0" />
-            <TextField fx:id="txtFieldMatricula" onKeyPressed="#handleTxtFieldMatricula" prefHeight="31.0" prefWidth="190.0" styleClass="textFieldIntrodiurDades" stylesheets="@CssEstilGeneral.css" />
+            <TextField fx:id="txtFieldMatricula" prefHeight="31.0" prefWidth="190.0" styleClass="textFieldIntrodiurDades" stylesheets="@CssEstilGeneral.css" />
          </children>
       </HBox>
       <HBox styleClass="tamanyHboxSecundaris" stylesheets="@CssEstilGeneral.css">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Modelo" wrappingWidth="109.0" />
-            <TextField fx:id="txtFieldModelo" onKeyPressed="#handleTxtFieldModelo" styleClass="textFieldIntrodiurDades" stylesheets="@CssEstilGeneral.css" />
+            <TextField fx:id="txtFieldModelo" styleClass="textFieldIntrodiurDades" stylesheets="@CssEstilGeneral.css" />
          </children>
       </HBox>
       <HBox styleClass="hboxbuttonsGuardarVolver" stylesheets="@CssEstilGeneral.css">
          <children>
             <Button fx:id="bttnGuardar" mnemonicParsing="false" onMouseClicked="#handlebttnGuardar" styleClass="buttonsGuardarVolver" stylesheets="@CssEstilGeneral.css" text="Guardar">
                <HBox.margin>
-                  <Insets left="75.0" right="50.0" />
+                  <Insets left="125.0" right="50.0" />
                </HBox.margin></Button>
-            <Button fx:id="bttnVolver" mnemonicParsing="false" onMouseClicked="#handleBttnVolver" styleClass="buttonsGuardarVolver" stylesheets="@CssEstilGeneral.css" text="Volver" />
          </children>
       </HBox>
    </children>

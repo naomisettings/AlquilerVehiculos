@@ -20,14 +20,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
 import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
 import static m03.uf5.alquilervehiculos.grupc.modelo.Modelo.printSQLException;
@@ -41,7 +47,6 @@ import m03.uf5.alquilervehiculos.grupc.modelo.Vehiculo;
 public class VehiculosController implements Initializable, MiControlador {
 
     private ObservableList<Vehiculo> vehiculos;
-    protected static Vehiculo vEnviar;
 
     @FXML
     private TableView<Vehiculo> tblVehiculo;
@@ -53,6 +58,10 @@ public class VehiculosController implements Initializable, MiControlador {
     private Label lblMatricula;
     @FXML
     private Label lblModelo;
+    @FXML
+    private Button bttnNuevo;
+    @FXML
+    private Button bttnEditar;
 
     /**
      * Initializes the controller class.
@@ -90,14 +99,6 @@ public class VehiculosController implements Initializable, MiControlador {
 
     @Override
     public void actualizar() {
-        if (vehiculos != null) {
-            //vehiculos.set(vehiculos.indexOf(vEnviar), EditarVehiculoController.nuevoVehiEnviar);
-            if (vEnviar != null) {
-                vehiculos.remove(vEnviar);
-                vehiculos.add(EditarVehiculoController.nuevoVehiEnviar);                
-                
-            }
-        }
         insertarTabla();
     }
 
@@ -116,29 +117,6 @@ public class VehiculosController implements Initializable, MiControlador {
 
         } catch (IOException ex) {
             Logger.getLogger(MenuPrincipalController.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    @FXML
-    private void hldbttnNuevo(MouseEvent event) {
-        try {
-            GestorEscenas.getGestor().muestraNuevoVehiculo();
-
-        } catch (IOException ex) {
-            Logger.getLogger(NuevoVehiculoController.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    @FXML
-    private void hldbttnEditar(MouseEvent event) {
-        vEnviar = tblVehiculo.getSelectionModel().getSelectedItem();
-        try {
-            GestorEscenas.getGestor().muestraEditarVehiculo();
-
-        } catch (IOException ex) {
-            Logger.getLogger(EditarVehiculoController.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -191,6 +169,43 @@ public class VehiculosController implements Initializable, MiControlador {
             printSQLException(ex);
         }
         return correcte;
+    }
+
+    @FXML
+    private void hldbttnNuevo(ActionEvent event) {
+        Stage ventanaPrincipal = (Stage) tblVehiculo.getScene().getWindow();
+        Stage ventanaEdicion = new Stage();
+        ventanaEdicion.initModality(Modality.WINDOW_MODAL);
+
+        ventanaEdicion.initOwner(ventanaPrincipal);
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("NuevoVehiculo.fxml"));
+        try {
+            Scene escenaEdicion = new Scene(loader.load());
+            NuevoVehiculoController controladorEdicion = loader.getController();
+            ventanaEdicion.setScene(escenaEdicion);
+
+            if (event.getSource() == bttnNuevo) {
+                controladorEdicion.setVehiculo(null);
+            } else {
+                controladorEdicion.setVehiculo(tblVehiculo.getSelectionModel().getSelectedItem());
+            }
+            ventanaEdicion.showAndWait();
+
+            Vehiculo vehiculo = controladorEdicion.getVehiculo();
+            if (vehiculo != null) {
+                if (event.getSource() == bttnNuevo) {
+                    Modelo.getModelo().addVehiculo(vehiculo);
+                    vehiculos.add(vehiculo);
+                } else {
+
+                    Modelo.getModelo().modificarVehiculo(vehiculo,
+                            tblVehiculo.getSelectionModel().getSelectedItem().getMatricula());
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(NuevoVehiculoController.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
