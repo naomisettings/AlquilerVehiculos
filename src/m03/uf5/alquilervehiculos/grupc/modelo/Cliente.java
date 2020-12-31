@@ -103,7 +103,7 @@ public class Cliente {
 
         Pattern reglas = Pattern.compile("[0-9]{8}[A-Z]");
         Matcher validarNif = reglas.matcher(nif);
-        System.out.println("nif: " + validarNif);
+       
         if (validarNif.matches()) {
             int dni = Integer.parseInt(nif.substring(0, 8));
             char lletra = TABLA_LETRA.charAt(dni % 23);

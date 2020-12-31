@@ -38,13 +38,14 @@
             <TextField fx:id="textoNif" />
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="16.0" prefWidth="310.0" spacing="50.0">
+      <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="304.0" spacing="50.0">
          <children>
             <Button fx:id="btnGuardar" mnemonicParsing="false" onMouseClicked="#handleBtnGuardar" text="Guardar" />
             <Button fx:id="btnVolver" mnemonicParsing="false" onMouseClicked="#handlebtnVolver" text="Volver" />
+            <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#handleBtnCancelar" text="Cancelar" />
          </children>
          <VBox.margin>
-            <Insets left="85.0" top="10.0" />
+            <Insets left="50.0" top="10.0" />
          </VBox.margin>
       </HBox>
    </children>

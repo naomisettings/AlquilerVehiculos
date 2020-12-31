@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -49,6 +50,8 @@ public class NuevoClienteController implements Initializable, MiControlador {
     private Button btnGuardar;
     @FXML
     private Button btnVolver;
+    @FXML
+    private Button btnCancelar;
 
     /**
      * Initializes the controller class.
@@ -59,35 +62,38 @@ public class NuevoClienteController implements Initializable, MiControlador {
 
     }
 
-  /*  public Cliente getCliente() {
+    public Cliente getCliente() { //recuperar el cliente que se ha editado en la pantalla
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
+    public void setCliente(Cliente cliente) { //se le pasa al controlador el cliente que se va a modificar
         this.cliente = cliente;
+       
         if (cliente != null) {
-            textoNombre.setText(cliente.getNombre());
-            textoApellido1.setText(cliente.getApellido1());
-            textoApellido2.setText(cliente.getApellido2());
-            textoNif.setText(cliente.getNif());
+            
+            textoNombre.setText("" + cliente.getNombre());
+            
+            textoApellido1.setText("" + cliente.getApellido1());
+            textoApellido2.setText("" + cliente.getApellido2());
+            textoNif.setText("" + cliente.getNif());
         } else {
-            this.cliente = new Cliente();
+            this.cliente = new Cliente(); // si los datos pasados es un null crea un cliente nuevo
         }
+        
+    }
 
-    }*/
-
-    private void handleBotonVolverAction(ActionEvent event) {
+   /* private void handleBotonVolverAction(ActionEvent event) {
         try {
             GestorEscenas.getGestor().muestraClientes();
 
         } catch (IOException ex) {
             Logger.getLogger(NuevoClienteController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    }*/
 
     @Override
     public void actualizar() {
-        if (enviarCliente == null) {
+       /* if (enviarCliente == null) {
             textoNombre.setText("");
         } else {
             textoNombre.setText(ClientesController.enviarCliente.getNombre());
@@ -95,33 +101,35 @@ public class NuevoClienteController implements Initializable, MiControlador {
             textoApellido1.setText(ClientesController.enviarCliente.getApellido1());
             textoApellido2.setText(ClientesController.enviarCliente.getApellido2());
             textoNif.setText(ClientesController.enviarCliente.getNif());
-        }
+        }*/
     }
 
     @FXML
     private void handleBtnGuardar(MouseEvent event) {
 
-        Cliente cliente = new Cliente();
+      //  Cliente cliente = new Cliente();
         System.out.println("Cliente a guardar " + textoNombre.getText() + textoApellido1.getText() + textoApellido2.getText() + textoNif.getText());
-        System.out.println("clienteadd " + cliente);
+       
         boolean camposValidos = cliente.comprobarCampos(textoNombre.getText().isEmpty(),
                 textoApellido1.getText().isEmpty(), textoApellido2.getText().isEmpty(),
                 textoNif.getText().isEmpty());
         if (!camposValidos) {
             boolean nifCorrecto = cliente.validaNif(textoNif.getText());
             if (nifCorrecto) {
-                Cliente enviaCliente;
-                enviaCliente = ClientesController.enviarCliente;
+               /* Cliente enviaCliente;
+                enviaCliente = ClientesController.enviarCliente;*/
                 cliente.setNombre(textoNombre.getText());
                 cliente.setApellido1(textoApellido1.getText());
                 cliente.setApellido2(textoApellido2.getText());
                 cliente.setNif(textoNif.getText());
 
-                Modelo.getModelo().addCliente(cliente);
+              //  Modelo.getModelo().addCliente(cliente);
 
-                nuevoEnviaCliente = cliente;
+               // nuevoEnviaCliente = cliente;
                 System.out.println("Cliente a guardar " + textoNombre.getText() + textoApellido1.getText() + textoApellido2.getText() + textoNif.getText());
-
+                //para cerrar la ventana
+               Stage ventana = (Stage)btnGuardar.getScene().getWindow();
+               ventana.close();
             }
         }
 
@@ -129,13 +137,25 @@ public class NuevoClienteController implements Initializable, MiControlador {
 
     @FXML
     private void handlebtnVolver(MouseEvent event) {
-        try {
+       /* try {
             GestorEscenas.getGestor().muestraClientes();
 
         } catch (IOException ex) {
             Logger.getLogger(ClientesController.class.getName()).log(Level.SEVERE, null, ex);
 
-        }
+        }*/
+       
+        Stage ventana = (Stage)btnGuardar.getScene().getWindow();
+        ventana.close();
     }
+
+    @FXML
+    private void handleBtnCancelar(ActionEvent event) {  //pone el cliente a null y cierra la ventana
+        cliente = null;
+        Stage ventana = (Stage)btnGuardar.getScene().getWindow();
+        ventana.close();
+    }
+
+    
 
 }

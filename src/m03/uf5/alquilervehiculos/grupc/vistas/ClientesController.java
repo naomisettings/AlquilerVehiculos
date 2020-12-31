@@ -51,7 +51,7 @@ import static m03.uf5.alquilervehiculos.grupc.modelo.Modelo.printSQLException;
  */
 public class ClientesController implements Initializable, MiControlador {
 
-    private ObservableList<Cliente> cliente;
+    private ObservableList<Cliente> clientes;
     protected static Cliente enviarCliente;
     private static String urlBBDD = "jdbc:mysql://localhost:3306/alquilervehiculos?useUnicode=true&"
             + "useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&"
@@ -95,7 +95,8 @@ public class ClientesController implements Initializable, MiControlador {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        actualizar();
+//        actualizar();
+        insertarTabla();
     }
 
     public List<Cliente> cargaClientes() {
@@ -113,20 +114,21 @@ public class ClientesController implements Initializable, MiControlador {
 
     @Override
     public void actualizar() {
-        if (cliente != null) {
+        /*  if (cliente != null) {
             if (enviarCliente != null) {
                 cliente.remove(enviarCliente);
                 cliente.add(NuevoClienteController.nuevoEnviaCliente);
             }
-        }
+        }*/
         insertarTabla();
 
     }
 
     public void insertarTabla() {
 
-        cliente = FXCollections.observableArrayList(cargaClientes());
-        tvCliente.setItems(cliente);
+        clientes = FXCollections.observableArrayList(cargaClientes()); //llamo al metodo cargaCliente que devuelve una List que la convierte en observableArrayList
+        tvCliente.setItems(clientes);
+        //los datos que tienen que presentar en cada columna
         clmNombre.setCellValueFactory((datosFila) -> datosFila.getValue().getNombreProperty());
         clmApellido1.setCellValueFactory((datosFila) -> datosFila.getValue().getApellido1Property());
         clmApellido2.setCellValueFactory((datosFila) -> datosFila.getValue().getApellido2Property());
@@ -134,7 +136,7 @@ public class ClientesController implements Initializable, MiControlador {
 
         tvCliente.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> muestraCliente(newValue));
-        tvCliente.getSelectionModel().select(0);
+        tvCliente.getSelectionModel().select(0); //selecciono la primera fila
 
     }
 
@@ -205,20 +207,21 @@ public class ClientesController implements Initializable, MiControlador {
         }
     }
 
-    @FXML
+    /*  @FXML
     private void handleEditar(MouseEvent event) {
         enviarCliente = tvCliente.getSelectionModel().getSelectedItem();
               
 
         try {
-            GestorEscenas.getGestor().muestraNuevoCliente();
+          GestorEscenas.getGestor().muestraNuevoCliente();
+          
 
         } catch (IOException ex) {
             Logger.getLogger(NuevoClienteController.class.getName()).log(Level.SEVERE, null, ex);
 
         }
-    }
-    @FXML
+    }*/
+ /* @FXML
     private void handleNuevo(MouseEvent event) {
         try {
             GestorEscenas.getGestor().muestraNuevoCliente();
@@ -229,6 +232,83 @@ public class ClientesController implements Initializable, MiControlador {
         }
     }
 
- 
+     */
+    @FXML
+    private void handleEditar(ActionEvent event) {
+
+        enviarCliente = tvCliente.getSelectionModel().getSelectedItem();
+
+        //creacion de la ventana de edicion
+        Stage ventanaPrincipal = (Stage) tvCliente.getScene().getWindow();
+        Stage ventanaEdicion = new Stage();
+        ventanaEdicion.initModality(Modality.WINDOW_MODAL);
+        ventanaEdicion.initOwner(ventanaPrincipal);
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(this.getClass().getResource("NuevoCliente.fxml"));
+
+        try {
+            //carga la ventana de edicion
+            Scene escenaEdicion = new Scene(loader.load());
+            NuevoClienteController controladorEdicion = loader.getController();
+            ventanaEdicion.setScene(escenaEdicion);
+            //     controladorEdicion.setCliente((Cliente) cliente);
+
+            if (event.getSource() == btnNuevo) { //miro el elemento que ha llamado al metodo
+                controladorEdicion.setCliente(null); //si ha pulsado bonton nuevo el cliente es null
+            } else {
+                controladorEdicion.setCliente(tvCliente.getSelectionModel().getSelectedItem());
+                //   NuevoClienteController.nuevoEnviaCliente.getNombre(); //le paso el cliente seleccionado
+                //   NuevoClienteController.nuevoEnviaCliente.getNif();
+            }
+            ventanaEdicion.showAndWait(); //muestro la ventana
+
+            Cliente cliente = controladorEdicion.getCliente();
+
+            if (cliente != null) {
+                System.out.println("cliente despres del null " + cliente.toString());
+                try (Connection con = DriverManager.getConnection(urlBBDD, "admin_alquiler", "admin")) {
+                    PreparedStatement sentencia = null;
+                    System.out.println("cliente abans getSource " + cliente.toString());
+                    if (event.getSource() == btnNuevo) {
+                        sentencia = con.prepareStatement("INSERT INTO cliente" //si es el boton nuevo
+                                + "( nombre, apellido1, apellido2, nif) VALUES (?,?,?,?)",
+                                Statement.RETURN_GENERATED_KEYS); //necesario para recuperar el id
+                    } else {
+                        sentencia = con.prepareStatement("UPDATE cliente SET " //si es el boton editar
+                                + " nombre = ?, apellido1 =  ? , apellido2 = ? WHERE nif = ?");
+                        //sentencia.setString(1, cliente.getNif());
+
+                    }
+                    System.out.println("Nif PrepareStatement " + cliente.getNif());
+                    System.out.println("Apellido1 PrepareStatement " + cliente.getApellido1());
+                    sentencia.setString(4, cliente.getNif());
+
+                    sentencia.setString(1, cliente.getNombre());
+                    sentencia.setString(2, cliente.getApellido1());
+                    sentencia.setString(3, cliente.getApellido2());
+
+                    if (sentencia.executeUpdate() == 0) {
+                        throw new SQLException("No se ha podido realitzar la inserción/edición");
+                    }
+                    if (event.getSource() == btnNuevo) { //para recuperar el id de la nueva insercion
+                        //ResultSet rs = sentencia.getGeneratedKeys();
+                       // if (rs.next()) {
+                            //    cliente.setNif(rs.getString(1));
+                        //    Modelo.getModelo().addCliente(cliente);
+                            clientes.add(cliente);
+                            System.out.println("clientes " + clientes);
+                       // }
+                    }
+
+                } catch (SQLException ex) {
+                    printSQLException(ex);
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ClientesController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 
 }
