@@ -107,7 +107,7 @@ END //
 
 CREATE PROCEDURE modifica_cliente(IN nif VARCHAR(9), nombre VARCHAR(40), IN apellido1 VARCHAR(40),  IN apellido2 VARCHAR(40))
 BEGIN
-	UPDATE cliente SET c.nombre=nombre, c.apellido1=apellido1, c.apellido2=apellido2 WHERE c.nit=nif; 
+	UPDATE cliente c SET c.nombre=nombre, c.apellido1=apellido1, c.apellido2=apellido2 WHERE c.nif=nif; 
 END //
 
 CREATE PROCEDURE modifica_vehiculo (IN matricula_original VARCHAR(7), IN matricula VARCHAR(7), IN modelo VARCHAR(40))

@@ -103,7 +103,7 @@ public class Cliente {
 
         Pattern reglas = Pattern.compile("[0-9]{8}[A-Z]");
         Matcher validarNif = reglas.matcher(nif);
-       
+
         if (validarNif.matches()) {
             int dni = Integer.parseInt(nif.substring(0, 8));
             char lletra = TABLA_LETRA.charAt(dni % 23);
@@ -122,7 +122,9 @@ public class Cliente {
         return false;
     }
 
-    public boolean comprobarCampos(Boolean nombre, Boolean apellido1, Boolean apellido2, Boolean nif) {
+
+
+    public boolean comprobarCampos(boolean nombre, boolean apellido1, boolean apellido2, boolean nif) {
 
         if (nombre && apellido1 && apellido2 && nif) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -133,9 +135,9 @@ public class Cliente {
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.get() == ButtonType.OK) {
-                // ... user chose OK
+                // usuario marca OK
             } else {
-                // ... user chose CANCEL or closed the dialog
+                // usuario marca Cancelar
             }
             return true;
 

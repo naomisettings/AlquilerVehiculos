@@ -10,14 +10,10 @@ import java.net.URL;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -35,7 +31,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -95,7 +90,7 @@ public class ClientesController implements Initializable, MiControlador {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        actualizar();
+
         insertarTabla();
     }
 
@@ -114,12 +109,7 @@ public class ClientesController implements Initializable, MiControlador {
 
     @Override
     public void actualizar() {
-        /*  if (cliente != null) {
-            if (enviarCliente != null) {
-                cliente.remove(enviarCliente);
-                cliente.add(NuevoClienteController.nuevoEnviaCliente);
-            }
-        }*/
+
         insertarTabla();
 
     }
@@ -128,6 +118,7 @@ public class ClientesController implements Initializable, MiControlador {
 
         clientes = FXCollections.observableArrayList(cargaClientes()); //llamo al metodo cargaCliente que devuelve una List que la convierte en observableArrayList
         tvCliente.setItems(clientes);
+        
         //los datos que tienen que presentar en cada columna
         clmNombre.setCellValueFactory((datosFila) -> datosFila.getValue().getNombreProperty());
         clmApellido1.setCellValueFactory((datosFila) -> datosFila.getValue().getApellido1Property());
@@ -207,32 +198,6 @@ public class ClientesController implements Initializable, MiControlador {
         }
     }
 
-    /*  @FXML
-    private void handleEditar(MouseEvent event) {
-        enviarCliente = tvCliente.getSelectionModel().getSelectedItem();
-              
-
-        try {
-          GestorEscenas.getGestor().muestraNuevoCliente();
-          
-
-        } catch (IOException ex) {
-            Logger.getLogger(NuevoClienteController.class.getName()).log(Level.SEVERE, null, ex);
-
-        }
-    }*/
- /* @FXML
-    private void handleNuevo(MouseEvent event) {
-        try {
-            GestorEscenas.getGestor().muestraNuevoCliente();
-
-        } catch (IOException ex) {
-            Logger.getLogger(NuevoClienteController.class.getName()).log(Level.SEVERE, null, ex);
-
-        }
-    }
-
-     */
     @FXML
     private void handleEditar(ActionEvent event) {
 
@@ -252,53 +217,50 @@ public class ClientesController implements Initializable, MiControlador {
             Scene escenaEdicion = new Scene(loader.load());
             NuevoClienteController controladorEdicion = loader.getController();
             ventanaEdicion.setScene(escenaEdicion);
-            //     controladorEdicion.setCliente((Cliente) cliente);
-
+           
             if (event.getSource() == btnNuevo) { //miro el elemento que ha llamado al metodo
                 controladorEdicion.setCliente(null); //si ha pulsado bonton nuevo el cliente es null
             } else {
                 controladorEdicion.setCliente(tvCliente.getSelectionModel().getSelectedItem());
-                //   NuevoClienteController.nuevoEnviaCliente.getNombre(); //le paso el cliente seleccionado
-                //   NuevoClienteController.nuevoEnviaCliente.getNif();
+            
             }
             ventanaEdicion.showAndWait(); //muestro la ventana
 
             Cliente cliente = controladorEdicion.getCliente();
 
             if (cliente != null) {
-                System.out.println("cliente despres del null " + cliente.toString());
+                
                 try (Connection con = DriverManager.getConnection(urlBBDD, "admin_alquiler", "admin")) {
-                    PreparedStatement sentencia = null;
-                    System.out.println("cliente abans getSource " + cliente.toString());
+                    String sentenciaInsertar = "{CALL insertar_cliente(?,?,?,?)}";
+                    String sentenciaEditar = "{CALL modifica_cliente(?,?,?,?)}";
+                    
                     if (event.getSource() == btnNuevo) {
-                        sentencia = con.prepareStatement("INSERT INTO cliente" //si es el boton nuevo
-                                + "( nombre, apellido1, apellido2, nif) VALUES (?,?,?,?)",
-                                Statement.RETURN_GENERATED_KEYS); //necesario para recuperar el id
+                        
+                        CallableStatement cs = con.prepareCall(sentenciaInsertar);
+
+                        cs.setString(1, cliente.getNif());
+                        cs.setString(2, cliente.getNombre());
+                        cs.setString(3, cliente.getApellido1());
+                        cs.setString(4, cliente.getApellido2());
+                        cs.execute();
+                       
                     } else {
-                        sentencia = con.prepareStatement("UPDATE cliente SET " //si es el boton editar
-                                + " nombre = ?, apellido1 =  ? , apellido2 = ? WHERE nif = ?");
-                        //sentencia.setString(1, cliente.getNif());
+
+                        CallableStatement cs2 = con.prepareCall(sentenciaEditar);
+
+                        cs2.setString(1, cliente.getNif());
+                        cs2.setString(2, cliente.getNombre());
+                        cs2.setString(3, cliente.getApellido1());
+                        cs2.setString(4, cliente.getApellido2());
+                        cs2.execute();
 
                     }
-                    System.out.println("Nif PrepareStatement " + cliente.getNif());
-                    System.out.println("Apellido1 PrepareStatement " + cliente.getApellido1());
-                    sentencia.setString(4, cliente.getNif());
 
-                    sentencia.setString(1, cliente.getNombre());
-                    sentencia.setString(2, cliente.getApellido1());
-                    sentencia.setString(3, cliente.getApellido2());
-
-                    if (sentencia.executeUpdate() == 0) {
-                        throw new SQLException("No se ha podido realitzar la inserción/edición");
-                    }
+                  
                     if (event.getSource() == btnNuevo) { //para recuperar el id de la nueva insercion
-                        //ResultSet rs = sentencia.getGeneratedKeys();
-                       // if (rs.next()) {
-                            //    cliente.setNif(rs.getString(1));
-                        //    Modelo.getModelo().addCliente(cliente);
-                            clientes.add(cliente);
-                            System.out.println("clientes " + clientes);
-                       // }
+                        
+                        clientes.add(cliente);
+                                                
                     }
 
                 } catch (SQLException ex) {

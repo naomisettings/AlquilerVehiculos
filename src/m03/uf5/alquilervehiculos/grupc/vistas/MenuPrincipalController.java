@@ -29,11 +29,11 @@ public class MenuPrincipalController implements Initializable {
     @FXML
     private Button verAlquiler;
     @FXML
-    private Button verClientes;
-    @FXML
     private Button verVehiculos;
     @FXML
     private ImageView imgCotxe;
+    @FXML
+    private Button verClientes;
 
     /**
      * Initializes the controller class.
@@ -60,14 +60,7 @@ public class MenuPrincipalController implements Initializable {
         }
     }
 
-   /* private void handleBttnNuevoCliente(MouseEvent event) {
-        try {
-            GestorEscenas.getGestor().muestraNuevoCliente();
-        } catch (IOException ex) {
-            Logger.getLogger(NuevoClienteController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }*/
-
+  
     @FXML
     private void handleBttnVerClientes(MouseEvent event) {
         try {
@@ -76,16 +69,7 @@ public class MenuPrincipalController implements Initializable {
             Logger.getLogger(ClientesController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-/*
-    @FXML
-    private void handleBttnNuevoVehiculo(MouseEvent event) {
-        try {
-            GestorEscenas.getGestor().muestraNuevoVehiculo();
-        } catch (IOException ex) {
-            Logger.getLogger(NuevoVehiculoController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-*/
+
     @FXML
     private void handleBttnVerVehiculos(MouseEvent event) {
         try {

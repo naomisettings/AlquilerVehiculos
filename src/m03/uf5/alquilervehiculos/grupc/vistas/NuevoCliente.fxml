@@ -13,7 +13,7 @@
       <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="570.0">
          <children>
             <Label prefHeight="21.0" prefWidth="109.0" text="Nombre:" />
-            <TextField fx:id="textoNombre" prefHeight="31.0">
+            <TextField fx:id="textoNombre">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -38,10 +38,12 @@
             <TextField fx:id="textoNif" />
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="304.0" spacing="50.0">
+      <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="231.0" spacing="50.0">
          <children>
-            <Button fx:id="btnGuardar" mnemonicParsing="false" onMouseClicked="#handleBtnGuardar" text="Guardar" />
-            <Button fx:id="btnVolver" mnemonicParsing="false" onMouseClicked="#handlebtnVolver" text="Volver" />
+            <Button fx:id="btnGuardar" mnemonicParsing="false" onMouseClicked="#handleBtnGuardar" text="Guardar">
+               <HBox.margin>
+                  <Insets left="60.0" />
+               </HBox.margin></Button>
             <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#handleBtnCancelar" text="Cancelar" />
          </children>
          <VBox.margin>
