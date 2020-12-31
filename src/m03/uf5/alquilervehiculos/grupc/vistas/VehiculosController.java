@@ -133,7 +133,9 @@ public class VehiculosController implements Initializable, MiControlador {
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
-                borrarVehiculo(v);
+                Modelo.getModelo().borrarVehiculo(v);
+                insertarTabla();
+
 
             } else {
                 // ... user chose CANCEL or closed the dialog
@@ -141,35 +143,7 @@ public class VehiculosController implements Initializable, MiControlador {
         }
     }
 
-    private boolean borrarVehiculo(Vehiculo vehiculo) {
-        boolean correcte = false;
-        String matricula = vehiculo.getMatricula();
-        try (Connection con = DriverManager.getConnection("jdbc:mysql:"
-                + "//localhost:3306/alquilervehiculos?useUnicode=true&"
-                + "useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&"
-                + "serverTimezone=UTC&noAccesToProcedureBodies=True",
-                "admin_alquiler", "admin")) {
 
-            String sql = "{CALL elimina_vehiculo(?)}";
-            try (CallableStatement cs = con.prepareCall(sql)) {
-                cs.setString(1, matricula);
-                cs.execute();
-
-                Modelo.getModelo().setVehiculos(matricula);
-                insertarTabla();
-                if (cs.getUpdateCount() == 1) {
-                    correcte = true;
-                }
-
-            } catch (SQLException e) {
-                printSQLException(e);
-            }
-
-        } catch (SQLException ex) {
-            printSQLException(ex);
-        }
-        return correcte;
-    }
 
     @FXML
     private void hldbttnNuevo(ActionEvent event) {
@@ -195,7 +169,9 @@ public class VehiculosController implements Initializable, MiControlador {
             if (vehiculo != null) {
                 if (event.getSource() == bttnNuevo) {
                     Modelo.getModelo().addVehiculo(vehiculo);
-                    vehiculos.add(vehiculo);
+                    if (vehiculo.getMatricula() != null) {
+                        vehiculos.add(vehiculo);
+                    }
                 } else {
 
                     Modelo.getModelo().modificarVehiculo(vehiculo,
