@@ -22,6 +22,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -267,6 +269,27 @@ public class Modelo {
         } catch (SQLException ex) {
             printSQLException(ex);
         }
+    }
+
+    public void modificarCliente(Cliente cliente) {
+        if (cliente != null) {
+            try (Connection con = DriverManager.getConnection(urlBBDD,
+                    "admin_alquiler", "admin")) {
+                String sentencia = "{CALL modifica_cliente(?,?,?,?)}";
+                try (CallableStatement cs2 = con.prepareCall(sentencia)) {
+                    cs2.setString(1, cliente.getNif());
+                    cs2.setString(2, cliente.getNombre());
+                    cs2.setString(3, cliente.getApellido1());
+                    cs2.setString(4, cliente.getApellido2());
+                    cs2.execute();
+
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Modelo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
 
     /**

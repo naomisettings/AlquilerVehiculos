@@ -6,12 +6,14 @@
 package m03.uf5.alquilervehiculos.grupc.vistas;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -24,7 +26,7 @@ import m03.uf5.alquilervehiculos.grupc.modelo.Cliente;
  */
 public class NuevoClienteController implements Initializable, MiControlador {
 
-    protected static Cliente nuevoEnviaCliente;
+  //  protected static Cliente nuevoEnviaCliente;
     private Cliente cliente;
 
     @FXML
@@ -77,6 +79,19 @@ public class NuevoClienteController implements Initializable, MiControlador {
 
     @FXML
     private void handleBtnGuardar(MouseEvent event) {
+           if (!event.isPrimaryButtonDown()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Alquiler de Vehículos");
+            alert.setHeaderText("Clientes");
+            alert.setContentText("Se ha modificado / añadido el cliente correctamente");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+
+            } else {
+                // ... user chose CANCEL or closed the dialog
+            }
+        }
                     
         boolean camposValidos = cliente.comprobarCampos(textoNombre.getText().isEmpty(),
                 textoApellido1.getText().isEmpty(), textoApellido2.getText().isEmpty(),

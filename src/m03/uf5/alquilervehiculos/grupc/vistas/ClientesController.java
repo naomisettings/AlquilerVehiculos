@@ -47,7 +47,7 @@ import static m03.uf5.alquilervehiculos.grupc.modelo.Modelo.printSQLException;
 public class ClientesController implements Initializable, MiControlador {
 
     private ObservableList<Cliente> clientes;
-    protected static Cliente enviarCliente;
+   
     private static String urlBBDD = "jdbc:mysql://localhost:3306/alquilervehiculos?useUnicode=true&"
             + "useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&"
             + "serverTimezone=UTC&noAccesToProcedureBodies=True";
@@ -82,12 +82,6 @@ public class ClientesController implements Initializable, MiControlador {
     private TableColumn<Cliente, String> clmApellido2;
 
 
-    /*  @FXML
-  private TextArea textClientes;
-
-  /**
-   * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -198,10 +192,10 @@ public class ClientesController implements Initializable, MiControlador {
         }
     }
 
+ 
     @FXML
     private void handleEditar(ActionEvent event) {
 
-        enviarCliente = tvCliente.getSelectionModel().getSelectedItem();
 
         //creacion de la ventana de edicion
         Stage ventanaPrincipal = (Stage) tvCliente.getScene().getWindow();
@@ -229,43 +223,22 @@ public class ClientesController implements Initializable, MiControlador {
             Cliente cliente = controladorEdicion.getCliente();
 
             if (cliente != null) {
-                
-                try (Connection con = DriverManager.getConnection(urlBBDD, "admin_alquiler", "admin")) {
-                    String sentenciaInsertar = "{CALL insertar_cliente(?,?,?,?)}";
-                    String sentenciaEditar = "{CALL modifica_cliente(?,?,?,?)}";
-                    
+                                  
                     if (event.getSource() == btnNuevo) {
-                        
-                        CallableStatement cs = con.prepareCall(sentenciaInsertar);
-
-                        cs.setString(1, cliente.getNif());
-                        cs.setString(2, cliente.getNombre());
-                        cs.setString(3, cliente.getApellido1());
-                        cs.setString(4, cliente.getApellido2());
-                        cs.execute();
+                   
+                      if(cliente.getNif() != null){
+                         Modelo.getModelo().addCliente(cliente);
+                       clientes.add(cliente);
+                      }
+                      
                        
                     } else {
 
-                        CallableStatement cs2 = con.prepareCall(sentenciaEditar);
-
-                        cs2.setString(1, cliente.getNif());
-                        cs2.setString(2, cliente.getNombre());
-                        cs2.setString(3, cliente.getApellido1());
-                        cs2.setString(4, cliente.getApellido2());
-                        cs2.execute();
+                        Modelo.getModelo().modificarCliente(cliente);
+                        tvCliente.getSelectionModel().getSelectedItem().getNif();
 
                     }
 
-                  
-                    if (event.getSource() == btnNuevo) { //para recuperar el id de la nueva insercion
-                        
-                        clientes.add(cliente);
-                                                
-                    }
-
-                } catch (SQLException ex) {
-                    printSQLException(ex);
-                }
             }
         } catch (IOException ex) {
             Logger.getLogger(ClientesController.class.getName()).log(Level.SEVERE, null, ex);
