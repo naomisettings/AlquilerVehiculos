@@ -29,6 +29,10 @@ import java.util.Scanner;
  */
 public class Modelo {
 
+    private static String urlBBDD = "jdbc:mysql://localhost:3306/alquilervehiculos?useUnicode=true&"
+            + "useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&"
+            + "serverTimezone=UTC&noAccesToProcedureBodies=True";
+
     // Instancia singleton
     private static Modelo modelo;
     // Datos de la empresa
@@ -172,10 +176,7 @@ public class Modelo {
 
             modelo = new Modelo(cif, nombreEmpresa, direccion, telefono);
 
-            try (Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/alquilervehiculos?useUnicode=true&"
-                    + "useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&"
-                    + "serverTimezone=UTC&noAccesToProcedureBodies=True",
+            try (Connection con = DriverManager.getConnection(urlBBDD,
                     "admin_alquiler", "admin")) {
 
                 modelo.cargaVehiculos(con);
@@ -242,10 +243,7 @@ public class Modelo {
      * @param cliente
      */
     public void addCliente(Cliente cliente) {
-        try (Connection con = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/alquilervehiculos?useUnicode=true&"
-                + "useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&"
-                + "serverTimezone=UTC&noAccesToProcedureBodies=True",
+        try (Connection con = DriverManager.getConnection(urlBBDD,
                 "admin_alquiler", "admin")) {
             String sentencia = "{CALL insertar_cliente(?,?,?,?)}";
             try (CallableStatement cs = con.prepareCall(sentencia)) {
@@ -279,10 +277,7 @@ public class Modelo {
      */
     public void addVehiculo(Vehiculo vehiculo) {
         if (vehiculo.getMatricula() != null) {
-            try (Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/alquilervehiculos?useUnicode=true&"
-                    + "useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&"
-                    + "serverTimezone=UTC&noAccesToProcedureBodies=True",
+            try (Connection con = DriverManager.getConnection(urlBBDD,
                     "admin_alquiler", "admin")) {
 
                 String sql = "{CALL insertar_vehiculo(?, ?)}";
@@ -329,10 +324,7 @@ public class Modelo {
 
     public void modificarVehiculo(Vehiculo vehiculo, String matricula_original) {
         if (vehiculo != null) {
-            try (Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/alquilervehiculos?useUnicode=true&"
-                    + "useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&"
-                    + "serverTimezone=UTC&noAccesToProcedureBodies=True",
+            try (Connection con = DriverManager.getConnection(urlBBDD,
                     "admin_alquiler", "admin")) {
 
                 String sql = "{CALL modifica_vehiculo(?, ?, ?)}";
@@ -354,10 +346,7 @@ public class Modelo {
 
     public void borrarVehiculo(Vehiculo vehiculo) {
         String matricula = vehiculo.getMatricula();
-        try (Connection con = DriverManager.getConnection("jdbc:mysql:"
-                + "//localhost:3306/alquilervehiculos?useUnicode=true&"
-                + "useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&"
-                + "serverTimezone=UTC&noAccesToProcedureBodies=True",
+        try (Connection con = DriverManager.getConnection(urlBBDD,
                 "admin_alquiler", "admin")) {
 
             String sql = "{CALL elimina_vehiculo(?)}";
