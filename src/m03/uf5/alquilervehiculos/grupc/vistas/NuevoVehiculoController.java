@@ -52,23 +52,28 @@ public class NuevoVehiculoController implements Initializable, MiControlador {
     @FXML
 
     private void handlebttnGuardar(MouseEvent event) {
-        if (!event.isPrimaryButtonDown()) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Alquiler de Vehículos");
-            alert.setHeaderText("Modificar Vehículo");
-            alert.setContentText("Se ha modificado el vehiculo");
+        Vehiculo v = new Vehiculo();
+        String guardaTxtFieldMatricula = txtFieldMatricula.getText();
+        String guardaTxtFieldModelo = txtFieldModelo.getText();
+        if (v.camposEmplenados(guardaTxtFieldMatricula.isEmpty(),
+                guardaTxtFieldModelo.isEmpty())) {
+            if (v.matriculaRepetida(VehiculosController.vehiculos, guardaTxtFieldMatricula)) {
+                if (v.validaMatricula(txtFieldMatricula.getText())) {
 
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK) {
+                    vehiculo.setMatricula(guardaTxtFieldMatricula);
+                    vehiculo.setModelo(guardaTxtFieldModelo);
+                    Stage ventana = (Stage) bttnGuardar.getScene().getWindow();
+                    ventana.close();
 
+                } else {
+                    txtFieldMatricula.setText("");
+                    txtFieldModelo.setText("");
+                }
             } else {
-                // ... user chose CANCEL or closed the dialog
+                txtFieldMatricula.setText("");
+
             }
         }
-        vehiculo.setMatricula(txtFieldMatricula.getText());
-        vehiculo.setModelo(txtFieldModelo.getText());
-        Stage ventana = (Stage) bttnGuardar.getScene().getWindow();
-        ventana.close();
     }
 
     public void setVehiculo(Vehiculo vehiculo) {
@@ -96,6 +101,5 @@ public class NuevoVehiculoController implements Initializable, MiControlador {
     @Override
     public void actualizar() {
     }
-
 
 }

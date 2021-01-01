@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
@@ -115,10 +116,35 @@ public class Vehiculo {
             } else {
                 // ... user chose CANCEL or closed the dialog
             }
-            return true;
+            return false;
 
         } else {
-            return false;
+            return true;
         }
+    }
+
+    public boolean matriculaRepetida(ObservableList<Vehiculo> vehiculos, String matricula) {
+        System.out.println(matricula);
+        System.out.println(vehiculos);
+        
+        for (Vehiculo vehiculo : vehiculos) {
+            System.out.println("bucle Matricula " + vehiculo.getMatricula());
+            if (vehiculo.getMatricula().equals(matricula)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Alquiler de Vehículos");
+                alert.setHeaderText("Vehículo no introducido");
+                alert.setContentText("La matrícula no puede estar repetida");
+
+                Optional<ButtonType> result = alert.showAndWait();
+
+                if (result.get() == ButtonType.OK) {
+                    // ... user chose OK
+                } else {
+                    // ... user chose CANCEL or closed the dialog
+                }
+                return false;
+            } 
+        }
+        return true;
     }
 }

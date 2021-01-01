@@ -41,7 +41,7 @@ import m03.uf5.alquilervehiculos.grupc.modelo.Vehiculo;
  */
 public class VehiculosController implements Initializable, MiControlador {
 
-    private ObservableList<Vehiculo> vehiculos;
+    protected static ObservableList<Vehiculo> vehiculos;
 
     @FXML
     private TableView<Vehiculo> tblVehiculo;
@@ -65,6 +65,10 @@ public class VehiculosController implements Initializable, MiControlador {
     public void initialize(URL url, ResourceBundle rb) {
         actualizar();
 
+    }
+    
+    public ObservableList<Vehiculo> getVehiculos(){
+        return vehiculos;
     }
 
     public List<Vehiculo> carregaVehiculos() {
@@ -168,7 +172,6 @@ public class VehiculosController implements Initializable, MiControlador {
                         vehiculos.add(vehiculo);
                     }
                 } else {
-
                     Modelo.getModelo().modificarVehiculo(vehiculo,
                             tblVehiculo.getSelectionModel().getSelectedItem().getMatricula());
                 }
@@ -178,5 +181,4 @@ public class VehiculosController implements Initializable, MiControlador {
                     .getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }
