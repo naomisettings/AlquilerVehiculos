@@ -59,7 +59,7 @@ public class NuevoVehiculoController implements Initializable, MiControlador {
                 guardaTxtFieldModelo.isEmpty())) {
             if (v.matriculaRepetida(VehiculosController.vehiculos, guardaTxtFieldMatricula)) {
                 if (v.validaMatricula(txtFieldMatricula.getText())) {
-
+                    System.out.println("prova");
                     vehiculo.setMatricula(guardaTxtFieldMatricula);
                     vehiculo.setModelo(guardaTxtFieldModelo);
                     Stage ventana = (Stage) bttnGuardar.getScene().getWindow();
