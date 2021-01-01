@@ -47,7 +47,7 @@ import static m03.uf5.alquilervehiculos.grupc.modelo.Modelo.printSQLException;
 public class ClientesController implements Initializable, MiControlador {
 
     private ObservableList<Cliente> clientes;
-   
+
     private static String urlBBDD = "jdbc:mysql://localhost:3306/alquilervehiculos?useUnicode=true&"
             + "useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&"
             + "serverTimezone=UTC&noAccesToProcedureBodies=True";
@@ -81,7 +81,6 @@ public class ClientesController implements Initializable, MiControlador {
     @FXML
     private TableColumn<Cliente, String> clmApellido2;
 
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -112,7 +111,7 @@ public class ClientesController implements Initializable, MiControlador {
 
         clientes = FXCollections.observableArrayList(cargaClientes()); //llamo al metodo cargaCliente que devuelve una List que la convierte en observableArrayList
         tvCliente.setItems(clientes);
-        
+
         //los datos que tienen que presentar en cada columna
         clmNombre.setCellValueFactory((datosFila) -> datosFila.getValue().getNombreProperty());
         clmApellido1.setCellValueFactory((datosFila) -> datosFila.getValue().getApellido1Property());
@@ -151,8 +150,16 @@ public class ClientesController implements Initializable, MiControlador {
 
             eliminarCliente(cliente);
 
-        } else {
-            // usuario cancela accion
+            Alert confimacion = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Alquiler de Vehículos");
+            alert.setHeaderText("Eliminar Cliente");
+            alert.setContentText("Se ha elminado el cliente correctamente ");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+
+            }
+
         }
     }
 
@@ -192,10 +199,8 @@ public class ClientesController implements Initializable, MiControlador {
         }
     }
 
- 
     @FXML
     private void handleEditar(ActionEvent event) {
-
 
         //creacion de la ventana de edicion
         Stage ventanaPrincipal = (Stage) tvCliente.getScene().getWindow();
@@ -211,33 +216,32 @@ public class ClientesController implements Initializable, MiControlador {
             Scene escenaEdicion = new Scene(loader.load());
             NuevoClienteController controladorEdicion = loader.getController();
             ventanaEdicion.setScene(escenaEdicion);
-           
+
             if (event.getSource() == btnNuevo) { //miro el elemento que ha llamado al metodo
                 controladorEdicion.setCliente(null); //si ha pulsado bonton nuevo el cliente es null
             } else {
                 controladorEdicion.setCliente(tvCliente.getSelectionModel().getSelectedItem());
-            
+
             }
             ventanaEdicion.showAndWait(); //muestro la ventana
 
             Cliente cliente = controladorEdicion.getCliente();
 
             if (cliente != null) {
-                                  
-                    if (event.getSource() == btnNuevo) {
-                   
-                      if(cliente.getNif() != null){
-                         Modelo.getModelo().addCliente(cliente);
-                       clientes.add(cliente);
-                      }
-                      
-                       
-                    } else {
 
-                        Modelo.getModelo().modificarCliente(cliente);
-                        tvCliente.getSelectionModel().getSelectedItem().getNif();
+                if (event.getSource() == btnNuevo) {
 
+                    if (cliente.getNif() != null) {
+                        Modelo.getModelo().addCliente(cliente);
+                        clientes.add(cliente);
                     }
+
+                } else {
+
+                    Modelo.getModelo().modificarCliente(cliente);
+                    tvCliente.getSelectionModel().getSelectedItem().getNif();
+
+                }
 
             }
         } catch (IOException ex) {
