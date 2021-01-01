@@ -7,10 +7,6 @@ package m03.uf5.alquilervehiculos.grupc.vistas;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +32,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
 import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
-import static m03.uf5.alquilervehiculos.grupc.modelo.Modelo.printSQLException;
 import m03.uf5.alquilervehiculos.grupc.modelo.Vehiculo;
 
 /**

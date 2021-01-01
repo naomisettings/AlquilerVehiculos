@@ -17,11 +17,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
-import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
 import m03.uf5.alquilervehiculos.grupc.modelo.Vehiculo;
 
 /**

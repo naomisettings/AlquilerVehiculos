@@ -279,7 +279,6 @@ public class Modelo {
      */
     public void addVehiculo(Vehiculo vehiculo) {
         if (vehiculo.getMatricula() != null) {
-            System.out.println("entra add");
             try (Connection con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/alquilervehiculos?useUnicode=true&"
                     + "useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&"
