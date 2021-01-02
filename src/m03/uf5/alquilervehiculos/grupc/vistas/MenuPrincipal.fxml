@@ -23,12 +23,7 @@
             </VBox>
             <VBox prefHeight="147.0" prefWidth="192.0" styleClass="tamanyVboxMenuPrincipal" stylesheets="@CssEstilGeneral.css">
                <children>
-                  <Button fx:id="nuevoAlquiler" mnemonicParsing="false" onMouseClicked="#handleBttnNuevoAlquiler" styleClass="buttonsMenuPrincipal" stylesheets="@CssEstilGeneral.css" text="Nuevo Alquiler" />
-                  <Button fx:id="verAlquiler" mnemonicParsing="false" onMouseClicked="#handleBttnVerAlquiler" styleClass="buttonsMenuPrincipal" stylesheets="@CssEstilGeneral.css" text="Ver Alquiler">
-                     <VBox.margin>
-                        <Insets top="15.0" />
-                     </VBox.margin>
-                  </Button>
+                  <Button fx:id="verAlquiler" mnemonicParsing="false" onMouseClicked="#handleBttnVerAlquiler" prefHeight="79.0" styleClass="buttonsMenuPrincipal" stylesheets="@CssEstilGeneral.css" text="Alquileres" />
                </children>
             </VBox>
             <VBox prefHeight="132.0" styleClass="tamanyVboxMenuPrincipal" stylesheets="@CssEstilGeneral.css">

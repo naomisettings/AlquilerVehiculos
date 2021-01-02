@@ -144,23 +144,23 @@ public class Modelo {
      *
      * @param ficheroAlquileres
      */
-    private void cargaAlquileres(String ficheroAlquileres) {
-        File fichero = new File(ficheroAlquileres);
-        try {
-            Scanner sc = new Scanner(fichero);
-            while (sc.hasNext()) {
-                String[] datos = sc.nextLine().split(";");
-                Cliente c = clientes.get(datos[0]);
-                Vehiculo v = vehiculos.get(datos[1]);
-                Alquiler al = new Alquiler(c, v, LocalDate.parse(datos[2]), LocalDate.parse(datos[3]));
-                alquileres.add(al);
-            }
-        } catch (FileNotFoundException ex) {
-            System.out.println("No se ha podido abrir el fichero de alquileres");
-        } catch (DateTimeParseException ex) {
-            System.out.println("Error al cargar el fichero de vehiculos: " + ex.getMessage());
-        }
+    private void cargaAlquileres(Connection con) {
+        String sql = "SELECT * FROM alquiler";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                Cliente c = clientes.get(rs.getString(2));
+                Vehiculo v = vehiculos.get(rs.getString(3));
+                LocalDate inicio = rs.getObject("fechainicio", LocalDate.class);
+                LocalDate fin = rs.getObject("fechafin", LocalDate.class);
 
+                Alquiler a = new Alquiler(id, c, v, inicio, fin);
+                alquileres.add(a);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
     }
 
     /**
@@ -183,7 +183,7 @@ public class Modelo {
 
                 modelo.cargaVehiculos(con);
                 modelo.cargaClientes(con);
-                modelo.cargaAlquileres(ARCHIVO_ALQUILERES);
+                modelo.cargaAlquileres(con);
 
             } catch (SQLException ex) {
                 printSQLException(ex);
@@ -330,19 +330,80 @@ public class Modelo {
      * @param alquiler
      */
     public void addAlquiler(Alquiler alquiler) {
-        alquileres.add(alquiler);
-        ultimoAlquiler = alquiler;
-        try {
-            PrintStream out = new PrintStream(new FileOutputStream(ARCHIVO_ALQUILERES, true));
-            out.println(alquiler.getCliente().getNif() + ";"
-                    + alquiler.getVehiculo().getMatriculaProperty() + ";"
-                    + alquiler.getFechaInicio().toString() + ";"
-                    + alquiler.getFechaFin().toString());
-            out.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Error al guargar el fichero de alquileres");
-        }
+        try (Connection con = DriverManager.getConnection(urlBBDD,
+                "admin_alquiler", "admin")) {
 
+            String sql = "{CALL insertar_alquiler(?, ?, ?, ?)}";
+            try (CallableStatement cs = con.prepareCall(sql)) {
+                cs.setString(1, alquiler.getCliente().getNif());
+                cs.setString(2, alquiler.getVehiculo().getMatricula());
+                cs.setObject(3, alquiler.getFechaInicio());
+                cs.setObject(4, alquiler.getFechaFin());
+                cs.execute();
+            } catch (SQLException e) {
+                printSQLException(e);
+            }
+
+            sql = "SELECT * FROM alquiler ORDER BY id DESC LIMIT 1;";
+            try (PreparedStatement ps = con.prepareStatement(sql)) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int id = rs.getInt(1);
+                    alquiler.setId(id);
+                }
+            } catch (SQLException e) {
+                printSQLException(e);
+            }
+            alquileres.add(alquiler);
+            ultimoAlquiler = alquiler;
+
+        } catch (SQLException ex) {
+            printSQLException(ex);
+        }
+        System.out.println(ultimoAlquiler.getId());
+
+    }
+
+    public void borrarAlquiler(Alquiler alquiler) {
+        int id = alquiler.getId();
+        try (Connection con = DriverManager.getConnection(urlBBDD,
+                "admin_alquiler", "admin")) {
+
+            String sql = "{CALL elimina_alquiler(?)}";
+            try (CallableStatement cs = con.prepareCall(sql)) {
+                cs.setInt(1, id);
+                cs.execute();
+
+                alquileres.remove(alquiler);
+
+            } catch (SQLException e) {
+                printSQLException(e);
+            }
+
+        } catch (SQLException ex) {
+            printSQLException(ex);
+        }
+    }
+
+    public void modificarAlquiler(Alquiler alquiler) {
+        try (Connection con = DriverManager.getConnection(urlBBDD,
+                "admin_alquiler", "admin")) {
+
+            String sql = "{CALL modifica_alquiler(?, ?, ?, ?, ?)}";
+            try (CallableStatement cs = con.prepareCall(sql)) {
+                cs.setInt(1, alquiler.getId());
+                cs.setString(2, alquiler.getCliente().getNif());
+                cs.setString(3, alquiler.getVehiculo().getMatricula());
+                cs.setObject(4, alquiler.getFechaInicio());
+                cs.setObject(5, alquiler.getFechaFin());
+                cs.execute();   
+            } catch (SQLException e) {
+                printSQLException(e);
+            }
+
+        } catch (SQLException ex) {
+            printSQLException(ex);
+        }
     }
 
     public void modificarVehiculo(Vehiculo vehiculo, String matricula_original) {

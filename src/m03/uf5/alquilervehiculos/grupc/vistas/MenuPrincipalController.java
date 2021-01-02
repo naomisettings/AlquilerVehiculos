@@ -25,8 +25,6 @@ import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
 public class MenuPrincipalController implements Initializable {
 
     @FXML
-    private Button nuevoAlquiler;
-    @FXML
     private Button verAlquiler;
     @FXML
     private Button verVehiculos;
@@ -79,7 +77,6 @@ public class MenuPrincipalController implements Initializable {
         }
     }
 
-    @FXML
     private void handleBttnNuevoAlquiler(MouseEvent event) {
         try {
             GestorEscenas.getGestor().muestraNuevoAlquiler();
