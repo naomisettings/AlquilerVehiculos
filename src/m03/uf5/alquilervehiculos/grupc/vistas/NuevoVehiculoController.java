@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -57,9 +58,11 @@ public class NuevoVehiculoController implements Initializable, MiControlador {
         String guardaTxtFieldModelo = txtFieldModelo.getText();
         if (v.camposEmplenados(guardaTxtFieldMatricula.isEmpty(),
                 guardaTxtFieldModelo.isEmpty())) {
-            if (v.matriculaRepetida(VehiculosController.vehiculos, guardaTxtFieldMatricula)) {
+
+            if (guardaTxtFieldMatricula.equals(vehiculo.getMatricula())
+                    || v.matriculaRepetida(guardaTxtFieldMatricula)) {
+
                 if (v.validaMatricula(txtFieldMatricula.getText())) {
-                    System.out.println("prova");
                     vehiculo.setMatricula(guardaTxtFieldMatricula);
                     vehiculo.setModelo(guardaTxtFieldModelo);
                     Stage ventana = (Stage) bttnGuardar.getScene().getWindow();
@@ -100,6 +103,12 @@ public class NuevoVehiculoController implements Initializable, MiControlador {
 
     @Override
     public void actualizar() {
+    }
+
+    @FXML
+    private void handlebttnCancelar(ActionEvent event) {
+        Stage ventana = (Stage) bttnGuardar.getScene().getWindow();
+        ventana.close();
     }
 
 }

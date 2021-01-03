@@ -5,6 +5,8 @@
  */
 package m03.uf5.alquilervehiculos.grupc.modelo;
 
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -123,13 +125,13 @@ public class Vehiculo {
         }
     }
 
-    public boolean matriculaRepetida(ObservableList<Vehiculo> vehiculos, String matricula) {
-        System.out.println(matricula);
-        System.out.println(vehiculos);
-        
-        for (Vehiculo vehiculo : vehiculos) {
-            System.out.println("bucle Matricula " + vehiculo.getMatricula());
+    public boolean matriculaRepetida(String matricula) {
+        Modelo modelo = Modelo.getModelo();
+        Map<String, Vehiculo> v = modelo.getVehiculos();
+        for (Map.Entry<String, Vehiculo> entry : v.entrySet()) {
+            Vehiculo vehiculo = entry.getValue();
             if (vehiculo.getMatricula().equals(matricula)) {
+            
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Alquiler de Vehículos");
                 alert.setHeaderText("Vehículo no introducido");

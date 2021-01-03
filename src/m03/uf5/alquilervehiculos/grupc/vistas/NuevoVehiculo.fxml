@@ -30,8 +30,9 @@
          <children>
             <Button fx:id="bttnGuardar" mnemonicParsing="false" onMouseClicked="#handlebttnGuardar" styleClass="buttonsGuardarVolver" stylesheets="@CssEstilGeneral.css" text="Guardar">
                <HBox.margin>
-                  <Insets left="125.0" right="50.0" />
+                  <Insets left="75.0" right="50.0" />
                </HBox.margin></Button>
+            <Button mnemonicParsing="false" onAction="#handlebttnCancelar" text="Cancelar" />
          </children>
       </HBox>
    </children>

@@ -41,7 +41,7 @@ import m03.uf5.alquilervehiculos.grupc.modelo.Vehiculo;
  */
 public class VehiculosController implements Initializable, MiControlador {
 
-    protected static ObservableList<Vehiculo> vehiculos;
+    private ObservableList<Vehiculo> vehiculos;
 
     @FXML
     private TableView<Vehiculo> tblVehiculo;
