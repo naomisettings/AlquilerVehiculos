@@ -38,6 +38,9 @@ INSERT INTO vehiculo VALUES ('9633BDT','Renault Twingo');
 INSERT INTO vehiculo VALUES ('2547CDG','Opel Corsa');
 INSERT INTO vehiculo VALUES ('8741DFG','Toyota Aygo');
 
+Insert INTO alquiler values (null, '12334455S', '3415KJN', "2021-06-15", "2021-06-19");
+Insert INTO alquiler values (null, '55443321G', '2547CDG', "2021-06-15", "2021-06-19");
+Insert INTO alquiler values (null, '12334455S', '8741DFG', "2021-06-18", "2021-06-19");
 
 DROP PROCEDURE IF EXISTS insertar_cliente;
 DROP PROCEDURE IF EXISTS obtener_cliente;
@@ -70,9 +73,9 @@ BEGIN
 END //
 
 DELIMITER //
-CREATE PROCEDURE insertar_alquiler ( IN id INT, IN nif_cliente VARCHAR(9), IN matricula VARCHAR(7), IN fechainicio DATE, IN fechafin DATE)
+CREATE PROCEDURE insertar_alquiler (IN nif_cliente VARCHAR(9), IN matricula VARCHAR(7), IN fechainicio DATE, IN fechafin DATE)
 BEGIN
-	INSERT INTO clientes VALUES (id, nif_cliente_matricula, fechainicio, fechafin);
+	INSERT INTO alquiler VALUES (null, nif_cliente, matricula, fechainicio, fechafin);
 END //
 
 CREATE PROCEDURE obtener_cliente(IN nif INT)
@@ -117,7 +120,7 @@ END //
 
 CREATE PROCEDURE modifica_alquiler (IN id INT, nif_cliente VARCHAR(9), matricula VARCHAR(7),IN fechainicio DATE, IN fechafin DATE)
 BEGIN
-	UPDATE modifica_alquiler SET a.nif_cliente=nif_cliente, a.matricula=matricula, a.fechainicio=fechaincio, a.fechafin=fechafin WHERE a.id=id;
+	UPDATE alquiler a SET a.nif_cliente=nif_cliente, a.matricula=matricula, a.fechainicio=fechainicio, a.fechafin=fechafin WHERE a.id=id;
 END //
 
 CREATE PROCEDURE elimina_cliente(IN nif_ VARCHAR(9))

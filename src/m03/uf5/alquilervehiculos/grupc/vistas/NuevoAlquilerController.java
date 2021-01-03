@@ -158,8 +158,8 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
             
             alquiler.setCliente(cliente);
             alquiler.setVehiculo(vehiculo);
-            alquiler.setFechaInicio(new SimpleObjectProperty<>(fechaInicio));
-            alquiler.setFechaFin(new SimpleObjectProperty<>(fechaFin));
+            alquiler.setFechaInicio(new SimpleObjectProperty<LocalDate>(fechaInicio));
+            alquiler.setFechaFin(new SimpleObjectProperty<LocalDate>(fechaFin));
 
             Stage ventana = (Stage) btnReservar.getScene().getWindow();
             ventana.close();
