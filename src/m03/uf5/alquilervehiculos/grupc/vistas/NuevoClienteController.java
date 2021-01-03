@@ -26,7 +26,7 @@ import m03.uf5.alquilervehiculos.grupc.modelo.Cliente;
  */
 public class NuevoClienteController implements Initializable, MiControlador {
 
-  //  protected static Cliente nuevoEnviaCliente;
+   
     private Cliente cliente;
 
     @FXML
@@ -51,11 +51,11 @@ public class NuevoClienteController implements Initializable, MiControlador {
 
     }
 
-    public Cliente getCliente() { //recuperar el cliente que se ha editado en la pantalla
+    public Cliente getCliente() { //recuperar el client que s'ha editat a la pantalla
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) { //se le pasa al controlador el cliente que se va a modificar
+    public void setCliente(Cliente cliente) { //li passo al controlador el client que es modificara
         this.cliente = cliente;
 
         if (cliente != null) {
@@ -66,7 +66,7 @@ public class NuevoClienteController implements Initializable, MiControlador {
             textoApellido2.setText("" + cliente.getApellido2());
             textoNif.setText("" + cliente.getNif());
         } else {
-            this.cliente = new Cliente(); // si los datos pasados es un null crea un cliente nuevo
+            this.cliente = new Cliente(); // si les dades passades es un null crea un client nou
         }
 
     }
@@ -76,44 +76,41 @@ public class NuevoClienteController implements Initializable, MiControlador {
 
     }
 
-
     @FXML
     private void handleBtnGuardar(MouseEvent event) {
-           if (!event.isPrimaryButtonDown()) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Alquiler de Vehículos");
-            alert.setHeaderText("Clientes");
-            alert.setContentText("Se ha modificado / añadido el cliente correctamente");
 
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK) {
+        Cliente c = new Cliente();
+        String guardaNif = textoNif.getText();
+        String guardaNombre = textoNombre.getText();
+        String guardaApellido1 = textoApellido1.getText();
+        String guardaApellido2 = textoApellido2.getText();
 
-            } else {
-                // ... user chose CANCEL or closed the dialog
-            }
-        }
-                    
-        boolean camposValidos = cliente.comprobarCampos(textoNombre.getText().isEmpty(),
-                textoApellido1.getText().isEmpty(), textoApellido2.getText().isEmpty(),
-                textoNif.getText().isEmpty());
-        if (!camposValidos) {
+        if (c.comprobarCampos(guardaNif.isEmpty(), guardaNombre.isEmpty(),
+                guardaApellido1.isEmpty(), guardaApellido2.isEmpty())) {
 
+            if (guardaNif.equals(cliente.getNif()) || (c.nifRepetido(guardaNif))) {
 
-                boolean nifCorrecto = cliente.validaNif(textoNif.getText());
-                if (nifCorrecto) {
+                if (c.validaNif(textoNif.getText())) {
+                    cliente.setNif(guardaNif);
+                    cliente.setNombre(guardaNombre);
+                    cliente.setApellido1(guardaApellido1);
+                    cliente.setApellido2(guardaApellido2);
 
-                    cliente.setNombre(textoNombre.getText());
-                    cliente.setApellido1(textoApellido1.getText());
-                    cliente.setApellido2(textoApellido2.getText());
-                    cliente.setNif(textoNif.getText());
-
-                    //para cerrar la ventana
                     Stage ventana = (Stage) btnGuardar.getScene().getWindow();
                     ventana.close();
+
+                } else {
+                    textoNif.setText("");
+                    textoNombre.setText("");
+                    textoApellido1.setText("");
+                    textoApellido2.setText("");
                 }
+            } else {
+                textoNif.setText("");
             }
         }
- 
+
+    }
 
     @FXML
     private void handleBtnCancelar(ActionEvent event) {  //pone el cliente a null y cierra la ventana

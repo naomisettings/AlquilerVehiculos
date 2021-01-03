@@ -85,7 +85,7 @@ public class Modelo {
     }
 
     /**
-     * Método que carga los datos del cliente de la BBDD
+     * Metode que carrega les dades del client a la BBDD
      *
      * @param ficheroClientes
      */
@@ -114,8 +114,7 @@ public class Modelo {
     }
 
     /**
-     * Método que lee el archivo CSV con los datos de los vehículos y lo carga
-     * en la colección correspondiente
+     * Metode que carrega les dades del vehicle a la BBDD
      *
      * @param ficheroVehiculos
      */
@@ -139,8 +138,7 @@ public class Modelo {
     }
 
     /**
-     * Método que lee el archivo CSV con los datos de los alquileres realizados
-     * y lo carga en la colección correspondiente
+     * Metode que carrega les dades dels lloguers a la BBDD
      *
      * @param ficheroAlquileres
      */
@@ -239,8 +237,7 @@ public class Modelo {
     }
 
     /**
-     * Añade un nuevo cliente a la colección y lo guarda en el archivo CSV
-     * correspondiente
+     * Afegeix un nou client a la BBDD
      *
      * @param cliente
      */
@@ -270,7 +267,12 @@ public class Modelo {
             printSQLException(ex);
         }
     }
-
+    
+/**
+     * Modifica un client de la BBDD
+     *
+     * @param cliente
+     */
     public void modificarCliente(Cliente cliente) {
         if (cliente != null) {
             try (Connection con = DriverManager.getConnection(urlBBDD,
@@ -293,8 +295,7 @@ public class Modelo {
     }
 
     /**
-     * Añade un nuevo vehiculo a la colección y lo guarda en el archivo CSV
-     * correspondiente
+     * Afegeix un nou vehicle a la BBDD
      *
      * @param vehiculo
      */
@@ -323,9 +324,7 @@ public class Modelo {
     }
 
     /**
-     * Añade un nuevo alquiler a la colección y lo guarda en el archivo CSV
-     * correspondiente. Además guarda el alquiler en el atributo ultimoAlquiler,
-     * para que sea accesible para generar la factura
+     * Afegeix un nou lloguer a la BBDD
      *
      * @param alquiler
      */
@@ -363,7 +362,11 @@ public class Modelo {
         System.out.println(ultimoAlquiler.getId());
 
     }
-
+/**
+     * Esborra un lloguer de la BBDD
+     *
+     * @param alquiler
+     */
     public void borrarAlquiler(Alquiler alquiler) {
         int id = alquiler.getId();
         try (Connection con = DriverManager.getConnection(urlBBDD,
@@ -384,7 +387,11 @@ public class Modelo {
             printSQLException(ex);
         }
     }
-
+/**
+     * Modifica un lloguer de la BBDD
+     *
+     * @param alquiler
+     */
     public void modificarAlquiler(Alquiler alquiler) {
         try (Connection con = DriverManager.getConnection(urlBBDD,
                 "admin_alquiler", "admin")) {
@@ -406,6 +413,11 @@ public class Modelo {
         }
     }
 
+    /**
+     * Modifica un vehicle de la BBDD
+     * @param vehiculo
+     * @param matricula_original
+     */
     public void modificarVehiculo(Vehiculo vehiculo, String matricula_original) {
         if (vehiculo != null) {
             try (Connection con = DriverManager.getConnection(urlBBDD,
@@ -428,6 +440,10 @@ public class Modelo {
         }
     }
 
+    /**
+     * Esborra un vehicle de la BBDD
+     * @param vehiculo
+     */
     public void borrarVehiculo(Vehiculo vehiculo) {
         String matricula = vehiculo.getMatricula();
         try (Connection con = DriverManager.getConnection(urlBBDD,

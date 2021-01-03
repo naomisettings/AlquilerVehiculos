@@ -87,6 +87,10 @@ public class ClientesController implements Initializable, MiControlador {
         insertarTabla();
     }
 
+    /**
+     * Carrega els clients
+     * @return
+     */
     public List<Cliente> cargaClientes() {
         List<Cliente> cList = new ArrayList();
         Modelo modelo = Modelo.getModelo();
@@ -107,12 +111,16 @@ public class ClientesController implements Initializable, MiControlador {
 
     }
 
+    /**
+     * Inserta la taula de clients
+     */
     public void insertarTabla() {
 
-        clientes = FXCollections.observableArrayList(cargaClientes()); //llamo al metodo cargaCliente que devuelve una List que la convierte en observableArrayList
+        //crido al metode cargaCliente que torna una List que es converteix en una observableArrayList
+        clientes = FXCollections.observableArrayList(cargaClientes()); 
         tvCliente.setItems(clientes);
 
-        //los datos que tienen que presentar en cada columna
+        // les dades que ha de presentar cada columna
         clmNombre.setCellValueFactory((datosFila) -> datosFila.getValue().getNombreProperty());
         clmApellido1.setCellValueFactory((datosFila) -> datosFila.getValue().getApellido1Property());
         clmApellido2.setCellValueFactory((datosFila) -> datosFila.getValue().getApellido2Property());
@@ -120,7 +128,7 @@ public class ClientesController implements Initializable, MiControlador {
 
         tvCliente.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> muestraCliente(newValue));
-        tvCliente.getSelectionModel().select(0); //selecciono la primera fila
+        tvCliente.getSelectionModel().select(0); //sel.lecciono la primera fila
 
     }
 
@@ -162,7 +170,11 @@ public class ClientesController implements Initializable, MiControlador {
 
         }
     }
-
+/**
+     *
+     * @param cliente
+     * @return metode que elimina el client
+     */
     private boolean eliminarCliente(Cliente cliente) throws SQLException {
         boolean correcto = false;
         String nif = cliente.getNif();
@@ -202,7 +214,7 @@ public class ClientesController implements Initializable, MiControlador {
     @FXML
     private void handleEditar(ActionEvent event) {
 
-        //creacion de la ventana de edicion
+        //creacio de la pantalla d'edicio
         Stage ventanaPrincipal = (Stage) tvCliente.getScene().getWindow();
         Stage ventanaEdicion = new Stage();
         ventanaEdicion.initModality(Modality.WINDOW_MODAL);
@@ -212,30 +224,31 @@ public class ClientesController implements Initializable, MiControlador {
         loader.setLocation(this.getClass().getResource("NuevoCliente.fxml"));
 
         try {
-            //carga la ventana de edicion
+            //carrega la pantalla d'edicio
             Scene escenaEdicion = new Scene(loader.load());
             NuevoClienteController controladorEdicion = loader.getController();
             ventanaEdicion.setScene(escenaEdicion);
 
-            if (event.getSource() == btnNuevo) { //miro el elemento que ha llamado al metodo
-                controladorEdicion.setCliente(null); //si ha pulsado bonton nuevo el cliente es null
+            if (event.getSource() == btnNuevo) { //miro l'element que ha cridat al metode
+                controladorEdicion.setCliente(null); //si ha marcat boto nuevo el client es null 
             } else {
                 controladorEdicion.setCliente(tvCliente.getSelectionModel().getSelectedItem());
 
             }
-            ventanaEdicion.showAndWait(); //muestro la ventana
+            ventanaEdicion.showAndWait(); //mostra la pantalla
 
             Cliente cliente = controladorEdicion.getCliente();
-
+            
+            
             if (cliente != null) {
 
                 if (event.getSource() == btnNuevo) {
-
+                    
                     if (cliente.getNif() != null) {
                         Modelo.getModelo().addCliente(cliente);
                         clientes.add(cliente);
                     }
-
+                    
                 } else {
 
                     Modelo.getModelo().modificarCliente(cliente);
