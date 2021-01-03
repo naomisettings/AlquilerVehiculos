@@ -33,6 +33,7 @@ import javafx.stage.Stage;
 import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
 import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
 import m03.uf5.alquilervehiculos.grupc.modelo.Alquiler;
+import m03.uf5.alquilervehiculos.grupc.modelo.Cliente;
 
 /**
  * FXML Controller class
@@ -65,6 +66,10 @@ public class AlquileresController implements Initializable, MiControlador {
     private Button bttnEditar;
     @FXML
     private TableView<Alquiler> tblAlquileres;
+    @FXML
+    private Label lblNombre;
+    @FXML
+    private Label lblModelo;
 
     @Override
     public void actualizar() {
@@ -83,6 +88,7 @@ public class AlquileresController implements Initializable, MiControlador {
         clmMatricula.setCellValueFactory((datosFila) -> datosFila.getValue().getVehiculo().getMatriculaProperty());
         clmFechaInicio.setCellValueFactory((datosFila) -> datosFila.getValue().getFechaInicioProperty());
         clmFechaFin.setCellValueFactory((datosFila) -> datosFila.getValue().getFechaFinProperty());
+        tblAlquileres.getSortOrder().setAll(clmFechaInicio);
 
         tblAlquileres.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> muestraAlquiler(newValue));
@@ -93,6 +99,9 @@ public class AlquileresController implements Initializable, MiControlador {
         if (alquiler != null) {
             lblNif.setText(alquiler.getCliente().getNif());
             lblMatricula.setText(alquiler.getVehiculo().getMatricula());
+            Cliente c = alquiler.getCliente();
+            lblNombre.setText(c.getNombre() + " " + c.getApellido1() + " " + c.getApellido2());
+            lblModelo.setText(alquiler.getVehiculo().getModelo());
             lblFechaInicio.setText(alquiler.getFechaInicio().toString());
             lblFechaFin.setText(alquiler.getFechaFin().toString());
         }
