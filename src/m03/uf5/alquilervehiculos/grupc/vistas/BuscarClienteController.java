@@ -69,6 +69,7 @@ public class BuscarClienteController implements Initializable {
     private void handleBuscar(ActionEvent event) {
         tbvResultat.setItems(FXCollections.observableArrayList(carregaClientes()));
         clmResultat.setCellValueFactory((datosFila) -> datosFila.getValue().getNifProperty());
+        tbvResultat.getSelectionModel().select(0);
     }
 
     @FXML

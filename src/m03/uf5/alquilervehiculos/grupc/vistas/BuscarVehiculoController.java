@@ -67,6 +67,7 @@ public class BuscarVehiculoController implements Initializable {
     private void handleBuscar(ActionEvent event) {
         tbvResultat.setItems(FXCollections.observableArrayList(carregaVehiculos()));
         clmResultat.setCellValueFactory((datosFila) -> datosFila.getValue().getMatriculaProperty());
+        tbvResultat.getSelectionModel().select(0);
     }
 
     @FXML
