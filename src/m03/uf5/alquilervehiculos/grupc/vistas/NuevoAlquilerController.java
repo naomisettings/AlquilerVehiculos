@@ -13,11 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -25,6 +29,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
@@ -51,12 +56,14 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
     @FXML
     private DatePicker dpInicio;
 
-    @FXML
     private ComboBox<String> cbxNif;
-    @FXML
     private ComboBox<String> cbxMatricula;
     @FXML
     private Label lbdata;
+    @FXML
+    private Label txtNif;
+    @FXML
+    private Label txtMatricula;
 
     /**
      * Initializes the controller class.
@@ -66,7 +73,7 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cargarDatos();
+        //cargarDatos();
     }
 
     @Override
@@ -94,7 +101,7 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
     }
 
     @FXML
-    private void handleBotonVolver(ActionEvent event){
+    private void handleBotonVolver(ActionEvent event) {
         Stage ventana = (Stage) btnVolver.getScene().getWindow();
         ventana.close();
     }
@@ -104,7 +111,7 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
         boolean comprobarTodos = true;
         //comprueba que los campos no esten vacios
 
-        if (cbxNif.getValue() == null || cbxMatricula.getValue() == null
+        if (txtNif.getText().isEmpty() || txtMatricula.getText().isEmpty()
                 || dpFin.getValue() == null || dpInicio.getValue() == null) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Alquiler de vehiculos");
@@ -149,13 +156,13 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
     private void handleBotonReservar(ActionEvent event) throws IOException {
         if (comprobarCampos()) {
             Modelo modelo = Modelo.getModelo();
-            String nif = (String) (cbxNif.getSelectionModel().getSelectedItem());
+            String nif = txtNif.getText();
             Cliente cliente = modelo.getClientes().get(nif);
-            String matricula = (String) (cbxMatricula.getSelectionModel().getSelectedItem());
+            String matricula = txtMatricula.getText();
             Vehiculo vehiculo = modelo.getVehiculos().get(matricula);
             LocalDate fechaInicio = dpInicio.getValue();
             LocalDate fechaFin = dpFin.getValue();
-            
+
             alquiler.setCliente(cliente);
             alquiler.setVehiculo(vehiculo);
             alquiler.setFechaInicio(new SimpleObjectProperty<LocalDate>(fechaInicio));
@@ -174,13 +181,41 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
 
     public void setAlquiler(Alquiler alquiler) {
         if (alquiler != null) {
-            cbxNif.setValue(alquiler.getCliente().getNif());
-            cbxMatricula.setValue(alquiler.getVehiculo().getMatricula());
+            txtNif.setText(alquiler.getCliente().getNif());
+            txtMatricula.setText(alquiler.getVehiculo().getMatricula());
             dpInicio.setValue(alquiler.getFechaInicio());
             dpFin.setValue(alquiler.getFechaFin());
-        }else{
+        } else {
             alquiler = new Alquiler();
         }
         this.alquiler = alquiler;
+    }
+
+    @FXML
+    private void handleBuscarNif(ActionEvent event) {
+    }
+
+    @FXML
+    private void handleBuscarMatricula(ActionEvent event) {
+        Stage ventanaPrincipal = (Stage) btnReservar.getScene().getWindow();
+        Stage ventanaEdicion = new Stage();
+        ventanaEdicion.initModality(Modality.WINDOW_MODAL);
+        ventanaEdicion.setTitle("Alquiler de vehículos");
+
+        ventanaEdicion.initOwner(ventanaPrincipal);
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("BuscarVehiculo.fxml"));
+        Scene escenaEdicion;
+        try {
+            escenaEdicion = new Scene(loader.load());
+            BuscarVehiculoController controller = loader.getController();
+            ventanaEdicion.setScene(escenaEdicion);
+            ventanaEdicion.showAndWait();
+            Vehiculo v = controller.getV();
+            if (v != null) {
+                txtMatricula.setText(v.getMatricula());
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(NuevoAlquilerController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

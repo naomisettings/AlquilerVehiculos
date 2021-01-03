@@ -125,6 +125,7 @@ public class AlquileresController implements Initializable, MiControlador {
                 } else {
                     Modelo.getModelo().modificarAlquiler(alquiler);
                 }
+                tblAlquileres.refresh();
 
             }
         } catch (IOException ex) {

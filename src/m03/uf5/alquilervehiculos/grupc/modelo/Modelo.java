@@ -464,7 +464,7 @@ public class Modelo {
             printSQLException(ex);
         }
     }
-
+    
     // Getters diversos
     public String getCif() {
         return cif;
