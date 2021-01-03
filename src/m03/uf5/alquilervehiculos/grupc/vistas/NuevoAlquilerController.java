@@ -193,6 +193,26 @@ public class NuevoAlquilerController implements Initializable, MiControlador {
 
     @FXML
     private void handleBuscarNif(ActionEvent event) {
+        Stage ventanaPrincipal = (Stage) btnReservar.getScene().getWindow();
+        Stage ventanaEdicion = new Stage();
+        ventanaEdicion.initModality(Modality.WINDOW_MODAL);
+        ventanaEdicion.setTitle("Alquiler de vehículos");
+
+        ventanaEdicion.initOwner(ventanaPrincipal);
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("BuscarCliente.fxml"));
+        Scene escenaEdicion;
+        try {
+            escenaEdicion = new Scene(loader.load());
+            BuscarClienteController controller = loader.getController();
+            ventanaEdicion.setScene(escenaEdicion);
+            ventanaEdicion.showAndWait();
+            Cliente c = controller.getC();
+            if (c != null) {
+                txtNif.setText(c.getNif());
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(NuevoAlquilerController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML

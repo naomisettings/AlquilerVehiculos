@@ -359,7 +359,6 @@ public class Modelo {
         } catch (SQLException ex) {
             printSQLException(ex);
         }
-        System.out.println(ultimoAlquiler.getId());
 
     }
 /**
