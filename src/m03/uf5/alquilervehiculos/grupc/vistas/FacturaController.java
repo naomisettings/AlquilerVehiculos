@@ -31,17 +31,15 @@ public class FacturaController implements Initializable, MiControlador {
     @FXML
     private Button bttnVolver;
     @FXML
-    private Button bttnMenuPrincipal;
-    @FXML
     private TextArea txtAreaFactura;
     private Alquiler alquiler;
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
+   
+
+    
+     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //actualizar();
+        
     }
 
     public void getAlquiler() {
@@ -72,24 +70,26 @@ public class FacturaController implements Initializable, MiControlador {
     public void actualizar() {
 
         Modelo modelo = Modelo.getModelo();
-        System.out.println(alquiler.getFechaFin());
-        System.out.println(alquiler.getCliente().getApellido1());
-
+        
         String factura = "";
 
         factura += modelo.getNombreEmpresa() + "\nCIF: " + modelo.getCif() + "\n"
-                + modelo.getDireccion() + "\nTelf: " + modelo.getTelefono();
+                + modelo.getDireccion()+"\nTelf: " + modelo.getTelefono();
 
         factura += "\n--------------------------------\n";
-        factura += "Datos del cliente:\n";
-        factura += alquiler.getCliente().getNif() + "\n";
+        factura += "Datos del cliente\n";
+        factura += "NIF: " + alquiler.getCliente().getNif() + "\n";
+        factura += "Nombre: " + alquiler.getCliente().getNombre() + "\n";
+        factura += "Apellidos: " + alquiler.getCliente().getApellido1()+ alquiler.getCliente().getApellido2() + "\n";
         factura += "--------------------------------\n";
-        factura += "Datos del vehiculo:\n";
-        factura += alquiler.getVehiculo().getMatricula() + "\n";
+        factura += "Datos del vehiculo\n";
+        factura += "Matrícula: " + alquiler.getVehiculo().getMatricula() + "\n";
+        factura += "Modelo: " + alquiler.getVehiculo().getModelo() + "\n";
         factura += "--------------------------------\n";
         Period dias = Period.between(alquiler.getFechaInicio(), alquiler.getFechaFin());
         double precio = dias.getDays() * modelo.PRECIO_DIARIO_ALQUILER;
-        factura += "Coste Total: " + precio + " €";
+        factura += "Total " + dias.getDays() + " días" + "\n";
+        factura += "Coste Total:  " + precio + " €";
         txtAreaFactura.setText(factura);
     }
 

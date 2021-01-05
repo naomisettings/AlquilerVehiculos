@@ -121,8 +121,6 @@ public class GestorEscenas {
 
     public void muestraVehiculos() throws IOException {
         if (pantallaVerVehiculo == null) {
-            /*Parent root = FXMLLoader.load(getClass().getResource(VISTA_VEHICULOS));
-      pantallaVerVehiculo = new Scene(root);*/
             FXMLLoader loader = new FXMLLoader(getClass().getResource(VISTA_VEHICULOS));
             Parent root = loader.load();
             pantallaVerVehiculo = new Scene(root);
@@ -145,8 +143,6 @@ public class GestorEscenas {
 
     public void muestraAlquileres() throws IOException {
         if (pantallaVerAlquiler == null) {
-            /*  Parent root = FXMLLoader.load(getClass().getResource(VISTA_ALQUILERES));
-      pantallaVerAlquiler = new Scene(root);*/
             FXMLLoader loader = new FXMLLoader(getClass().getResource(VISTA_ALQUILERES));
             Parent root = loader.load();
             pantallaVerAlquiler = new Scene(root);

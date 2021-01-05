@@ -8,7 +8,6 @@ package m03.uf5.alquilervehiculos.grupc.vistas;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -26,7 +25,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -168,9 +166,9 @@ public class AlquileresController implements Initializable, MiControlador {
     @FXML
     private void hldbttnVolver(MouseEvent event) {
         try {
-            GestorEscenas.getGestor().muestraNuevoAlquiler();
+            GestorEscenas.getGestor().muestraMenuPrincipal();//muestraNuevoAlquiler();
         } catch (IOException ex) {
-            Logger.getLogger(NuevoAlquilerController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MenuPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

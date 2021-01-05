@@ -71,13 +71,6 @@ public class Alquiler {
         return fechaFin;
     }
 
-    /*
-    @Override
-    public String toString() {
-        //return cliente+ ": "+vehiculo+ ": "+"("+fechaInicio+"-"+fechaFin+")" ;
-        return cliente.getNif() + ";" + vehiculo.getMatricula() + ";" + fechaInicio + ";" + fechaFin;
-    }
-     */
     public int getId() {
         return id;
     }

@@ -22,11 +22,6 @@
                   <Insets left="200.0" right="30.0" top="30.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="bttnMenuPrincipal" mnemonicParsing="false" onMouseClicked="#handleBttnMenuPrinicpal" text="Menú Principal">
-               <HBox.margin>
-                  <Insets top="30.0" />
-               </HBox.margin>
-            </Button>
          </children>
       </HBox>
    </children>

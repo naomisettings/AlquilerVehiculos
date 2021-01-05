@@ -41,13 +41,7 @@ public class MenuPrincipalController implements Initializable {
         // TODO
     }
 
-    /**
-     * @FXML private void handleBttnNuevoAlquiler(MouseEvent event) { try {
-     * GestorEscenas.getGestor().muestraNuevoAlquiler(); } catch (IOException
-     * ex) {
-     * Logger.getLogger(NuevoAlquilerController.class.getName()).log(Level.SEVERE,
-     * null, ex); } }
-     */
+ 
     @FXML
     private void handleBttnVerAlquiler(MouseEvent event) {
         try {

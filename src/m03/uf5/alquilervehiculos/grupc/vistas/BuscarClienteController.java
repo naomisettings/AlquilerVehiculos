@@ -21,7 +21,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import m03.uf5.alquilervehiculos.grupc.modelo.Cliente;
 import m03.uf5.alquilervehiculos.grupc.modelo.Modelo;
-import m03.uf5.alquilervehiculos.grupc.modelo.Vehiculo;
 
 /**
  * FXML Controller class
