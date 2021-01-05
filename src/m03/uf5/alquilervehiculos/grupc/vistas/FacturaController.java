@@ -14,9 +14,6 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import m03.uf5.alquilervehiculos.grupc.GestorEscenas;
@@ -34,27 +31,8 @@ public class FacturaController implements Initializable {
   private Button bttnVolver;
   @FXML
   private Button bttnMenuPrincipal;
+  @FXML
   private TextArea txtAreaFactura;
-    @FXML
-    private TableView<?> tvFactura;
-    @FXML
-    private TableColumn<?, ?> clmMatricula;
-    @FXML
-    private TableColumn<?, ?> clmInicio;
-    @FXML
-    private TableColumn<?, ?> clmFin;
-    @FXML
-    private TableColumn<?, ?> clmPrecio;
-    @FXML
-    private TableColumn<?, ?> clmTotal;
-    @FXML
-    private Label lblNombre;
-    @FXML
-    private Label lblApellido1;
-    @FXML
-    private Label lblApellido2;
-    @FXML
-    private Label lblNif;
 
   /**
    * Initializes the controller class.
