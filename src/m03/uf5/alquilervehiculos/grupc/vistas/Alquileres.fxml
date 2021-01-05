@@ -74,6 +74,11 @@
                         <Insets left="30.0" top="180.0" />
                      </HBox.margin>
                   </Button>
+                  <Button fx:id="bttnFactura" mnemonicParsing="false" onMouseClicked="#handlebtnfactura" text="Factura">
+                     <HBox.margin>
+                        <Insets left="30.0" top="180.0" />
+                     </HBox.margin>
+                  </Button>
                </children>
             </HBox>
          </children>

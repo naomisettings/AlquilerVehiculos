@@ -70,6 +70,8 @@ public class AlquileresController implements Initializable, MiControlador {
     private Label lblNombre;
     @FXML
     private Label lblModelo;
+    @FXML
+    private Button bttnFactura;
 
     @Override
     public void actualizar() {
@@ -165,6 +167,15 @@ public class AlquileresController implements Initializable, MiControlador {
     private void hldbttnVolver(MouseEvent event) {
         try {
             GestorEscenas.getGestor().muestraMenuPrincipal();
+        } catch (IOException ex) {
+            Logger.getLogger(AlquileresController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void handlebtnfactura(MouseEvent event) {
+        try {
+            GestorEscenas.getGestor().muestraFactura();
         } catch (IOException ex) {
             Logger.getLogger(AlquileresController.class.getName()).log(Level.SEVERE, null, ex);
         }

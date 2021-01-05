@@ -14,23 +14,25 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="468.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="m03.uf5.alquilervehiculos.grupc.vistas.FacturaController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="m03.uf5.alquilervehiculos.grupc.vistas.FacturaController">
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FACTURA" />
       <AnchorPane prefHeight="503.0" prefWidth="438.0">
          <children>
             <Separator layoutX="7.0" layoutY="156.0" prefHeight="1.0" prefWidth="425.0" />
-            <Separator layoutX="178.0" layoutY="4.0" orientation="VERTICAL" prefHeight="150.0" prefWidth="6.0" />
-            <TableView fx:id="tvFactura" layoutX="14.0" layoutY="177.0" prefHeight="280.0" prefWidth="408.0">
+            <Separator layoutX="191.0" layoutY="4.0" orientation="VERTICAL" prefHeight="150.0" prefWidth="6.0" />
+            <TableView fx:id="tvFactura" layoutY="177.0" prefHeight="286.0" prefWidth="470.0">
               <columns>
                   <TableColumn fx:id="clmMatricula" prefWidth="75.0" text="Matricula" />
+                  <TableColumn fx:id="clmModelo" prefWidth="75.0" text="Modelo" />
                 <TableColumn fx:id="clmInicio" prefWidth="84.0" text="Fecha Inicio" />
-                  <TableColumn fx:id="clmFin" prefWidth="86.0" text="Fecha Fin" />
-                <TableColumn fx:id="clmPrecio" prefWidth="82.0" text="Precio/Dia" />
-                  <TableColumn fx:id="clmTotal" text="Total" />
+                  <TableColumn fx:id="clmFin" prefWidth="63.0" text="Fecha Fin" />
+                  <TableColumn fx:id="clmdias" prefWidth="46.0" text="N Dias" />
+                <TableColumn fx:id="clmPrecio" prefWidth="68.0" text="Precio/Dia" />
+                  <TableColumn fx:id="clmTotal" prefWidth="58.0" text="Total" />
               </columns>
             </TableView>
-            <GridPane layoutX="185.0" layoutY="1.0" prefHeight="156.0" prefWidth="252.0">
+            <GridPane layoutX="218.0" layoutY="1.0" prefHeight="156.0" prefWidth="252.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="124.0" minWidth="10.0" prefWidth="120.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="115.0" />
@@ -45,33 +47,38 @@
                   <Label text="Nombre" />
                   <Label text="Primer apellido" GridPane.rowIndex="1" />
                   <Label text="Segundo apellido" GridPane.rowIndex="2" />
-                  <Label fx:id="lblNombre" prefHeight="17.0" prefWidth="125.0" text="Label" GridPane.columnIndex="1" />
-                  <Label fx:id="lblApellido1" prefHeight="17.0" prefWidth="127.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label fx:id="lblApellido2" prefHeight="17.0" prefWidth="128.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="lblNombre" prefHeight="17.0" prefWidth="125.0" GridPane.columnIndex="1" />
+                  <Label fx:id="lblApellido1" prefHeight="17.0" prefWidth="127.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="lblApellido2" prefHeight="17.0" prefWidth="128.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Label text="NIF" GridPane.rowIndex="3" />
-                  <Label fx:id="lblNif" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label fx:id="lblNif" prefHeight="17.0" prefWidth="124.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                </children>
             </GridPane>
-            <GridPane layoutX="7.0" layoutY="8.0" prefHeight="140.0" prefWidth="152.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="170.0" minWidth="10.0" prefWidth="170.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="30.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="87.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="38.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="37.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label text="Alquileres Copèrnic" />
-                  <Label text="Torrent del Batlle 10" GridPane.rowIndex="1" />
-                  <Label text="08225 Terrassa" GridPane.rowIndex="2" />
-                  <Label text="931231231" GridPane.rowIndex="3" />
-                  <Label text="12345678A" GridPane.rowIndex="4" />
-               </children>
-            </GridPane>
+            <Label layoutX="1.0" layoutY="126.0" text="12345678A" AnchorPane.leftAnchor="5.0">
+               <padding>
+                  <Insets left="5.0" top="5.0" />
+               </padding>
+            </Label>
+            <Label layoutX="2.0" layoutY="14.0" text="Alquileres Copèrnic" AnchorPane.leftAnchor="5.0">
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </Label>
+            <Label layoutY="40.0" text="Torrent del Batlle 10" AnchorPane.leftAnchor="5.0">
+               <padding>
+                  <Insets left="5.0" top="5.0" />
+               </padding>
+            </Label>
+            <Label layoutY="71.0" text="08225 Terrassa" AnchorPane.leftAnchor="5.0">
+               <padding>
+                  <Insets left="5.0" top="5.0" />
+               </padding>
+            </Label>
+            <Label layoutX="1.0" layoutY="100.0" text="931231231" AnchorPane.leftAnchor="5.0">
+               <padding>
+                  <Insets left="5.0" top="5.0" />
+               </padding>
+            </Label>
          </children>
       </AnchorPane>
       <HBox prefHeight="55.0" prefWidth="376.0">
