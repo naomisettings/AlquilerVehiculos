@@ -80,7 +80,7 @@ public class FacturaController implements Initializable, MiControlador {
         factura += "Datos del cliente\n";
         factura += "NIF: " + alquiler.getCliente().getNif() + "\n";
         factura += "Nombre: " + alquiler.getCliente().getNombre() + "\n";
-        factura += "Apellidos: " + alquiler.getCliente().getApellido1()+ alquiler.getCliente().getApellido2() + "\n";
+        factura += "Apellidos: " + alquiler.getCliente().getApellido1()+" "+ alquiler.getCliente().getApellido2() + "\n";
         factura += "--------------------------------\n";
         factura += "Datos del vehiculo\n";
         factura += "Matrícula: " + alquiler.getVehiculo().getMatricula() + "\n";
