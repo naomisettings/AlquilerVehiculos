@@ -191,17 +191,9 @@ public class AlquileresController implements Initializable, MiControlador {
             FacturaController controller = loader.getController();
             ventanaEdicion.setScene(escenaEdicion);
 
-            // if (event.getSource() == bttnNuevo) {
-            //   controller.setAlquiler(null);
-            //} else {
-            if (event.getSource() == btnFactura) {
-                controller.setAlquiler(tblAlquileres.getSelectionModel().getSelectedItem());
-                
-           
-            }
-ventanaEdicion.showAndWait();
-            // }
-            //  
+            controller.setAlquiler(tblAlquileres.getSelectionModel().getSelectedItem());
+            controller.actualizar();
+            ventanaEdicion.showAndWait();
         } catch (IOException ex) {
             Logger.getLogger(AlquileresController.class.getName()).log(Level.SEVERE, null, ex);
         }
