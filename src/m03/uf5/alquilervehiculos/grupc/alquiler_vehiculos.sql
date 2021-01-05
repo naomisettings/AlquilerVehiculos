@@ -29,20 +29,6 @@ CREATE TABLE IF NOT EXISTS alquiler(
   FOREIGN KEY (nif_cliente) REFERENCES cliente(nif),
   FOREIGN KEY (matricula) REFERENCES vehiculo(matricula));
 
-CREATE TABLE IF NOT EXISTS factura(
-  id INTEGER NOT NULL AUTO_INCREMENT,
-  nif_cliente VARCHAR(9),
-  matricula VARCHAR(7),
-  fechainicio DATE NOT NULL,
-  fechafin DATE  NOT NULL,
-  ndias VARCHAR(9),
-  precio VARCHAR(2),
-  total VARCHAR (6),
-  PRIMARY KEY (id),
-  FOREIGN KEY (nif_cliente) REFERENCES cliente(nif),
-  FOREIGN KEY (matricula) REFERENCES vehiculo(matricula));
-
-
 
 INSERT INTO cliente VALUES ('12334455S', 'Raimon', 'Sellarès', 'Feiner');
 INSERT INTO cliente VALUES ('55443321G', 'Alberto', 'Martínez', 'Perez');
@@ -55,10 +41,6 @@ INSERT INTO vehiculo VALUES ('8741DFG','Toyota Aygo');
 Insert INTO alquiler values (null, '12334455S', '3415KJN', "2021-06-15", "2021-06-19");
 Insert INTO alquiler values (null, '55443321G', '2547CDG', "2021-06-15", "2021-06-19");
 Insert INTO alquiler values (null, '12334455S', '8741DFG', "2021-06-18", "2021-06-19");
-
-Insert INTO factura values (null, '12334455S', '3415KJN', "2021-06-15", "2021-06-19", 4, 75, 300);
-Insert INTO factura values (null, '55443321G', '2547CDG', "2021-06-15", "2021-06-19", 4, 75, 300);
-Insert INTO factura values (null, '12334455S', '8741DFG', "2021-06-18", "2021-06-19", 1, 75, 75);
 
 DROP PROCEDURE IF EXISTS insertar_cliente;
 DROP PROCEDURE IF EXISTS obtener_cliente;
@@ -75,8 +57,6 @@ DROP PROCEDURE IF EXISTS insertar_alquiler;
 DROP PROCEDURE IF EXISTS obtener_alquiler;
 DROP PROCEDURE IF EXISTS modifica_alquiler;
 DROP PROCEDURE IF EXISTS elimina_alquiler;
-
-DROP PROCEDURE IF EXISTS obtener_factura:
 
 
 DELIMITER //
@@ -156,12 +136,6 @@ END //
 CREATE PROCEDURE elimina_alquiler(IN id_ INTEGER)
 BEGIN
 	DELETE FROM alquiler WHERE id = id_;
-END //
-
-CREATE PROCEDURE obtener_factura(IN nif_cliente VARCHAR(9), IN matricula VARCHAR(7), IN fechainicio DATE, fechafin DATE)
-BEGIN
-SELECT * FROM factura f WHERE f.matricula = matricula AND f.nif_cliente = nif_cliente, AND f.matricula = matricula,
-        f.fechainicio=fechainicio, f.fechafin=fechafin WHERE f.id=id;
 END //
 
 DELIMITER ;
