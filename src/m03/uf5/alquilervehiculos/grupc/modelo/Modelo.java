@@ -484,5 +484,6 @@ public class Modelo {
     public Alquiler getUltimoAlquiler() {
         return ultimoAlquiler;
     }
+ 
 
 }

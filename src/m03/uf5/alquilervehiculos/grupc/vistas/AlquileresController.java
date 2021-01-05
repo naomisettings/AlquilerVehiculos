@@ -70,6 +70,10 @@ public class AlquileresController implements Initializable, MiControlador {
     private Label lblNombre;
     @FXML
     private Label lblModelo;
+    @FXML
+    private Button btnFactura;
+    @FXML
+    private Button btnVolver;
 
     @Override
     public void actualizar() {
@@ -164,10 +168,44 @@ public class AlquileresController implements Initializable, MiControlador {
     @FXML
     private void hldbttnVolver(MouseEvent event) {
         try {
-            GestorEscenas.getGestor().muestraMenuPrincipal();
+            GestorEscenas.getGestor().muestraNuevoAlquiler();
+        } catch (IOException ex) {
+            Logger.getLogger(NuevoAlquilerController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void hlbttnFactura(MouseEvent event) {
+
+        //creacio de la pantalla d'edicio
+        Stage ventanaPrincipal = (Stage) tblAlquileres.getScene().getWindow();
+        Stage ventanaEdicion = new Stage();
+        ventanaEdicion.initModality(Modality.WINDOW_MODAL);
+
+        ventanaEdicion.initOwner(ventanaPrincipal);
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("Factura.fxml"));
+
+        //carrega la pantalla d'edicio
+        try {
+            Scene escenaEdicion = new Scene(loader.load());
+            FacturaController controller = loader.getController();
+            ventanaEdicion.setScene(escenaEdicion);
+
+            // if (event.getSource() == bttnNuevo) {
+            //   controller.setAlquiler(null);
+            //} else {
+            if (event.getSource() == btnFactura) {
+                controller.setAlquiler(tblAlquileres.getSelectionModel().getSelectedItem());
+                
+           
+            }
+ventanaEdicion.showAndWait();
+            // }
+            //  
         } catch (IOException ex) {
             Logger.getLogger(AlquileresController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
 }

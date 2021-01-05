@@ -69,7 +69,12 @@
                         <Insets left="30.0" top="180.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onMouseClicked="#hldbttnVolver" text="Volver">
+                  <Button fx:id="btnVolver" mnemonicParsing="false" onMouseClicked="#hldbttnVolver" text="Volver">
+                     <HBox.margin>
+                        <Insets left="30.0" top="180.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnFactura" mnemonicParsing="false" onMouseClicked="#hlbttnFactura" text="Factura">
                      <HBox.margin>
                         <Insets left="30.0" top="180.0" />
                      </HBox.margin>
